@@ -1,4 +1,4 @@
-# eurocollection
+# 🪙 EuroColección
 
 Visualizador interactivo y catálogo numismático de monedas de Euro de la Eurozona.
 
