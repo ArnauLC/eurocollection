@@ -614,8 +614,8 @@ function drawMap(geoJson) {
                 tooltip.classed("hidden", false).html(`<div class="flex items-center gap-2"><img src="https://flagcdn.com/w40/${country.id.toLowerCase()}.png" class="w-5 h-3.5 rounded-sm border border-slate-700"><strong>${country.name}</strong></div><div class="mt-1 text-slate-300">Completado: <span class="${stats.percentage === 100 ? 'text-yellow-400 font-bold' : 'text-white'}">${stats.percentage}%</span></div>`);
             } else {
                 const curr = worldCurrencies[d.id] || 'Moneda local';
-                const nombreES = worldCountriesES[d.id] || d.properties.name;
-                tooltip.classed("hidden", false).html(`<div class="flex items-center gap-2"><strong>${d.properties.name}</strong></div><div class="mt-1 text-slate-400 text-[10px]">${curr}</div>`);
+                const nombreES = worldCountriesES[d.id] || d.properties.name; // Usa español, si no, usa el original
+                tooltip.classed("hidden", false).html(`<div class="flex items-center gap-2"><strong>${nombreES}</strong></div><div class="mt-1 text-slate-400 text-[10px]">${curr}</div>`);
             }
         })
         .on("mousemove", e => tooltip.style("left", (e.pageX + 15) + "px").style("top", (e.pageY + 15) + "px"))
