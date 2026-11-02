@@ -74,6 +74,21 @@ let currentGlobalVariants = [];
 let currentStandardVariants = [];
 window.modalPreviewIndex = 0;
 
+// --- NUEVA FUNCIÓN PARA GESTIONAR IMÁGENES LOCALES EN GITHUB ---
+function procesarRutaImagen(input) {
+    if (!input) return '';
+    input = input.trim();
+    // Si ya es un enlace web, una imagen base64, o ya tiene la ruta local 'assets/', se queda igual
+    if (input.startsWith('http://') || input.startsWith('https://') || input.startsWith('data:') || input.startsWith('assets/')) {
+        return input;
+    }
+    // Si introduces solo el nombre (ej: esp_2cc_2005.jpg), le añade la ruta de tu repositorio
+    return 'assets/img/' + input;
+}
+// ---------------------------------------------------------------
+
+// Cargar Datos Iniciales (Local Storage si es Admin, o JSON si es Público)
+
 // Cargar Datos Iniciales (Local Storage si es Admin, o JSON si es Público)
 async function loadAppData() {
     if (isAdmin) {
@@ -942,7 +957,8 @@ window.editGlobalVariant = function(idx) {
 window.addGlobalVariant = function() {
     const start = document.getElementById('global-var-start').value.trim();
     let end = document.getElementById('global-var-end').value.trim();
-    const img = document.getElementById('global-var-img').value.trim();
+    const imgInput = document.getElementById('global-var-img').value.trim();
+    const img = procesarRutaImagen(imgInput); // <-- Aplicamos la función
     if (!start || !img) return;
     if (!end) end = 'Actual';
     currentGlobalVariants.push({ start, end, img });
@@ -1016,11 +1032,13 @@ window.handleFormSubmit = function(e) {
         globalCommonImages[refId] = currentGlobalVariants;
     } else if (mode === 'catalog') {
         const yr = parseInt(document.getElementById('catalog-year').value) || pYear;
-        if (yr >= 2004) catalog.push({ id: 'cat_' + Date.now(), country: safeCountry, year: yr, title: document.getElementById('catalog-title').value || 'Conmemorativa', image: document.getElementById('catalog-image').value.trim() || '' });
+        const imgInput = document.getElementById('catalog-image').value.trim();
+        if (yr >= 2004) catalog.push({ id: 'cat_' + Date.now(), country: safeCountry, year: yr, title: document.getElementById('catalog-title').value || 'Conmemorativa', image: procesarRutaImagen(imgInput) }); // <-- Aplicamos la función
     } else if (mode === 'delete-catalog') {
         catalog = catalog.filter(c => c.id !== refId); collection = collection.filter(c => c.refId !== refId);
     } else if (mode === 'standard-image') {
-        const url = document.getElementById('standard-image-input').value.trim();
+        const urlInput = document.getElementById('standard-image-input').value.trim();
+        const url = procesarRutaImagen(urlInput); // <-- Aplicamos la función
         const startVal = document.getElementById('std-image-start').value.trim();
         const endVal = document.getElementById('std-image-end').value.trim();
         
