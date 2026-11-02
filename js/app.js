@@ -67,6 +67,46 @@ const worldCurrencies = {
     'BRA': 'Real (BRL)', 'PER': 'Sol (PEN)', 'VEN': 'Bolívar (VES)', 'CHN': 'Yuan (CNY)', 'JPN': 'Yen (JPY)', 'ZAF': 'Rand (ZAR)', 'POL': 'Złoty (PLN)', 'HUN': 'Forinto (HUF)', 'BIH': 'Marco (BAM)', 'ALB': 'Lek (ALL)', 'MKD': 'Denar (MKD)', 'MNE': 'Euro (Uso unilateral)', 'UKR': 'Grivna (UAH)', 'CRI': 'Colón (CRC)', 'GTM': 'Quetzal (GTQ)', 'HTI': 'Gourde (HTG)', 'HND': 'Lempira (HNL)', 'NIC': 'Córdoba (NIO)', 'PAN': 'Balboa (PAB)', 'BOL': 'Boliviano (BOB)', 'PRY': 'Guaraní (PYG)', 'BGR': 'Lev (BGN)', 'ARM': 'Dram (AMD)', 'GEO': 'Lari (GEL)', 'TUR': 'Lira (TRY)', 'AFG': 'Afgani (AFN)', 'BGD': 'Taka (BDT)', 'BTN': 'Ngultrum (BTN)', 'KHM': 'Riel (KHR)', 'ISR': 'Nuevo séquel (ILS)', 'KAZ': 'Tenge (KZT)', 'LAO': 'Kip (LAK)', 'MYS': 'Ringgit (MYR)', 'MNG': 'Tugrik (MNT)', 'MMR': 'Kyat (MMK)', 'THA': 'Baht (THB)', 'VNM': 'Dong (VND)', 'AGO': 'Kwanza (AOA)', 'BWA': 'Pula (BWP)', 'CPV': 'Escudo (CVE)', 'ERN': 'Nakfa (ERN)', 'SWZ': 'Lilangeni (SZL)', 'ETH': 'Birr (ETB)', 'GMB': 'Dalasi (GMD)', 'GHA': 'Cedi (GHS)', 'LSO': 'Loti (LSL)', 'MDG': 'Ariary (MGA)', 'MRT': 'Uguiya (MRU)', 'MOZ': 'Metical (MZN)', 'NGA': 'Naira (NGN)', 'STP': 'Dobra (STN)', 'SLE': 'Leone (SLE)', 'PNG': 'Kina (PGK)', 'WSM': 'Tala (WST)', 'TON': 'Paʻanga (TOP)', 'VUT': 'Vatu (VUV)'
 };
 
+const worldCountriesES = {
+    'USA': 'Estados Unidos', 'CAN': 'Canadá', 'MEX': 'México', 'BRA': 'Brasil', 'ARG': 'Argentina',
+    'COL': 'Colombia', 'CHL': 'Chile', 'PER': 'Perú', 'VEN': 'Venezuela', 'CUB': 'Cuba',
+    'CHN': 'China', 'JPN': 'Japón', 'IND': 'India', 'AUS': 'Australia', 'ZAF': 'Sudáfrica',
+    'RUS': 'Rusia', 'KOR': 'Corea del Sur', 'GBR': 'Reino Unido', 'CHE': 'Suiza',
+    'SWE': 'Suecia', 'NOR': 'Noruega', 'POL': 'Polonia', 'CZE': 'República Checa',
+    'HUN': 'Hungría', 'ROU': 'Rumanía', 'DNK': 'Dinamarca', 'ISL': 'Islandia',
+    'SRB': 'Serbia', 'BIH': 'Bosnia y Herzegovina', 'ALB': 'Albania', 'MKD': 'Macedonia del Norte', 
+    'MNE': 'Montenegro', 'UKR': 'Ucrania', 'BLR': 'Bielorrusia', 'MDA': 'Moldavia',
+    'BHS': 'Bahamas', 'BRB': 'Barbados', 'BLZ': 'Belice', 'CRI': 'Costa Rica', 'DOM': 'República Dominicana',
+    'SLV': 'El Salvador', 'GTM': 'Guatemala', 'HTI': 'Haití', 'HND': 'Honduras', 'JAM': 'Jamaica',
+    'NIC': 'Nicaragua', 'PAN': 'Panamá', 'TTO': 'Trinidad y Tobago', 'ATG': 'Antigua y Barbuda',
+    'DMA': 'Dominica', 'GRD': 'Granada', 'KNA': 'San Cristóbal y Nieves', 'LCA': 'Santa Lucía',
+    'VCT': 'San Vicente y las Granadinas', 'BOL': 'Bolivia', 'ECU': 'Ecuador', 'GUY': 'Guyana',
+    'PRY': 'Paraguay', 'SUR': 'Surinam', 'URY': 'Uruguay', 'BGR': 'Bulgaria', 'LIE': 'Liechtenstein',
+    'ARM': 'Armenia', 'AZE': 'Azerbaiyán', 'GEO': 'Georgia', 'TUR': 'Turquía', 'AFG': 'Afganistán',
+    'BHR': 'Baréin', 'BGD': 'Bangladés', 'BTN': 'Bután', 'BRN': 'Brunéi', 'KHM': 'Camboya',
+    'PRK': 'Corea del Norte', 'IDN': 'Indonesia', 'IRN': 'Irán', 'IRQ': 'Irak', 'ISR': 'Israel',
+    'JOR': 'Jordania', 'KAZ': 'Kazajistán', 'KWT': 'Kuwait', 'KGZ': 'Kirguistán', 'LAO': 'Laos',
+    'LBN': 'Líbano', 'MYS': 'Malasia', 'MDV': 'Maldivas', 'MNG': 'Mongolia', 'MMR': 'Birmania',
+    'NPL': 'Nepal', 'OMN': 'Omán', 'PAK': 'Pakistán', 'PHL': 'Filipinas', 'QAT': 'Catar',
+    'SAU': 'Arabia Saudí', 'SGP': 'Singapur', 'LKA': 'Sri Lanka', 'SYR': 'Siria', 'TWN': 'Taiwán',
+    'TJK': 'Tayikistán', 'THA': 'Tailandia', 'TKM': 'Turkmenistán', 'ARE': 'Emiratos Árabes Unidos',
+    'UZB': 'Uzbekistán', 'VNM': 'Vietnam', 'YEM': 'Yemen', 'TLS': 'Timor Oriental', 'DZA': 'Argelia',
+    'AGO': 'Angola', 'BEN': 'Benín', 'BWA': 'Botsuana', 'BFA': 'Burkina Faso', 'BDI': 'Burundi',
+    'CPV': 'Cabo Verde', 'CMR': 'Camerún', 'CAF': 'República Centroafricana', 'TCD': 'Chad',
+    'COM': 'Comoras', 'COG': 'República del Congo', 'COD': 'República Democrática del Congo',
+    'DJI': 'Yibuti', 'EGY': 'Egipto', 'GNQ': 'Guinea Ecuatorial', 'ERI': 'Eritrea', 'SWZ': 'Esuatini',
+    'ETH': 'Etiopía', 'GAB': 'Gabón', 'GMB': 'Gambia', 'GHA': 'Ghana', 'GIN': 'Guinea',
+    'GNB': 'Guinea-Bisáu', 'CIV': 'Costa de Marfil', 'KEN': 'Kenia', 'LSO': 'Lesoto', 'LBR': 'Liberia',
+    'LBY': 'Libia', 'MDG': 'Madagascar', 'MWI': 'Malaui', 'MLI': 'Malí', 'MRT': 'Mauritania',
+    'MUS': 'Mauricio', 'MAR': 'Marruecos', 'MOZ': 'Mozambique', 'NAM': 'Namibia', 'NER': 'Níger',
+    'NGA': 'Nigeria', 'RWA': 'Ruanda', 'STP': 'Santo Tomé y Príncipe', 'SEN': 'Senegal',
+    'SYC': 'Seychelles', 'SLE': 'Sierra Leona', 'SOM': 'Somalia', 'SDN': 'Sudán', 'SSD': 'Sudán del Sur',
+    'TZA': 'Tanzania', 'TGO': 'Togo', 'TUN': 'Túnez', 'UGA': 'Uganda', 'ZMB': 'Zambia',
+    'ZWE': 'Zimbabue', 'FJI': 'Fiyi', 'KIR': 'Kiribati', 'MHL': 'Islas Marshall', 'FSM': 'Micronesia',
+    'NRU': 'Nauru', 'NZL': 'Nueva Zelanda', 'PLW': 'Palaos', 'PNG': 'Papúa Nueva Guinea', 'WSM': 'Samoa',
+    'SLB': 'Islas Salomón', 'TON': 'Tonga', 'TUV': 'Tuvalu', 'VUT': 'Vanuatu'
+};
+
 let state = { 
     view: 'home', country: null, year: 'ALL', searchQuery: '', 
     sortYear: 'asc', sortVal: 'asc', 
@@ -574,6 +614,7 @@ function drawMap(geoJson) {
                 tooltip.classed("hidden", false).html(`<div class="flex items-center gap-2"><img src="https://flagcdn.com/w40/${country.id.toLowerCase()}.png" class="w-5 h-3.5 rounded-sm border border-slate-700"><strong>${country.name}</strong></div><div class="mt-1 text-slate-300">Completado: <span class="${stats.percentage === 100 ? 'text-yellow-400 font-bold' : 'text-white'}">${stats.percentage}%</span></div>`);
             } else {
                 const curr = worldCurrencies[d.id] || 'Moneda local';
+                const nombreES = worldCountriesES[d.id] || d.properties.name;
                 tooltip.classed("hidden", false).html(`<div class="flex items-center gap-2"><strong>${d.properties.name}</strong></div><div class="mt-1 text-slate-400 text-[10px]">${curr}</div>`);
             }
         })
