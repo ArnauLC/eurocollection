@@ -37,14 +37,14 @@ const initialCountries = [
 ];
 
 const denominations = [
-    { id: '1c', label: '1c', val: 0.01, sizeClass: 'coin-1c', css: 'coin-copper' },
-    { id: '2c', label: '2c', val: 0.02, sizeClass: 'coin-2c', css: 'coin-copper' },
-    { id: '5c', label: '5c', val: 0.05, sizeClass: 'coin-5c', css: 'coin-copper' },
-    { id: '10c', label: '10c', val: 0.10, sizeClass: 'coin-10c', css: 'coin-nordic' },
-    { id: '20c', label: '20c', val: 0.20, sizeClass: 'coin-20c', css: 'coin-nordic' },
-    { id: '50c', label: '50c', val: 0.50, sizeClass: 'coin-50c', css: 'coin-nordic' },
-    { id: '1e', label: '1€', val: 1.00, sizeClass: 'coin-1e', css: 'coin-bimetal-1' },
-    { id: '2e', label: '2€', val: 2.00, sizeClass: 'coin-2e', css: 'coin-bimetal-2' }
+    { id: '1c', label: '1 cent.', val: 0.01, sizeClass: 'coin-1c', css: 'coin-copper' },
+    { id: '2c', label: '2 cent.', val: 0.02, sizeClass: 'coin-2c', css: 'coin-copper' },
+    { id: '5c', label: '5 cent.', val: 0.05, sizeClass: 'coin-5c', css: 'coin-copper' },
+    { id: '10c', label: '10 cent.', val: 0.10, sizeClass: 'coin-10c', css: 'coin-nordic' },
+    { id: '20c', label: '20 cent.', val: 0.20, sizeClass: 'coin-20c', css: 'coin-nordic' },
+    { id: '50c', label: '50 cent.', val: 0.50, sizeClass: 'coin-50c', css: 'coin-nordic' },
+    { id: '1e', label: '1 Euro', val: 1.00, sizeClass: 'coin-1e', css: 'coin-bimetal-1' },
+    { id: '2e', label: '2 Euro', val: 2.00, sizeClass: 'coin-2e', css: 'coin-bimetal-2' }
 ];
 
 const worldCurrencies = {
