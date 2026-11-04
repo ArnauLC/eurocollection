@@ -1,5 +1,5 @@
 // CLAVE SECRETA DE ADMINISTRADOR (Cambia este token si lo deseas)
-const ADMIN_TOKEN = "5";
+const ADMIN_TOKEN = "6";
 
 // Comprobación de Privilegios de Administrador mediante la URL
 const urlParams = new URLSearchParams(window.location.search);
@@ -52,7 +52,7 @@ const worldCurrencies = {
     'USA': 'Dólar estadounidense (USD)', 'SLV': 'Dólar estadounidense (USD)', 'ECU': 'Dólar estadounidense (USD)', 'TLS': 'Dólar estadounidense (USD)', 'MHL': 'Dólar estadounidense (USD)', 'FSM': 'Dólar estadounidense (USD)', 'PLW': 'Dólar estadounidense (USD)', 'CAN': 'Dólar canadiense (CAD)', 'AUS': 'Dólar australiano (AUD)', 'KIR': 'Dólar australiano (AUD)', 'NRU': 'Dólar australiano (AUD)', 'BHS': 'Dólar bahameño (BSD)', 'BRB': 'Dólar barbadense (BBD)', 'BLZ': 'Dólar beliceño (BZD)', 'JAM': 'Dólar jamaicano (JMD)', 'TTO': 'Dólar trinitense (TTD)', 'ATG': 'Dólar caribeño oriental (XCD)', 'DMA': 'Dólar caribeño oriental (XCD)', 'GRD': 'Dólar caribeño oriental (XCD)', 'KNA': 'Dólar caribeño oriental (XCD)', 'LCA': 'Dólar caribeño oriental (XCD)', 'VCT': 'Dólar caribeño oriental (XCD)', 'GUY': 'Dólar guyanés (GYD)', 'SUR': 'Dólar surinamés (SRD)', 'BRN': 'Dólar bruneano (BND)', 'SGP': 'Dólar singapurense (SGD)', 'TWN': 'Nuevo dólar taiwanés (TWD)', 'LBR': 'Dólar liberiano (LRD)', 'NAM': 'Dólar namibio (NAD)', 'ZWE': 'Dólar zimbabuense (ZWL)', 'FJI': 'Dólar fiyiano (FJD)', 'NZL': 'Dólar neozelandés (NZD)', 'SLB': 'Dólar salomonense (SBD)', 'TUV': 'Dólar tuvaluano (TVD)', 'PRI': 'Dólar estadounidense (USD)',
     'MEX': 'Peso mexicano (MXN)', 'ARG': 'Peso argentino (ARS)', 'COL': 'Peso colombiano (COP)', 'CHL': 'Peso chileno (CLP)', 'CUB': 'Peso cubano (CUP)', 'DOM': 'Peso dominicano (DOP)', 'URY': 'Peso uruguayo (UYU)', 'PHL': 'Peso filipino (PHP)',
     'CHE': 'Franco suizo (CHF)', 'LIE': 'Franco suizo (CHF)', 'BEN': 'Franco CFA de África Occidental (XOF)', 'BFA': 'Franco CFA de África Occidental (XOF)', 'GNB': 'Franco CFA de África Occidental (XOF)', 'CIV': 'Franco CFA de África Occidental (XOF)', 'MLI': 'Franco CFA de África Occidental (XOF)', 'NER': 'Franco CFA de África Occidental (XOF)', 'SEN': 'Franco CFA de África Occidental (XOF)', 'TGO': 'Franco CFA de África Occidental (XOF)', 'CMR': 'Franco CFA de África Central (XAF)', 'CAF': 'Franco CFA de África Central (XAF)', 'TCD': 'Franco CFA de África Central (XAF)', 'COG': 'Franco CFA de África Central (XAF)', 'GNQ': 'Franco CFA de África Central (XAF)', 'GAB': 'Franco CFA de África Central (XAF)', 'BDI': 'Franco burundés (BIF)', 'COM': 'Franco comorense (KMF)', 'COD': 'Franco congoleño (CDF)', 'DJI': 'Franco yibutiano (DJF)', 'GIN': 'Franco guineano (GNF)', 'RWA': 'Franco ruandés (RWF)',
-    'SWE': 'Corona sueca (SEK)', 'NOR': 'Corona noruega (NOK)', 'CZE': 'Corona checa (CZK)', 'DNK': 'Corona danesa (DKK)', 'ISL': 'Corona islandesa (ISK)',
+    'SWE': 'Corona sueca (SEK)', 'NOR': 'Corona noruega (NOK)', 'CZE': 'Corona checa (CZK)', 'DNK': 'Corona danesa (DKK)', 'GRL': 'Corona danesa (DKK)', 'ISL': 'Corona islandesa (ISK)',
     'IND': 'Rupia india (INR)', 'IDN': 'Rupia indonesia (IDR)', 'MDV': 'Rupia maldiva (MVR)', 'NPL': 'Rupia nepalí (NPR)', 'PAK': 'Rupia pakistaní (PKR)', 'LKA': 'Rupia esrilanquesa (LKR)', 'MUS': 'Rupia mauriciana (MUR)', 'SYC': 'Rupia seychellense (SCR)',
     'GBR': 'Libra esterlina (GBP)', 'EGY': 'Libra egipcia (EGP)', 'LBN': 'Libra libanesa (LBP)', 'SYR': 'Libra siria (SYP)', 'SDN': 'Libra sudanesa (SDG)', 'SSD': 'Libra sursudanesa (SSP)', 'SSD': 'Libra sursudanesa (SSP)', 'SDS': 'Libra sursudanesa (SSP)', 'FLK': 'Libra malvinense (FKP)',
     'SRB': 'Dinar serbio (RSD)', 'BHR': 'Dinar bareiní (BHD)', 'IRQ': 'Dinar iraquí (IQD)', 'JOR': 'Dinar jordano (JOD)', 'KWT': 'Dinar kuwaití (KWD)', 'LBY': 'Dinar libio (LYD)', 'DZA': 'Dinar argelino (DZD)', 'TUN': 'Dinar tunecino (TND)',
@@ -107,7 +107,7 @@ const worldCountriesES = {
     'NRU': 'Nauru', 'NZL': 'Nueva Zelanda', 'PLW': 'Palaos', 'PNG': 'Papúa Nueva Guinea', 'WSM': 'Samoa',
     'SLB': 'Islas Salomón', 'TON': 'Tonga', 'TUV': 'Tuvalu', 'VUT': 'Vanuatu',
     'ERI': 'Eritrea', 'FLK': 'Islas Malvinas', 'PRI': 'Puerto Rico', 'SSD': 'Sudán del Sur', 'SDS': 'Sudán del Sur',
-    'ESH': 'Sáhara Occidental', 'SAH': 'Sáhara Occidental', 'WSH': 'Sáhara Occidental',
+    'ESH': 'Sáhara Occidental', 'SAH': 'Sáhara Occidental', 'WSH': 'Sáhara Occidental', 'GRL': 'Groenlandia',
 };
 
 let state = { 
@@ -637,7 +637,6 @@ function drawMap(geoJson) {
                 tooltip.classed("hidden", false).html(`<div class="flex items-center gap-2"><img src="https://flagcdn.com/w40/${country.id.toLowerCase()}.png" class="w-5 h-3.5 rounded-sm border border-slate-700"><strong>${country.name}</strong></div><div class="mt-1 text-slate-300">Completado: <span class="${stats.percentage === 100 ? 'text-yellow-400 font-bold' : 'text-white'}">${stats.percentage}%</span></div>`);
             } else {
                 // Diccionario para convertir ISO3 a ISO2 para las banderas
-                // Diccionario para convertir ISO3 a ISO2 para las banderas
                 const iso3To2 = {
                     'USA': 'us', 'CAN': 'ca', 'MEX': 'mx', 'BRA': 'br', 'ARG': 'ar', 'COL': 'co', 'CHL': 'cl',
                     'PER': 'pe', 'VEN': 've', 'CUB': 'cu', 'CHN': 'cn', 'JPN': 'jp', 'IND': 'in', 'AUS': 'au',
@@ -665,6 +664,7 @@ function drawMap(geoJson) {
                     'GMB': 'gm', 'GHA': 'gh', 'LSO': 'ls', 'MDG': 'mg', 'MRT': 'mr', 'MOZ': 'mz', 'NGA': 'ng',
                     'STP': 'st', 'SLE': 'sl', 'PNG': 'pg', 'WSM': 'ws', 'TON': 'to', 'VUT': 'vu', 'ERI': 'er',
                     'FLK': 'fk', 'PRI': 'pr', 'SSD': 'ss', 'SDS': 'ss', 'ESH': 'eh', 'SAH': 'eh', 'WSH': 'eh',
+                    'GRL': 'gl'
                 };
                 
                 // Intenta sacar el código de la lista, o si el propio mapa tiene un código de 2 letras válido, lo usa.
