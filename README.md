@@ -10,4 +10,3 @@ Visualizador interactivo y catálogo numismático de monedas de Euro de la Euroz
 
 ## 🚀 Uso
 * **Acceso Público:** Los visitantes pueden navegar y consultar la colección en modo lectura.
-* **Modo Administrador:** Acceso exclusivo con token para añadir y editar monedas.
