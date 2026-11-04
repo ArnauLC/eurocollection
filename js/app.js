@@ -652,19 +652,28 @@ function renderCountryCoinsView(container) {
 
     const cStats = getCountryStats(state.country);
     
-    // Cambiar color de fondo dinámicamente según el estado de colección (Dorada > Azul > Normal)
-    const bgClass = cStats.isComplete ? 'bg-yellow-900/20 border-yellow-800/50' : 
-                    (cStats.isSeries ? 'bg-blue-900/20 border-blue-800/50' : 'bg-slate-900/60 border-slate-800/80');
+    // Colores más vivos y sólidos
+    const isGold = cStats.isComplete;
+    const isBlue = !isGold && cStats.isSeries;
+    
+    const bgClass = isGold ? 'bg-yellow-500 border-yellow-400' : 
+                    (isBlue ? 'bg-blue-600 border-blue-500' : 'bg-slate-900/60 border-slate-800/80');
+    
+    // Adaptación dinámica de textos para mantener el contraste
+    const titleClass = isGold ? 'text-slate-900' : 'text-white';
+    const subClass = isGold ? 'text-slate-700' : (isBlue ? 'text-blue-100' : 'text-slate-400');
+    const flagBorder = isGold ? 'border-yellow-600' : (isBlue ? 'border-blue-400' : 'border-slate-700');
+    const coinLabelClass = isGold ? 'text-slate-800' : (isBlue ? 'text-blue-100' : 'text-slate-400');
 
     let headerHtml = `
     <div class="mb-8 ${bgClass} p-6 rounded-2xl border shadow-lg relative overflow-hidden transition-colors duration-500">
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
             <div>
-                <h3 class="text-xl font-bold text-white flex items-center gap-3">
-                    <img src="https://flagcdn.com/w40/${state.country.toLowerCase()}.png" class="w-8 h-5 object-cover rounded shadow border border-slate-700"> 
+                <h3 class="text-xl font-bold ${titleClass} flex items-center gap-3">
+                    <img src="https://flagcdn.com/w40/${state.country.toLowerCase()}.png" class="w-8 h-5 object-cover rounded shadow border ${flagBorder}"> 
                     Caras Nacionales (Variantes)
                 </h3>
-                <p class="text-xs ${cStats.isSeries || cStats.isComplete ? 'text-slate-300' : 'text-slate-400'} mt-1">Variantes y diseños nacionales del país.</p>
+                <p class="text-xs ${subClass} mt-1">Variantes y diseños nacionales del país.</p>
             </div>
         </div>
         
@@ -693,8 +702,8 @@ function renderCountryCoinsView(container) {
                     </div>
                 </div>
                 <div class="text-center w-full shrink-0 mt-auto pt-2">
-                    <span class="text-[11px] font-semibold text-slate-400 flex items-center justify-center gap-1">${den.label}</span>
-                    ${bestCoin ? `<span class="text-[10px] text-yellow-500 font-bold block leading-tight mt-0.5">${bestCoin.year} <span class="text-slate-300">(${bestCoin.condition})</span></span>` : ''}
+                    <span class="text-[11px] font-semibold ${coinLabelClass} flex items-center justify-center gap-1">${den.label}</span>
+                    ${bestCoin ? `<span class="text-[10px] ${isGold ? 'text-slate-900' : 'text-yellow-400'} font-bold block leading-tight mt-0.5">${bestCoin.year} <span class="${isGold ? 'text-slate-700' : (isBlue ? 'text-blue-200' : 'text-slate-300')}">(${bestCoin.condition})</span></span>` : ''}
                 </div>
             </div>`;
     });
