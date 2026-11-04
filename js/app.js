@@ -734,17 +734,21 @@ function renderCountryCoinsView(container) {
             </div>`;
 
         if (yearStandardItems.length > 0 && state.filters.standard) {
-            blockHtml += `<div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-4 mb-6 justify-items-center items-end">`;
+            blockHtml += `<div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-4 mb-6 items-stretch">`;
             yearStandardItems.sort((a, b) => state.sortVal === 'asc' ? a.den.val - b.den.val : b.den.val - a.den.val);
             yearStandardItems.forEach(({ den, existing, isOwned }) => {
                 const customImg = standardImages[`${state.country}_${y}_${den.id}`] || standardImages[`${state.country}_common_${den.id}`] || '';
                 blockHtml += `
-                    <div class="flex flex-col items-center gap-2 group/card relative w-full">
+                    <div class="flex flex-col items-center w-full h-full relative group/card">
                         ${isAdmin ? `<button onclick="window.openModal('standard-image', '${den.id}', 'Standard', ${y}, '${state.country}')" class="absolute -top-2 -right-2 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white p-1.5 rounded-full shadow border border-slate-600 z-10 opacity-0 group-hover/card:opacity-100 transition-opacity"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg></button>` : ''}
-                        <div class="coin-base ${den.sizeClass} ${den.css} ${isOwned ? '' : 'coin-disabled'}" style="${customImg ? `background-image: url('${customImg}'); border-width: 0px !important; box-shadow: none !important;` : ''}" ${isAdmin ? `onclick="window.openModal('${isOwned ? 'edit-collection' : 'add-collection'}', '${den.id}', 'Standard', ${y}, '${state.country}')"` : ''}>
-                            ${!customImg ? `<span>${den.label}</span>` : ''}
+                        <div class="flex-1 flex items-center justify-center w-full min-h-[70px]">
+                            <div class="coin-base ${den.sizeClass} ${den.css} ${isOwned ? '' : 'coin-disabled'}" style="${customImg ? `background-image: url('${customImg}'); border-width: 0px !important; box-shadow: none !important;` : ''}" ${isAdmin ? `onclick="window.openModal('${isOwned ? 'edit-collection' : 'add-collection'}', '${den.id}', 'Standard', ${y}, '${state.country}')"` : ''}>
+                                ${!customImg ? `<span>${den.label}</span>` : ''}
+                            </div>
                         </div>
-                        <span class="text-[11px] font-semibold text-center mt-1">${isOwned ? getConditionStars(existing.condition) : '<span class="text-slate-500">Falta</span>'}</span>
+                        <div class="w-full text-center shrink-0 mt-auto pt-2">
+                            <span class="text-[11px] font-semibold block">${isOwned ? getConditionStars(existing.condition) : '<span class="text-slate-500">Falta</span>'}</span>
+                        </div>
                     </div>`;
             });
             blockHtml += `</div>`;
@@ -761,17 +765,17 @@ function renderCountryCoinsView(container) {
                             ${yStats.commemMax > 0 ? `<span class="text-[10px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded-full font-semibold border border-slate-700">${yStats.commemPct}%</span>` : ''}
                         </div>
                     </div>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center items-start">`;
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">`;
             
             yearCommemItems.forEach(({ catItem, existing, isOwned }) => {
-                blockHtml += `<div class="flex flex-col items-center gap-3 w-full relative group bg-slate-900/50 p-4 rounded-xl border border-slate-800/60 hover:bg-slate-800/80 transition-colors">
+                blockHtml += `<div class="flex flex-col items-center w-full h-full relative group bg-slate-900/50 p-4 rounded-xl border border-slate-800/60 hover:bg-slate-800/80 transition-colors">
                             ${isAdmin ? `<button onclick="window.openModal('delete-catalog', '${catItem.id}')" class="absolute top-2 right-2 bg-slate-950 p-1.5 rounded-full text-slate-500 hover:text-red-500 border border-slate-800 z-10 opacity-0 group-hover:opacity-100 transition-opacity shadow"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>` : ''}
-                            <div class="w-full flex items-center justify-center ${isAdmin ? 'cursor-pointer' : ''}" ${isAdmin ? `onclick="window.openModal('${isOwned ? 'edit-collection' : 'add-collection'}', '${catItem.id}', 'Commemorative', ${y}, '${state.country}')"` : ''}>
-                                <div class="coin-base coin-2e coin-bimetal-2 ${isOwned ? '' : 'coin-disabled'} w-full" style="${catItem.image ? `background-image: url('${catItem.image}'); border-width: 0px !important; box-shadow: none !important;` : ''}">
+                            <div class="flex-1 w-full flex items-center justify-center min-h-[80px] ${isAdmin ? 'cursor-pointer' : ''}" ${isAdmin ? `onclick="window.openModal('${isOwned ? 'edit-collection' : 'add-collection'}', '${catItem.id}', 'Commemorative', ${y}, '${state.country}')"` : ''}>
+                                <div class="coin-base coin-2e coin-bimetal-2 ${isOwned ? '' : 'coin-disabled'} w-full max-w-[80px]" style="${catItem.image ? `background-image: url('${catItem.image}'); border-width: 0px !important; box-shadow: none !important;` : ''}">
                                     ${!catItem.image ? `<span>2€</span>` : ''}
                                 </div>
                             </div>
-                            <div class="text-center w-full mt-1">
+                            <div class="text-center w-full shrink-0 mt-auto pt-3">
                                 <p class="text-xs font-semibold text-white leading-tight truncate px-2" title="${catItem.title}">${catItem.title}</p>
                                 <p class="text-[11px] mt-1 text-center">${isOwned ? getConditionStars(existing.condition) : '<span class="text-slate-500">Falta</span>'}</p>
                             </div>
