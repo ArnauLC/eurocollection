@@ -118,6 +118,7 @@ let countries = [];
 let collection = [];
 let catalog = [];
 let standardImages = {};
+let standardInfo = {};
 let globalCommonInfo = {};
 let globalCommonImages = {};
 let currentGlobalVariants = [];
@@ -148,6 +149,7 @@ async function loadAppData() {
         collection = JSON.parse(localStorage.getItem('euroColl_Collection')) || [];
         catalog = JSON.parse(localStorage.getItem('euroColl_Catalog')) || [];
         standardImages = JSON.parse(localStorage.getItem('euroColl_StdImg')) || {};
+        standardInfo = JSON.parse(localStorage.getItem('euroColl_StdInfo')) || {};
         globalCommonInfo = JSON.parse(localStorage.getItem('euroColl_GlobalInfo')) || {};
         globalCommonImages = JSON.parse(localStorage.getItem('euroColl_GlobalImg')) || {};
         document.getElementById('sidebar-config-wrapper').classList.remove('hidden');
@@ -161,6 +163,7 @@ async function loadAppData() {
                 collection = data.collection || [];
                 catalog = data.catalog || [];
                 standardImages = data.standardImages || {};
+                standardInfo = data.standardInfo || {};
                 globalCommonInfo = data.globalCommonInfo || {};
                 globalCommonImages = data.globalCommonImages || {};
                 globalMaxYear = data.maxYear || 2026;
@@ -195,6 +198,7 @@ window.exportCollectionJSON = function() {
         collection: collection,
         catalog: catalog,
         standardImages: standardImages,
+        standardInfo: standardInfo,
         globalCommonInfo: globalCommonInfo,
         globalCommonImages: globalCommonImages
     };
@@ -459,7 +463,8 @@ function renderSearchResults(container) {
                     if (existing && !state.filters.owned) return;
                     if (!existing && !state.filters.missing) return;
                     
-                    const matchStr = `${c.name} ${y} ${den.label} ${existing?.info || ''}`.toLowerCase();
+                    const stdDesc = standardInfo[`${c.id}_${den.id}`] || '';
+                    const matchStr = `${c.name} ${y} ${den.label} ${existing?.info || ''} ${stdDesc}`.toLowerCase();
                     if (matchStr.includes(state.searchQuery)) {
                         results.push({ country: c, year: y, type: 'Standard', den: den, existing: existing, isOwned: !!existing });
                     }
@@ -567,8 +572,9 @@ function renderInteractiveMap(container) {
                 ${denominations.map(den => {
                     const variants = globalCommonImages[den.id] || [];
                     const latestImg = variants.length > 0 ? variants[variants.length - 1].img : '';
+                    const gInfo = globalCommonInfo[den.id] ? globalCommonInfo[den.id].replace(/"/g, '&quot;') : '';
                     return `
-                    <div class="flex flex-col items-center gap-2 ${isAdmin ? 'cursor-pointer group hover:scale-105' : ''} transition-transform" ${isAdmin ? `onclick="window.openModal('edit-global-info', '${den.id}')"` : ''}>
+                    <div class="flex flex-col items-center gap-2 ${isAdmin ? 'cursor-pointer group hover:scale-105' : ''} transition-transform" ${isAdmin ? `onclick="window.openModal('edit-global-info', '${den.id}')"` : ''} title="${gInfo}">    
                         <div class="coin-base ${den.sizeClass} ${den.css} relative shadow-xl" style="${latestImg ? `background-image: url('${latestImg}'); border-width: 0px !important; box-shadow: none !important;` : ''}">
                             ${!latestImg ? `<span>${den.label}</span>` : ''}
                         </div>
@@ -731,10 +737,10 @@ function renderCountryCoinsView(container) {
         }
 
         const disabledClass = bestCoin ? '' : 'coin-disabled';
+        const sInfo = standardInfo[`${state.country}_${den.id}`] ? standardInfo[`${state.country}_${den.id}`].replace(/"/g, '&quot;') : '';
 
         headerHtml += `
-            <div class="flex flex-col items-center w-full h-full ${isAdmin ? 'cursor-pointer group hover:scale-105' : ''} transition-transform" ${isAdmin ? `onclick="window.openModal('standard-image', '${den.id}', 'Standard', ${countryObj.start}, '${state.country}')"` : ''}>
-                <div class="flex-1 flex items-center justify-center w-full min-h-[70px]">
+            <div class="flex flex-col items-center w-full h-full ${isAdmin ? 'cursor-pointer group hover:scale-105' : ''} transition-transform" ${isAdmin ? `onclick="window.openModal('standard-image', '${den.id}', 'Standard', ${countryObj.start}, '${state.country}')"` : ''} title="${sInfo}">                <div class="flex-1 flex items-center justify-center w-full min-h-[70px]">
                     <div class="coin-base ${den.sizeClass} ${den.css} ${disabledClass} relative shadow-xl" style="${imgStr ? `background-image: url('${imgStr}'); border-width: 0px !important; box-shadow: none !important;` : ''}">
                         ${!imgStr ? `<span>${den.label}</span>` : ''}
                     </div>
@@ -945,6 +951,7 @@ window.openModal = function(action, idOrRef = null, type = 'Standard', yearParam
         const denObj = denominations.find(d => d.id === idOrRef) || denominations[7];
         title.textContent = `Variantes Nacionales: ${denObj.label}`;
         document.getElementById('modal-standard-fields').classList.remove('hidden');
+        document.getElementById('standard-info-input').value = standardInfo[`${safeCountry}_${idOrRef}`] || '';
         
         const currentImg = standardImages[`${safeCountry}_${yearParam}_${idOrRef}`] || '';
         document.getElementById('standard-image-input').value = currentImg;
@@ -1160,6 +1167,9 @@ window.handleFormSubmit = function(e) {
         const url = procesarRutaImagen(urlInput); // <-- Aplicamos la función
         const startVal = document.getElementById('std-image-start').value.trim();
         const endVal = document.getElementById('std-image-end').value.trim();
+        const stdInfoText = document.getElementById('standard-info-input').value.trim();
+        if (stdInfoText) standardInfo[`${safeCountry}_${refId}`] = stdInfoText;
+        else delete standardInfo[`${safeCountry}_${refId}`];
         
         if (startVal !== '') {
             let startYear = parseInt(startVal) || pYear;
