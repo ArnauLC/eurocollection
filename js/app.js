@@ -489,36 +489,39 @@ function renderSearchResults(container) {
         return;
     }
 
-    let gridHtml = `<div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-6 justify-items-center items-end">`;
+    // Aquí cambiamos "items-end" por "items-stretch" para que todas las cajas sean idénticas
+    let gridHtml = `<div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-6 items-stretch">`;
     
     results.forEach(res => {
         const canClick = isAdmin;
         if (res.type === 'Standard') {
             const customImg = standardImages[`${res.country.id}_${res.year}_${res.den.id}`] || standardImages[`${res.country.id}_common_${res.den.id}`] || '';
             gridHtml += `
-                <div class="flex flex-col items-center gap-2 group/card relative w-full bg-slate-900/50 p-4 rounded-xl border border-slate-800">
-                    <div class="text-center w-full mb-2">
+                <div class="flex flex-col items-center relative w-full h-full bg-slate-900/50 p-4 rounded-xl border border-slate-800 group/card">
+                    <div class="text-center w-full mb-3 shrink-0">
                         <img src="https://flagcdn.com/w40/${res.country.id.toLowerCase()}.png" class="w-6 h-4 mx-auto rounded-sm border border-slate-700 mb-1">
                         <span class="text-xs font-bold text-white">${res.year}</span>
                     </div>
-                    <div class="coin-base ${res.den.sizeClass} ${res.den.css} ${res.isOwned ? '' : 'coin-disabled'}" style="${customImg ? `background-image: url('${customImg}'); border-width: 0px !important; box-shadow: none !important;` : ''}" ${canClick ? `onclick="window.openModal('${res.isOwned ? 'edit-collection' : 'add-collection'}', '${res.den.id}', 'Standard', ${res.year}, '${res.country.id}')"` : ''}>
-                        ${!customImg ? `<span>${res.den.label}</span>` : ''}
+                    <div class="flex-1 flex items-center justify-center w-full min-h-[80px]">
+                        <div class="coin-base ${res.den.sizeClass} ${res.den.css} ${res.isOwned ? '' : 'coin-disabled'}" style="${customImg ? `background-image: url('${customImg}'); border-width: 0px !important; box-shadow: none !important;` : ''}" ${canClick ? `onclick="window.openModal('${res.isOwned ? 'edit-collection' : 'add-collection'}', '${res.den.id}', 'Standard', ${res.year}, '${res.country.id}')"` : ''}>
+                            ${!customImg ? `<span>${res.den.label}</span>` : ''}
+                        </div>
                     </div>
-                    <span class="text-[11px] font-semibold mt-1 text-center">${res.isOwned ? getConditionStars(res.existing.condition) : '<span class="text-slate-500">Falta</span>'}</span>
+                    <span class="text-[11px] font-semibold mt-3 text-center shrink-0">${res.isOwned ? getConditionStars(res.existing.condition) : '<span class="text-slate-500">Falta</span>'}</span>
                 </div>`;
         } else {
             gridHtml += `
-                <div class="flex flex-col items-center gap-2 w-full relative group bg-slate-900/50 p-4 rounded-xl border border-slate-800/60 hover:bg-slate-800/80 transition-colors">
-                    <div class="text-center w-full mb-2">
+                <div class="flex flex-col items-center w-full h-full relative group bg-slate-900/50 p-4 rounded-xl border border-slate-800/60 hover:bg-slate-800/80 transition-colors">
+                    <div class="text-center w-full mb-3 shrink-0">
                         <img src="https://flagcdn.com/w40/${res.country.id.toLowerCase()}.png" class="w-6 h-4 mx-auto rounded-sm border border-slate-700 mb-1">
                         <span class="text-xs font-bold text-white">${res.year}</span>
                     </div>
-                    <div class="w-full flex items-center justify-center cursor-pointer" ${canClick ? `onclick="window.openModal('${res.isOwned ? 'edit-collection' : 'add-collection'}', '${res.catItem.id}', 'Commemorative', ${res.year}, '${res.country.id}')"` : ''}>
-                        <div class="coin-base coin-2e coin-bimetal-2 ${res.isOwned ? '' : 'coin-disabled'} w-full" style="${res.catItem.image ? `background-image: url('${res.catItem.image}'); border-width: 0px !important; box-shadow: none !important;` : ''}">
+                    <div class="flex-1 w-full flex items-center justify-center cursor-pointer min-h-[80px]" ${canClick ? `onclick="window.openModal('${res.isOwned ? 'edit-collection' : 'add-collection'}', '${res.catItem.id}', 'Commemorative', ${res.year}, '${res.country.id}')"` : ''}>
+                        <div class="coin-base coin-2e coin-bimetal-2 ${res.isOwned ? '' : 'coin-disabled'} w-full max-w-[80px]" style="${res.catItem.image ? `background-image: url('${res.catItem.image}'); border-width: 0px !important; box-shadow: none !important;` : ''}">
                             ${!res.catItem.image ? `<span>2€</span>` : ''}
                         </div>
                     </div>
-                    <div class="text-center w-full mt-2">
+                    <div class="text-center w-full mt-3 shrink-0">
                         <p class="text-[10px] font-semibold text-white leading-tight truncate px-1" title="${res.catItem.title}">${res.catItem.title}</p>
                         <p class="text-[11px] mt-1">${res.isOwned ? getConditionStars(res.existing.condition) : '<span class="text-slate-500">Falta</span>'}</p>
                     </div>
