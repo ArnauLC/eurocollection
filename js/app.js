@@ -1,5 +1,5 @@
 // CLAVE SECRETA DE ADMINISTRADOR (Cambia este token si lo deseas)
-const ADMIN_TOKEN = "9";
+const ADMIN_TOKEN = "10";
 
 // Comprobación de Privilegios de Administrador mediante la URL
 const urlParams = new URLSearchParams(window.location.search);
@@ -957,26 +957,46 @@ window.openModal = function(action, idOrRef = null, type = 'Standard', yearParam
         const denObj = denominations.find(d => d.id === idOrRef) || denominations[7];
         
         title.textContent = `Variantes Nacionales: ${denObj.label}`;
+        
         btnDel.classList.add('hidden'); 
         btnSub.classList.remove('hidden'); 
         actionsContainer.classList.remove('hidden');
         btnSub.className = 'flex-1 bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-lg transition-colors shadow-lg';
         btnSub.textContent = 'Guardar';
-        document.getElementById('modal-standard-fields').classList.remove('hidden');
 
+        // Ocultar todos los campos y mostrar solo los estándar con protección
+        ['modal-config-fields', 'modal-catalog-fields', 'modal-standard-fields', 'modal-collection-fields', 'modal-delete-fields', 'modal-global-info-fields'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.classList.add('hidden');
+        });
+        
+        const standardFields = document.getElementById('modal-standard-fields');
+        if (standardFields) standardFields.classList.remove('hidden');
+        
         const infoInput = document.getElementById('standard-info-input');
         if (infoInput) {
             infoInput.value = standardInfo[`${safeCountry}_${idOrRef}`] || '';
         }
         
         const currentImg = standardImages[`${safeCountry}_${yearParam}_${idOrRef}`] || '';
-        document.getElementById('standard-image-input').value = currentImg;
-        document.getElementById('std-image-start').value = yearParam;
-        document.getElementById('std-image-end').value = '';
+        const imgInput = document.getElementById('standard-image-input');
+        if (imgInput) imgInput.value = currentImg;
+        
+        const startInput = document.getElementById('std-image-start');
+        if (startInput) startInput.value = yearParam;
+        
+        const endInput = document.getElementById('std-image-end');
+        if (endInput) endInput.value = '';
 
-        renderStandardVariantsList(safeCountry, idOrRef);
-        window.modalPreviewIndex = currentStandardVariants.length > 0 ? currentStandardVariants.length - 1 : 0;
-        window.updateModalPreview('standard-image', idOrRef, denObj);
+        if (typeof renderStandardVariantsList === 'function') {
+            renderStandardVariantsList(safeCountry, idOrRef);
+        }
+        
+        window.modalPreviewIndex = (typeof currentStandardVariants !== 'undefined' && currentStandardVariants.length > 0) ? currentStandardVariants.length - 1 : 0;
+        
+        if (typeof window.updateModalPreview === 'function') {
+            window.updateModalPreview('standard-image', idOrRef, denObj);
+        }
     } else {
         modeInput.value = 'collection'; 
         document.getElementById('modal-collection-fields').classList.remove('hidden');
