@@ -62,11 +62,11 @@
                 <div class="flex flex-wrap items-center justify-center gap-2">
                     <div class="flex items-center gap-1 bg-slate-950 p-1 rounded-xl border border-slate-800">
                         <button type="button" id="btn-filter-owned" onclick="window.toggleFilter('owned')" class="px-3 py-1.5 rounded-lg font-bold transition-colors text-xs">Tengo</button>
-                        <button type="button" id="btn-filter-missing" onclick="window.toggleFilter('missing')" class="px-3 py-1.5 rounded-lg font-bold transition-colors text-xs">Faltan</button>
+                        <button type="button" id="btn-filter-missing" onclick="window.toggleFilter('missing')" class="px-3 py-1.5 rounded-lg font-bold transition-colors text-xs">Falta</button>
                     </div>
                     <div class="flex items-center gap-1 bg-slate-950 p-1 rounded-xl border border-slate-800">
-                        <button type="button" id="btn-filter-standard" onclick="window.toggleFilter('standard')" class="px-3 py-1.5 rounded-lg font-bold transition-colors text-xs">Comunes</button>
-                        <button type="button" id="btn-filter-commem" onclick="window.toggleFilter('commem')" class="px-3 py-1.5 rounded-lg font-bold transition-colors text-xs">Conmemorativas</button>
+                        <button type="button" id="btn-filter-standard" onclick="window.toggleFilter('standard')" class="px-3 py-1.5 rounded-lg font-bold transition-colors text-xs">Común</button>
+                        <button type="button" id="btn-filter-commem" onclick="window.toggleFilter('commem')" class="px-3 py-1.5 rounded-lg font-bold transition-colors text-xs">Conmemorativa</button>
                     </div>
                     <span class="w-px h-6 bg-slate-700 hidden lg:block"></span>
                     <div class="flex items-center gap-1 text-xs">
@@ -182,7 +182,7 @@
                 <!-- Campos de Catálogo Conmemorativo -->
                 <div id="modal-catalog-fields" class="space-y-4 hidden">
                     <div>
-                        <label class="block text-sm font-medium text-slate-300 mb-1">Nombre / Motivo</label>
+                        <label class="block text-sm font-medium text-slate-300 mb-1">Motivo</label>
                         <input type="text" id="catalog-title" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-blue-500" placeholder="Ej: Tratado de Roma">
                     </div>
                     <div>
@@ -190,19 +190,21 @@
                         <input type="number" id="catalog-year" min="2004" max="2100" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-blue-500">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-slate-300 mb-1">URL de la Imagen</label>
-                        <input type="text" id="catalog-image" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-blue-500" placeholder="https://ejemplo.com/moneda.jpg">
+                        <label class="block text-sm font-medium text-slate-300 mb-1">Imagen</label>
+                        <input type="text" id="catalog-image" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-blue-500" placeholder="URL o Archivo">
                     </div>
                 </div>
 
                 <!-- Campos de Moneda Estándar y Variantes -->
-                <div id="modal-standard-fields" class="space-y-4 hidden">
-                    <div>
-                        <label class="block text-sm font-medium text-slate-300 mb-1">URL de Imagen de la Moneda</label>
-                        <input type="text" id="standard-image-input" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-blue-500" placeholder="https://ejemplo.com/moneda.jpg">
+                <div id="modal-standard-fields" class="hidden flex flex-col gap-4">
+                    <div class="mb-2">
+                        <label class="block text-xs font-bold text-slate-400 mb-1">Descripción</label>
+                        <textarea id="standard-info-input" rows="2" class="w-full bg-slate-900 text-white border border-slate-700 rounded-lg p-2 text-sm focus:border-blue-500 focus:outline-none" placeholder="Ej: Diseño de la Puerta de Brandeburgo..."></textarea>
                     </div>
-                    <div class="mt-4 pt-4 border-t border-slate-700">
-                        <h4 class="text-sm font-medium text-slate-300 mb-2">Establecer Variación Nacional (Rango de Años)</h4>
+                    
+                    <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700">
+                        <!-- (Aquí sigue tu código normal con standard-image-input, std-image-start, etc...) -->
+                        <h4 class="text-sm font-medium text-slate-300 mb-2">Establecer Rango</h4>
                         <div class="flex gap-3">
                             <div class="flex-1">
                                 <label class="block text-xs text-slate-400 mb-1">Desde (Año)</label>
@@ -223,11 +225,11 @@
                 <!-- Campos de Información Dorso Europeo -->
                 <div id="modal-global-info-fields" class="space-y-4 hidden">
                     <div>
-                        <label class="block text-sm font-medium text-slate-300 mb-1">Información / Descripción Genérica (Lado Europeo)</label>
+                        <label class="block text-sm font-medium text-slate-300 mb-1">Información</label>
                         <textarea id="global-info-input" rows="3" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500 text-sm" placeholder="Detalles genéricos del dorso común..."></textarea>
                     </div>
                     <div class="border-t border-slate-700 pt-4">
-                        <h4 class="text-sm font-medium text-slate-300 mb-2 flex items-center gap-2">Variantes de Imagen del Dorso</h4>
+                        <h4 class="text-sm font-medium text-slate-300 mb-2 flex items-center gap-2">Variantes</h4>
                         <div id="global-variants-list" class="space-y-2 mb-4 max-h-32 overflow-y-auto pr-1"></div>
                         <div class="flex flex-wrap gap-2 items-end bg-slate-800/50 p-3 rounded-lg border border-slate-700">
                             <div class="flex-1 min-w-[70px]">
@@ -239,9 +241,9 @@
                                 <input type="text" id="global-var-end" class="w-full bg-slate-900 border border-slate-600 rounded px-2 py-1.5 text-white text-xs focus:outline-none focus:border-blue-500" placeholder="Actual">
                             </div>
                             <div class="w-full sm:w-auto flex-1 min-w-[140px]">
-                                <label class="block text-[10px] font-bold uppercase text-slate-400 mb-1">URL Imagen</label>
+                                <label class="block text-[10px] font-bold uppercase text-slate-400 mb-1">Imagen</label>
                                 <div class="flex gap-2">
-                                    <input type="text" id="global-var-img" class="w-full bg-slate-900 border border-slate-600 rounded px-2 py-1.5 text-white text-xs focus:outline-none focus:border-blue-500" placeholder="https://...">
+                                    <input type="text" id="global-var-img" class="w-full bg-slate-900 border border-slate-600 rounded px-2 py-1.5 text-white text-xs focus:outline-none focus:border-blue-500" placeholder="URL o Archivo">
                                     <button type="button" onclick="window.addGlobalVariant()" class="bg-blue-600 hover:bg-blue-500 transition-colors px-3 py-1.5 rounded text-white shadow font-bold text-xs shrink-0">Añadir</button>
                                 </div>
                             </div>
