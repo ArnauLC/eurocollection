@@ -65,7 +65,8 @@ const worldCurrencies = {
     'ARE': 'Dírham emiratí (AED)', 'MAR': 'Dírham marroquí (MAD)', 'ESH': 'Dírham marroquí (MAD)', 'SAH': 'Dírham marroquí (MAD)', 'WSH': 'Dírham marroquí (MAD)',
     'AZE': 'Manat azerbaiyano (AZN)', 'TKM': 'Manat turcomano (TMT)',
     'KGZ': 'Som kirguís (KGS)', 'UZB': 'Som uzbeko (UZS)', 'TJK': 'Somoni tayiko (TJS)',
-    'BRA': 'Real (BRL)', 'PER': 'Sol (PEN)', 'VEN': 'Bolívar (VES)', 'CHN': 'Yuan (CNY)', 'JPN': 'Yen (JPY)', 'ZAF': 'Rand (ZAR)', 'POL': 'Złoty (PLN)', 'HUN': 'Forinto (HUF)', 'BIH': 'Marco (BAM)', 'ALB': 'Lek (ALL)', 'MKD': 'Denar (MKD)', 'UKR': 'Grivna (UAH)', 'CRI': 'Colón (CRC)', 'GTM': 'Quetzal (GTQ)', 'HTI': 'Gourde (HTG)', 'HND': 'Lempira (HNL)', 'NIC': 'Córdoba (NIO)', 'PAN': 'Balboa (PAB)', 'BOL': 'Boliviano (BOB)', 'PRY': 'Guaraní (PYG)', 'BGR': 'Lev (BGN)', 'ARM': 'Dram (AMD)', 'GEO': 'Lari (GEL)', 'TUR': 'Lira (TRY)', 'AFG': 'Afgani (AFN)', 'BGD': 'Taka (BDT)', 'BTN': 'Ngultrum (BTN)', 'KHM': 'Riel (KHR)', 'ISR': 'Nuevo séquel (ILS)', 'KAZ': 'Tenge (KZT)', 'LAO': 'Kip (LAK)', 'MYS': 'Ringgit (MYR)', 'MNG': 'Tugrik (MNT)', 'MMR': 'Kyat (MMK)', 'THA': 'Baht (THB)', 'VNM': 'Dong (VND)', 'AGO': 'Kwanza (AOA)', 'BWA': 'Pula (BWP)', 'CPV': 'Escudo (CVE)', 'ERN': 'Nakfa (ERN)', 'SWZ': 'Lilangeni (SZL)', 'ETH': 'Birr (ETB)', 'GMB': 'Dalasi (GMD)', 'GHA': 'Cedi (GHS)', 'LSO': 'Loti (LSL)', 'MDG': 'Ariary (MGA)', 'MRT': 'Uguiya (MRU)', 'MOZ': 'Metical (MZN)', 'ERI': 'Nakfa (ERN)', 'NGA': 'Naira (NGN)', 'STP': 'Dobra (STN)', 'SLE': 'Leone (SLE)', 'PNG': 'Kina (PGK)', 'WSM': 'Tala (WST)', 'TON': 'Paʻanga (TOP)', 'VUT': 'Vatu (VUV)'
+    'BRA': 'Real (BRL)', 'PER': 'Sol (PEN)', 'VEN': 'Bolívar (VES)', 'CHN': 'Yuan (CNY)', 'JPN': 'Yen (JPY)', 'ZAF': 'Rand (ZAR)', 'POL': 'Złoty (PLN)', 'HUN': 'Forinto (HUF)', 'BIH': 'Marco (BAM)', 'ALB': 'Lek (ALL)', 'MKD': 'Denar (MKD)', 'UKR': 'Grivna (UAH)', 'CRI': 'Colón (CRC)', 'GTM': 'Quetzal (GTQ)', 'HTI': 'Gourde (HTG)', 'HND': 'Lempira (HNL)', 'NIC': 'Córdoba (NIO)', 'PAN': 'Balboa (PAB)', 'BOL': 'Boliviano (BOB)', 'PRY': 'Guaraní (PYG)', 'BGR': 'Lev (BGN)', 'ARM': 'Dram (AMD)', 'GEO': 'Lari (GEL)', 'TUR': 'Lira (TRY)', 'AFG': 'Afgani (AFN)', 'BGD': 'Taka (BDT)', 'BTN': 'Ngultrum (BTN)', 'KHM': 'Riel (KHR)', 'ISR': 'Nuevo séquel (ILS)', 'KAZ': 'Tenge (KZT)', 'LAO': 'Kip (LAK)', 'MYS': 'Ringgit (MYR)', 'MNG': 'Tugrik (MNT)', 'MMR': 'Kyat (MMK)', 'THA': 'Baht (THB)', 'VNM': 'Dong (VND)', 'AGO': 'Kwanza (AOA)', 'BWA': 'Pula (BWP)', 'CPV': 'Escudo (CVE)', 'ERN': 'Nakfa (ERN)', 'SWZ': 'Lilangeni (SZL)', 'ETH': 'Birr (ETB)', 'GMB': 'Dalasi (GMD)', 'GHA': 'Cedi (GHS)', 'LSO': 'Loti (LSL)', 'MDG': 'Ariary (MGA)', 'MRT': 'Uguiya (MRU)', 'MOZ': 'Metical (MZN)', 'ERI': 'Nakfa (ERN)', 'NGA': 'Naira (NGN)', 'STP': 'Dobra (STN)', 'SLE': 'Leone (SLE)', 'PNG': 'Kina (PGK)', 'WSM': 'Tala (WST)', 'TON': 'Paʻanga (TOP)', 'VUT': 'Vatu (VUV)',
+    'ATF': 'Euro (Uso oficial)', 'AT': 'Euro (Uso oficial)', 'ATA': 'Sin moneda oficial / Tratado Antártico', 'AQ': 'Sin moneda oficial / Tratado Antártico'
 };
 
 const worldCountriesES = {
@@ -108,6 +109,7 @@ const worldCountriesES = {
     'SLB': 'Islas Salomón', 'TON': 'Tonga', 'TUV': 'Tuvalu', 'VUT': 'Vanuatu',
     'ERI': 'Eritrea', 'FLK': 'Islas Malvinas', 'PRI': 'Puerto Rico', 'SSD': 'Sudán del Sur', 'SDS': 'Sudán del Sur',
     'ESH': 'Sáhara Occidental', 'SAH': 'Sáhara Occidental', 'WSH': 'Sáhara Occidental', 'GRL': 'Groenlandia',
+    'ATF': 'Tierras Australes y Antárticas Francesas', 'ATA': 'Antártida'
 };
 
 let state = { 
@@ -664,7 +666,7 @@ function drawMap(geoJson) {
                     'GMB': 'gm', 'GHA': 'gh', 'LSO': 'ls', 'MDG': 'mg', 'MRT': 'mr', 'MOZ': 'mz', 'NGA': 'ng',
                     'STP': 'st', 'SLE': 'sl', 'PNG': 'pg', 'WSM': 'ws', 'TON': 'to', 'VUT': 'vu', 'ERI': 'er',
                     'FLK': 'fk', 'PRI': 'pr', 'SSD': 'ss', 'SDS': 'ss', 'ESH': 'eh', 'SAH': 'eh', 'WSH': 'eh',
-                    'GRL': 'gl'
+                    'GRL': 'gl', 'ATF': 'tf', 'ATA': 'aq'
                 };
                 
                 // Intenta sacar el código de la lista, o si el propio mapa tiene un código de 2 letras válido, lo usa.
