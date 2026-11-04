@@ -628,9 +628,47 @@ function drawMap(geoJson) {
                 const stats = getCountryStats(country.id);
                 tooltip.classed("hidden", false).html(`<div class="flex items-center gap-2"><img src="https://flagcdn.com/w40/${country.id.toLowerCase()}.png" class="w-5 h-3.5 rounded-sm border border-slate-700"><strong>${country.name}</strong></div><div class="mt-1 text-slate-300">Completado: <span class="${stats.percentage === 100 ? 'text-yellow-400 font-bold' : 'text-white'}">${stats.percentage}%</span></div>`);
             } else {
+                // Diccionario para convertir ISO3 a ISO2 para las banderas
+                // Diccionario para convertir ISO3 a ISO2 para las banderas
+                const iso3To2 = {
+                    'USA': 'us', 'CAN': 'ca', 'MEX': 'mx', 'BRA': 'br', 'ARG': 'ar', 'COL': 'co', 'CHL': 'cl',
+                    'PER': 'pe', 'VEN': 've', 'CUB': 'cu', 'CHN': 'cn', 'JPN': 'jp', 'IND': 'in', 'AUS': 'au',
+                    'ZAF': 'za', 'RUS': 'ru', 'KOR': 'kr', 'GBR': 'gb', 'CHE': 'ch', 'SWE': 'se', 'NOR': 'no',
+                    'POL': 'pl', 'CZE': 'cz', 'HUN': 'hu', 'ROU': 'ro', 'DNK': 'dk', 'ISL': 'is', 'SRB': 'rs',
+                    'BIH': 'ba', 'ALB': 'al', 'MKD': 'mk', 'MNE': 'me', 'UKR': 'ua', 'BLR': 'by', 'MDA': 'md',
+                    'KOS': 'xk', 'XKX': 'xk', 'OSA': 'xk', 'SLV': 'sv', 'ECU': 'ec', 'TLS': 'tl', 'MHL': 'mh',
+                    'FSM': 'fm', 'PLW': 'pw', 'KIR': 'ki', 'NRU': 'nr', 'BHS': 'bs', 'BRB': 'bb', 'BLZ': 'bz',
+                    'JAM': 'jm', 'TTO': 'tt', 'ATG': 'ag', 'DMA': 'dm', 'GRD': 'gd', 'KNA': 'kn', 'LCA': 'lc',
+                    'VCT': 'vc', 'GUY': 'gy', 'SUR': 'sr', 'BRN': 'bn', 'SGP': 'sg', 'TWN': 'tw', 'LBR': 'lr',
+                    'NAM': 'na', 'ZWE': 'zw', 'FJI': 'fj', 'NZL': 'nz', 'SLB': 'sb', 'TUV': 'tv', 'DOM': 'do',
+                    'URY': 'uy', 'PHL': 'ph', 'LIE': 'li', 'BEN': 'bj', 'BFA': 'bf', 'GNB': 'gw', 'CIV': 'ci',
+                    'MLI': 'ml', 'NER': 'ne', 'SEN': 'sn', 'TGO': 'tg', 'CMR': 'cm', 'CAF': 'cf', 'TCD': 'td',
+                    'COG': 'cg', 'GNQ': 'gq', 'GAB': 'ga', 'BDI': 'bi', 'COM': 'km', 'COD': 'cd', 'DJI': 'dj',
+                    'GIN': 'gn', 'RWA': 'rw', 'IDN': 'id', 'MDV': 'mv', 'NPL': 'np', 'PAK': 'pk', 'LKA': 'lk',
+                    'MUS': 'mu', 'SYC': 'sc', 'EGY': 'eg', 'LBN': 'lb', 'SYR': 'sy', 'SDN': 'sd', 'SSD': 'ss',
+                    'BHR': 'bh', 'IRQ': 'iq', 'JOR': 'jo', 'KWT': 'kw', 'LBY': 'ly', 'DZA': 'dz', 'TUN': 'tn',
+                    'IRN': 'ir', 'OMN': 'om', 'QAT': 'qa', 'SAU': 'sa', 'YEM': 'ye', 'KEN': 'ke', 'SOM': 'so',
+                    'TZA': 'tz', 'UGA': 'ug', 'MWI': 'mw', 'ZMB': 'zm', 'PRK': 'kp', 'ARE': 'ae', 'MAR': 'ma',
+                    'AZE': 'az', 'TKM': 'tm', 'KGZ': 'kg', 'UZB': 'uz', 'TJK': 'tj', 'CRI': 'cr', 'GTM': 'gt',
+                    'HTI': 'ht', 'HND': 'hn', 'NIC': 'ni', 'PAN': 'pa', 'BOL': 'bo', 'PRY': 'py', 'BGR': 'bg',
+                    'ARM': 'am', 'GEO': 'ge', 'TUR': 'tr', 'AFG': 'af', 'BGD': 'bd', 'BTN': 'bt', 'KHM': 'kh',
+                    'ISR': 'il', 'KAZ': 'kz', 'LAO': 'la', 'MYS': 'my', 'MNG': 'mn', 'MMR': 'mm', 'THA': 'th',
+                    'VNM': 'vn', 'AGO': 'ao', 'BWA': 'bw', 'CPV': 'cv', 'ERN': 'er', 'SWZ': 'sz', 'ETH': 'et',
+                    'GMB': 'gm', 'GHA': 'gh', 'LSO': 'ls', 'MDG': 'mg', 'MRT': 'mr', 'MOZ': 'mz', 'NGA': 'ng',
+                    'STP': 'st', 'SLE': 'sl', 'PNG': 'pg', 'WSM': 'ws', 'TON': 'to', 'VUT': 'vu'
+                };
+                
+                // Intenta sacar el código de la lista, o si el propio mapa tiene un código de 2 letras válido, lo usa.
+                const mapIso2 = d.properties.iso_a2 || d.properties.ISO_A2;
+                const fallbackFlag = (mapIso2 && mapIso2 !== '-99') ? mapIso2.toLowerCase() : '';
+                const flagCode = iso3To2[d.id] || fallbackFlag;
+                
                 const curr = worldCurrencies[d.id] || 'Moneda local';
-                const nombreES = worldCountriesES[d.id] || d.properties.name; // Usa español, si no, usa el original
-                tooltip.classed("hidden", false).html(`<div class="flex items-center gap-2"><strong>${nombreES}</strong></div><div class="mt-1 text-slate-400 text-[10px]">${curr}</div>`);
+                const nombreES = worldCountriesES[d.id] || d.properties.name;
+                
+                const flagHtml = flagCode ? `<img src="https://flagcdn.com/w40/${flagCode}.png" class="w-5 h-3.5 rounded-sm border border-slate-700 shrink-0">` : '';
+
+                tooltip.classed("hidden", false).html(`<div class="flex items-center gap-2">${flagHtml}<strong>${nombreES}</strong></div><div class="mt-1 text-slate-400 text-[10px]">${curr}</div>`);
             }
         })
         .on("mousemove", e => tooltip.style("left", (e.pageX + 15) + "px").style("top", (e.pageY + 15) + "px"))
