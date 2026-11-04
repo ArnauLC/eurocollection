@@ -1,5 +1,5 @@
 // CLAVE SECRETA DE ADMINISTRADOR (Cambia este token si lo deseas)
-const ADMIN_TOKEN = "6";
+const ADMIN_TOKEN = "7";
 
 // Comprobación de Privilegios de Administrador mediante la URL
 const urlParams = new URLSearchParams(window.location.search);
@@ -48,10 +48,10 @@ const denominations = [
 ];
 
 const worldCurrencies = {
-    'MNE': 'Euro (Uso unilateral)','XKX': 'Euro (Uso unilateral)',
+    'MNE': 'Euro (EUR)','XKX': 'Euro (EUR)', 'GUF': 'Euro (EUR)','ATF': 'Euro (EUR)', 'AT': 'Euro (EUR)',
     'USA': 'Dólar estadounidense (USD)', 'SLV': 'Dólar estadounidense (USD)', 'ECU': 'Dólar estadounidense (USD)', 'TLS': 'Dólar estadounidense (USD)', 'MHL': 'Dólar estadounidense (USD)', 'FSM': 'Dólar estadounidense (USD)', 'PLW': 'Dólar estadounidense (USD)', 'CAN': 'Dólar canadiense (CAD)', 'AUS': 'Dólar australiano (AUD)', 'KIR': 'Dólar australiano (AUD)', 'NRU': 'Dólar australiano (AUD)', 'BHS': 'Dólar bahameño (BSD)', 'BRB': 'Dólar barbadense (BBD)', 'BLZ': 'Dólar beliceño (BZD)', 'JAM': 'Dólar jamaicano (JMD)', 'TTO': 'Dólar trinitense (TTD)', 'ATG': 'Dólar caribeño oriental (XCD)', 'DMA': 'Dólar caribeño oriental (XCD)', 'GRD': 'Dólar caribeño oriental (XCD)', 'KNA': 'Dólar caribeño oriental (XCD)', 'LCA': 'Dólar caribeño oriental (XCD)', 'VCT': 'Dólar caribeño oriental (XCD)', 'GUY': 'Dólar guyanés (GYD)', 'SUR': 'Dólar surinamés (SRD)', 'BRN': 'Dólar bruneano (BND)', 'SGP': 'Dólar singapurense (SGD)', 'TWN': 'Nuevo dólar taiwanés (TWD)', 'LBR': 'Dólar liberiano (LRD)', 'NAM': 'Dólar namibio (NAD)', 'ZWE': 'Dólar zimbabuense (ZWL)', 'FJI': 'Dólar fiyiano (FJD)', 'NZL': 'Dólar neozelandés (NZD)', 'SLB': 'Dólar salomonense (SBD)', 'TUV': 'Dólar tuvaluano (TVD)', 'PRI': 'Dólar estadounidense (USD)',
     'MEX': 'Peso mexicano (MXN)', 'ARG': 'Peso argentino (ARS)', 'COL': 'Peso colombiano (COP)', 'CHL': 'Peso chileno (CLP)', 'CUB': 'Peso cubano (CUP)', 'DOM': 'Peso dominicano (DOP)', 'URY': 'Peso uruguayo (UYU)', 'PHL': 'Peso filipino (PHP)',
-    'CHE': 'Franco suizo (CHF)', 'LIE': 'Franco suizo (CHF)', 'BEN': 'Franco CFA de África Occidental (XOF)', 'BFA': 'Franco CFA de África Occidental (XOF)', 'GNB': 'Franco CFA de África Occidental (XOF)', 'CIV': 'Franco CFA de África Occidental (XOF)', 'MLI': 'Franco CFA de África Occidental (XOF)', 'NER': 'Franco CFA de África Occidental (XOF)', 'SEN': 'Franco CFA de África Occidental (XOF)', 'TGO': 'Franco CFA de África Occidental (XOF)', 'CMR': 'Franco CFA de África Central (XAF)', 'CAF': 'Franco CFA de África Central (XAF)', 'TCD': 'Franco CFA de África Central (XAF)', 'COG': 'Franco CFA de África Central (XAF)', 'GNQ': 'Franco CFA de África Central (XAF)', 'GAB': 'Franco CFA de África Central (XAF)', 'BDI': 'Franco burundés (BIF)', 'COM': 'Franco comorense (KMF)', 'COD': 'Franco congoleño (CDF)', 'DJI': 'Franco yibutiano (DJF)', 'GIN': 'Franco guineano (GNF)', 'RWA': 'Franco ruandés (RWF)',
+    'CHE': 'Franco suizo (CHF)', 'LIE': 'Franco suizo (CHF)', 'BEN': 'Franco CFA de África Occidental (XOF)', 'BFA': 'Franco CFA de África Occidental (XOF)', 'GNB': 'Franco CFA de África Occidental (XOF)', 'CIV': 'Franco CFA de África Occidental (XOF)', 'MLI': 'Franco CFA de África Occidental (XOF)', 'NER': 'Franco CFA de África Occidental (XOF)', 'SEN': 'Franco CFA de África Occidental (XOF)', 'TGO': 'Franco CFA de África Occidental (XOF)', 'CMR': 'Franco CFA de África Central (XAF)', 'CAF': 'Franco CFA de África Central (XAF)', 'TCD': 'Franco CFA de África Central (XAF)', 'COG': 'Franco CFA de África Central (XAF)', 'GNQ': 'Franco CFA de África Central (XAF)', 'GAB': 'Franco CFA de África Central (XAF)', 'BDI': 'Franco burundés (BIF)', 'COM': 'Franco comorense (KMF)', 'COD': 'Franco congoleño (CDF)', 'DJI': 'Franco yibutiano (DJF)', 'GIN': 'Franco guineano (GNF)', 'RWA': 'Franco ruandés (RWF)', 'NCL': 'Franco CFP (XPF)',
     'SWE': 'Corona sueca (SEK)', 'NOR': 'Corona noruega (NOK)', 'CZE': 'Corona checa (CZK)', 'DNK': 'Corona danesa (DKK)', 'GRL': 'Corona danesa (DKK)', 'ISL': 'Corona islandesa (ISK)',
     'IND': 'Rupia india (INR)', 'IDN': 'Rupia indonesia (IDR)', 'MDV': 'Rupia maldiva (MVR)', 'NPL': 'Rupia nepalí (NPR)', 'PAK': 'Rupia pakistaní (PKR)', 'LKA': 'Rupia esrilanquesa (LKR)', 'MUS': 'Rupia mauriciana (MUR)', 'SYC': 'Rupia seychellense (SCR)',
     'GBR': 'Libra esterlina (GBP)', 'EGY': 'Libra egipcia (EGP)', 'LBN': 'Libra libanesa (LBP)', 'SYR': 'Libra siria (SYP)', 'SDN': 'Libra sudanesa (SDG)', 'SSD': 'Libra sursudanesa (SSP)', 'SSD': 'Libra sursudanesa (SSP)', 'SDS': 'Libra sursudanesa (SSP)', 'FLK': 'Libra malvinense (FKP)',
@@ -65,8 +65,8 @@ const worldCurrencies = {
     'ARE': 'Dírham emiratí (AED)', 'MAR': 'Dírham marroquí (MAD)', 'ESH': 'Dírham marroquí (MAD)', 'SAH': 'Dírham marroquí (MAD)', 'WSH': 'Dírham marroquí (MAD)',
     'AZE': 'Manat azerbaiyano (AZN)', 'TKM': 'Manat turcomano (TMT)',
     'KGZ': 'Som kirguís (KGS)', 'UZB': 'Som uzbeko (UZS)', 'TJK': 'Somoni tayiko (TJS)',
-    'BRA': 'Real (BRL)', 'PER': 'Sol (PEN)', 'VEN': 'Bolívar (VES)', 'CHN': 'Yuan (CNY)', 'JPN': 'Yen (JPY)', 'ZAF': 'Rand (ZAR)', 'POL': 'Złoty (PLN)', 'HUN': 'Forinto (HUF)', 'BIH': 'Marco (BAM)', 'ALB': 'Lek (ALL)', 'MKD': 'Denar (MKD)', 'UKR': 'Grivna (UAH)', 'CRI': 'Colón (CRC)', 'GTM': 'Quetzal (GTQ)', 'HTI': 'Gourde (HTG)', 'HND': 'Lempira (HNL)', 'NIC': 'Córdoba (NIO)', 'PAN': 'Balboa (PAB)', 'BOL': 'Boliviano (BOB)', 'PRY': 'Guaraní (PYG)', 'BGR': 'Lev (BGN)', 'ARM': 'Dram (AMD)', 'GEO': 'Lari (GEL)', 'TUR': 'Lira (TRY)', 'AFG': 'Afgani (AFN)', 'BGD': 'Taka (BDT)', 'BTN': 'Ngultrum (BTN)', 'KHM': 'Riel (KHR)', 'ISR': 'Nuevo séquel (ILS)', 'KAZ': 'Tenge (KZT)', 'LAO': 'Kip (LAK)', 'MYS': 'Ringgit (MYR)', 'MNG': 'Tugrik (MNT)', 'MMR': 'Kyat (MMK)', 'THA': 'Baht (THB)', 'VNM': 'Dong (VND)', 'AGO': 'Kwanza (AOA)', 'BWA': 'Pula (BWP)', 'CPV': 'Escudo (CVE)', 'ERN': 'Nakfa (ERN)', 'SWZ': 'Lilangeni (SZL)', 'ETH': 'Birr (ETB)', 'GMB': 'Dalasi (GMD)', 'GHA': 'Cedi (GHS)', 'LSO': 'Loti (LSL)', 'MDG': 'Ariary (MGA)', 'MRT': 'Uguiya (MRU)', 'MOZ': 'Metical (MZN)', 'ERI': 'Nakfa (ERN)', 'NGA': 'Naira (NGN)', 'STP': 'Dobra (STN)', 'SLE': 'Leone (SLE)', 'PNG': 'Kina (PGK)', 'WSM': 'Tala (WST)', 'TON': 'Paʻanga (TOP)', 'VUT': 'Vatu (VUV)',
-    'ATF': 'Euro (Uso oficial)', 'AT': 'Euro (Uso oficial)', 'ATA': 'Sin moneda oficial / Tratado Antártico', 'AQ': 'Sin moneda oficial / Tratado Antártico'
+    'BRA': 'Real (BRL)', 'PER': 'Sol (PEN)', 'VEN': 'Bolívar (VES)', 'CHN': 'Yuan (CNY)', 'JPN': 'Yen (JPY)', 'ZAF': 'Rand (ZAR)', 'POL': 'Złoty (PLN)', 'HUN': 'Forinto (HUF)', 'BIH': 'Marco (BAM)', 'ALB': 'Lek (ALL)', 'MKD': 'Denar (MKD)', 'UKR': 'Grivna (UAH)', 'CRI': 'Colón (CRC)', 'GTM': 'Quetzal (GTQ)', 'HTI': 'Gourde (HTG)', 'HND': 'Lempira (HNL)', 'NIC': 'Córdoba (NIO)', 'PAN': 'Balboa (PAB)', 'BOL': 'Boliviano (BOB)', 'PRY': 'Guaraní (PYG)', 'BGR': 'Lev (BGN)', 'ARM': 'Dram (AMD)', 'GEO': 'Lari (GEL)', 'TUR': 'Lira (TRY)', 'AFG': 'Afgani (AFN)', 'BGD': 'Taka (BDT)', 'BTN': 'Ngultrum (BTN)', 'KHM': 'Riel (KHR)', 'ISR': 'Nuevo séquel (ILS)', 'PSE': 'Nuevo séquel (ILS)', 'WBG': 'Nuevo séquel (ILS)', 'KAZ': 'Tenge (KZT)', 'LAO': 'Kip (LAK)', 'MYS': 'Ringgit (MYR)', 'MNG': 'Tugrik (MNT)', 'MMR': 'Kyat (MMK)', 'THA': 'Baht (THB)', 'VNM': 'Dong (VND)', 'AGO': 'Kwanza (AOA)', 'BWA': 'Pula (BWP)', 'CPV': 'Escudo (CVE)', 'ERN': 'Nakfa (ERN)', 'SWZ': 'Lilangeni (SZL)', 'ETH': 'Birr (ETB)', 'GMB': 'Dalasi (GMD)', 'GHA': 'Cedi (GHS)', 'LSO': 'Loti (LSL)', 'MDG': 'Ariary (MGA)', 'MRT': 'Uguiya (MRU)', 'MOZ': 'Metical (MZN)', 'ERI': 'Nakfa (ERN)', 'NGA': 'Naira (NGN)', 'STP': 'Dobra (STN)', 'SLE': 'Leone (SLE)', 'PNG': 'Kina (PGK)', 'WSM': 'Tala (WST)', 'TON': 'Paʻanga (TOP)', 'VUT': 'Vatu (VUV)',
+    'ATA': 'Sin moneda oficial / Tratado Antártico', 'AQ': 'Sin moneda oficial / Tratado Antártico'
 };
 
 const worldCountriesES = {
@@ -109,6 +109,7 @@ const worldCountriesES = {
     'SLB': 'Islas Salomón', 'TON': 'Tonga', 'TUV': 'Tuvalu', 'VUT': 'Vanuatu',
     'ERI': 'Eritrea', 'FLK': 'Islas Malvinas', 'PRI': 'Puerto Rico', 'SSD': 'Sudán del Sur', 'SDS': 'Sudán del Sur',
     'ESH': 'Sáhara Occidental', 'SAH': 'Sáhara Occidental', 'WSH': 'Sáhara Occidental', 'GRL': 'Groenlandia',
+    'NCL': 'Nueva Caledonia', 'PSE': 'Cisjordania / Palestina', 'WBG': 'Cisjordania', 'GUF': 'Guayana Francesa',
     'ATF': 'Tierras Australes y Antárticas Francesas', 'ATA': 'Antártida'
 };
 
@@ -666,7 +667,7 @@ function drawMap(geoJson) {
                     'GMB': 'gm', 'GHA': 'gh', 'LSO': 'ls', 'MDG': 'mg', 'MRT': 'mr', 'MOZ': 'mz', 'NGA': 'ng',
                     'STP': 'st', 'SLE': 'sl', 'PNG': 'pg', 'WSM': 'ws', 'TON': 'to', 'VUT': 'vu', 'ERI': 'er',
                     'FLK': 'fk', 'PRI': 'pr', 'SSD': 'ss', 'SDS': 'ss', 'ESH': 'eh', 'SAH': 'eh', 'WSH': 'eh',
-                    'GRL': 'gl', 'ATF': 'tf', 'ATA': 'aq'
+                    'GRL': 'gl', 'ATF': 'tf', 'ATA': 'aq', 'NCL': 'nc', 'PSE': 'ps', 'WBG': 'ps', 'GUF': 'gf'
                 };
                 
                 // Intenta sacar el código de la lista, o si el propio mapa tiene un código de 2 letras válido, lo usa.
