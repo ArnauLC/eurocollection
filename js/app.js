@@ -1,5 +1,5 @@
 // CLAVE SECRETA DE ADMINISTRADOR (Cambia este token si lo deseas)
-const ADMIN_TOKEN = "1";
+const ADMIN_TOKEN = "2";
 
 // Comprobación de Privilegios de Administrador mediante la URL
 const urlParams = new URLSearchParams(window.location.search);
@@ -656,7 +656,7 @@ function renderCountryCoinsView(container) {
             </div>
         </div>
         
-        <div class="grid grid-cols-4 lg:grid-cols-8 gap-4 justify-items-center items-start">`;
+        <div class="grid grid-cols-4 lg:grid-cols-8 gap-4 items-stretch">`;
         
     const conditionOrder = { 'RC': 1, 'BC': 2, 'MBC': 3, 'EBC': 4, 'SC': 5, 'FDC': 6 };
     
@@ -674,11 +674,13 @@ function renderCountryCoinsView(container) {
         const disabledClass = bestCoin ? '' : 'coin-disabled';
 
         headerHtml += `
-            <div class="flex flex-col items-center gap-1 ${isAdmin ? 'cursor-pointer group hover:scale-105' : ''} transition-transform" ${isAdmin ? `onclick="window.openModal('standard-image', '${den.id}', 'Standard', ${countryObj.start}, '${state.country}')"` : ''}>
-                <div class="coin-base ${den.sizeClass} ${den.css} ${disabledClass} relative shadow-xl mb-1" style="${imgStr ? `background-image: url('${imgStr}'); border-width: 0px !important; box-shadow: none !important;` : ''}">
-                    ${!imgStr ? `<span>${den.label}</span>` : ''}
+            <div class="flex flex-col items-center w-full h-full ${isAdmin ? 'cursor-pointer group hover:scale-105' : ''} transition-transform" ${isAdmin ? `onclick="window.openModal('standard-image', '${den.id}', 'Standard', ${countryObj.start}, '${state.country}')"` : ''}>
+                <div class="flex-1 flex items-center justify-center w-full min-h-[70px]">
+                    <div class="coin-base ${den.sizeClass} ${den.css} ${disabledClass} relative shadow-xl" style="${imgStr ? `background-image: url('${imgStr}'); border-width: 0px !important; box-shadow: none !important;` : ''}">
+                        ${!imgStr ? `<span>${den.label}</span>` : ''}
+                    </div>
                 </div>
-                <div class="text-center">
+                <div class="text-center w-full shrink-0 mt-auto pt-2">
                     <span class="text-[11px] font-semibold text-slate-400 flex items-center justify-center gap-1">${den.label}</span>
                     ${bestCoin ? `<span class="text-[10px] text-yellow-500 font-bold block leading-tight mt-0.5">${bestCoin.year} <span class="text-slate-300">(${bestCoin.condition})</span></span>` : ''}
                 </div>
