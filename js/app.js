@@ -1,5 +1,5 @@
 // CLAVE SECRETA DE ADMINISTRADOR (Cambia este token si lo deseas)
-const ADMIN_TOKEN = "8";
+const ADMIN_TOKEN = "9";
 
 // Comprobación de Privilegios de Administrador mediante la URL
 const urlParams = new URLSearchParams(window.location.search);
@@ -953,15 +953,22 @@ window.openModal = function(action, idOrRef = null, type = 'Standard', yearParam
         const catItem = catalog.find(c => c.id === idOrRef);
         if(catItem) preview.innerHTML = `<div class="w-full flex justify-center"><div class="coin-base coin-2e coin-bimetal-2 w-full max-w-[320px] shadow-2xl" style="${catItem.image ? `background-image: url('${catItem.image}'); border-width: 0px !important; box-shadow: none !important;` : ''}">${!catItem.image ? `<span>2€</span>` : ''}</div></div>`;
     } else if (action === 'standard-image') {
-        } else if (action === 'standard-image') {
         modeInput.value = 'standard-image'; 
         const denObj = denominations.find(d => d.id === idOrRef) || denominations[7];
+        
         title.textContent = `Variantes Nacionales: ${denObj.label}`;
+        btnDel.classList.add('hidden'); 
+        btnSub.classList.remove('hidden'); 
+        actionsContainer.classList.remove('hidden');
+        btnSub.className = 'flex-1 bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-lg transition-colors shadow-lg';
+        btnSub.textContent = 'Guardar';
         document.getElementById('modal-standard-fields').classList.remove('hidden');
+
         const infoInput = document.getElementById('standard-info-input');
         if (infoInput) {
             infoInput.value = standardInfo[`${safeCountry}_${idOrRef}`] || '';
         }
+        
         const currentImg = standardImages[`${safeCountry}_${yearParam}_${idOrRef}`] || '';
         document.getElementById('standard-image-input').value = currentImg;
         document.getElementById('std-image-start').value = yearParam;
