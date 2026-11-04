@@ -663,7 +663,8 @@ function drawMap(geoJson) {
                     'ISR': 'il', 'KAZ': 'kz', 'LAO': 'la', 'MYS': 'my', 'MNG': 'mn', 'MMR': 'mm', 'THA': 'th',
                     'VNM': 'vn', 'AGO': 'ao', 'BWA': 'bw', 'CPV': 'cv', 'ERN': 'er', 'SWZ': 'sz', 'ETH': 'et',
                     'GMB': 'gm', 'GHA': 'gh', 'LSO': 'ls', 'MDG': 'mg', 'MRT': 'mr', 'MOZ': 'mz', 'NGA': 'ng',
-                    'STP': 'st', 'SLE': 'sl', 'PNG': 'pg', 'WSM': 'ws', 'TON': 'to', 'VUT': 'vu'
+                    'STP': 'st', 'SLE': 'sl', 'PNG': 'pg', 'WSM': 'ws', 'TON': 'to', 'VUT': 'vu', 'ERI': 'er',
+                    'FLK': 'fk', 'PRI': 'pr', 'SSD': 'ss', 'SDS': 'ss', 'ESH': 'eh', 'SAH': 'eh', 'WSH': 'eh',
                 };
                 
                 // Intenta sacar el código de la lista, o si el propio mapa tiene un código de 2 letras válido, lo usa.
