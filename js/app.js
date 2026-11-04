@@ -1,5 +1,5 @@
 // CLAVE SECRETA DE ADMINISTRADOR (Cambia este token si lo deseas)
-const ADMIN_TOKEN = "2";
+const ADMIN_TOKEN = "3";
 
 // Comprobación de Privilegios de Administrador mediante la URL
 const urlParams = new URLSearchParams(window.location.search);
@@ -255,7 +255,18 @@ function getCountryStats(countryId) {
     const isSeries = ownedDenominations.size === 8;
     const isComplete = (totalMax > 0 && totalMax === totalOwned);
     
-    return { totalMax, totalOwned, isComplete, isSeries, percentage: totalMax === 0 ? 0 : Math.round((totalOwned/totalMax)*100) };
+    // FASE 1: Hasta tener los 8 tipos, cuenta el progreso de la serie (0-100%).
+    // FASE 2: Al completarla, cuenta el progreso de todas las monedas y años del país.
+    let displayPercentage = 0;
+    if (isComplete) {
+        displayPercentage = 100;
+    } else if (isSeries) {
+        displayPercentage = totalMax === 0 ? 0 : Math.round((totalOwned / totalMax) * 100);
+    } else {
+        displayPercentage = Math.round((ownedDenominations.size / 8) * 100);
+    }
+    
+    return { totalMax, totalOwned, isComplete, isSeries, percentage: displayPercentage };
 }
 
 function getCountryMapStatus(countryId) {
@@ -538,7 +549,7 @@ function renderInteractiveMap(container) {
             <div class="flex flex-wrap items-center justify-center gap-4 md:gap-8 text-xs text-slate-400 font-medium">
                 <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-slate-700 border border-slate-600"></span> Faltante</div>
                 <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-slate-100 shadow-sm"></span> En progreso</div>
-                <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-blue-500 shadow-sm"></span> Serie Parcial</div>
+                <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-blue-500 shadow-sm"></span> Serie</div>
                 <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-yellow-500 shadow-sm"></span> Completado</div>
             </div>
         </div>
@@ -641,18 +652,19 @@ function renderCountryCoinsView(container) {
 
     const cStats = getCountryStats(state.country);
     
+    // Cambiar color de fondo dinámicamente según el estado de colección (Dorada > Azul > Normal)
+    const bgClass = cStats.isComplete ? 'bg-yellow-900/20 border-yellow-800/50' : 
+                    (cStats.isSeries ? 'bg-blue-900/20 border-blue-800/50' : 'bg-slate-900/60 border-slate-800/80');
+
     let headerHtml = `
-    <div class="mb-8 bg-slate-900/60 p-6 rounded-2xl border border-slate-800/80 shadow-lg relative overflow-hidden">
+    <div class="mb-8 ${bgClass} p-6 rounded-2xl border shadow-lg relative overflow-hidden transition-colors duration-500">
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
             <div>
                 <h3 class="text-xl font-bold text-white flex items-center gap-3">
                     <img src="https://flagcdn.com/w40/${state.country.toLowerCase()}.png" class="w-8 h-5 object-cover rounded shadow border border-slate-700"> 
                     Caras Nacionales (Variantes)
                 </h3>
-                <p class="text-xs text-slate-400 mt-1">Variantes y diseños nacionales del país.</p>
-            </div>
-            <div class="${cStats.isSeries ? 'bg-blue-600 border-blue-500 text-white' : 'bg-transparent border-slate-700 text-slate-400'} border px-3 py-1.5 rounded-lg text-center shadow-inner flex items-center justify-center">
-                <span class="text-[11px] font-bold uppercase tracking-wide">${cStats.isSeries ? 'Serie Completa' : 'Serie Incompleta'}</span>
+                <p class="text-xs ${cStats.isSeries || cStats.isComplete ? 'text-slate-300' : 'text-slate-400'} mt-1">Variantes y diseños nacionales del país.</p>
             </div>
         </div>
         
