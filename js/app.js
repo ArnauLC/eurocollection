@@ -721,9 +721,8 @@ function renderCountryCoinsView(container) {
             <div>
                 <h3 class="text-xl font-bold ${titleClass} flex items-center gap-3">
                     <img src="https://flagcdn.com/w40/${state.country.toLowerCase()}.png" class="w-8 h-5 object-cover rounded shadow border ${flagBorder}"> 
-                    Caras Nacionales (Variantes)
+                    Variantes Nacionales
                 </h3>
-                <p class="text-xs ${subClass} mt-1">Variantes y diseños nacionales del país.</p>
             </div>
         </div>
         
