@@ -196,31 +196,37 @@
                 </div>
 
                 <!-- Campos de Moneda Estándar y Variantes -->
-                <div id="modal-standard-fields" class="hidden flex flex-col gap-4">
-                    <div class="mb-2">
-                        <label class="block text-xs font-bold text-slate-400 mb-1">Descripción</label>
-                        <textarea id="standard-info-input" rows="2" class="w-full bg-slate-900 text-white border border-slate-700 rounded-lg p-2 text-sm focus:border-blue-500 focus:outline-none" placeholder="Ej: Diseño de la Puerta de Brandeburgo..."></textarea>
-                    </div>
-                    
-                    <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700">
-                        <!-- (Aquí sigue tu código normal con standard-image-input, std-image-start, etc...) -->
-                        <h4 class="text-sm font-medium text-slate-300 mb-2">Establecer Rango</h4>
-                        <div class="flex gap-3">
-                            <div class="flex-1">
-                                <label class="block text-xs text-slate-400 mb-1">Desde (Año)</label>
-                                <input type="number" id="std-image-start" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-blue-500" placeholder="Ej: 1999">
+                    <div id="modal-standard-fields" class="hidden flex flex-col gap-4">
+                        <!-- NUEVO CAMPO DE DESCRIPCIÓN -->
+                        <div class="mb-2">
+                            <label class="block text-xs font-bold text-slate-400 mb-1">Descripción</label>
+                            <textarea id="standard-info-input" rows="2" class="w-full bg-slate-900 text-white border border-slate-700 rounded-lg p-2 text-sm focus:border-blue-500 focus:outline-none" placeholder="Ej: Diseño de la Puerta de Brandeburgo..."></textarea>
+                        </div>
+                        
+                        <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700">
+                            <!-- CAMPO DE IMAGEN RESTAURADO -->
+                            <div class="mb-4">
+                                <label class="block text-sm font-medium text-slate-300 mb-1">URL o Archivo</label>
+                                <input type="text" id="standard-image-input" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2 text-white text-sm focus:outline-none focus:border-blue-500" placeholder="Ej: rey_juan_carlos.jpg o https://...">
                             </div>
-                            <div class="flex-1">
-                                <label class="block text-xs text-slate-400 mb-1">Hasta (Año / Actual)</label>
-                                <input type="text" id="std-image-end" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-blue-500" placeholder="Ej: 2026 o 'Actual'">
+                            
+                            <h4 class="text-sm font-medium text-slate-300 mb-2">Establecer Rango</h4>
+                            <div class="flex gap-3">
+                                <div class="flex-1">
+                                    <label class="block text-xs text-slate-400 mb-1">Desde (Año)</label>
+                                    <input type="number" id="std-image-start" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-blue-500" placeholder="Ej: 1999">
+                                </div>
+                                <div class="flex-1">
+                                    <label class="block text-xs text-slate-400 mb-1">Hasta (Año / Actual)</label>
+                                    <input type="text" id="std-image-end" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-blue-500" placeholder="Ej: 2026 o 'Actual'">
+                                </div>
                             </div>
                         </div>
+                        <div class="border-t border-slate-700 pt-4 mt-4">
+                            <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Variantes Guardadas</h4>
+                            <div id="standard-variants-list" class="space-y-2 max-h-32 overflow-y-auto pr-1"></div>
+                        </div>
                     </div>
-                    <div class="border-t border-slate-700 pt-4 mt-4">
-                         <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Variantes Guardadas</h4>
-                         <div id="standard-variants-list" class="space-y-2 max-h-32 overflow-y-auto pr-1"></div>
-                    </div>
-                </div>
 
                 <!-- Campos de Información Dorso Europeo -->
                 <div id="modal-global-info-fields" class="space-y-4 hidden">
