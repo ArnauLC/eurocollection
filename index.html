@@ -50,28 +50,33 @@
                 </div>
             </div>
 
-            <!-- Buscador y Filtros Globales -->
-            <div id="top-controls" class="flex-1 flex flex-col lg:flex-row items-center justify-center gap-4 w-full">
-                <div class="relative w-full max-w-md">
-                    <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
-                        <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+            <!-- Ordenación (Oculta dinámicamente) -->
+            <div id="sort-controls-container" class="hidden flex gap-2">
+                <!-- Aquí tus botones de Ordenar por Año y Valor -->
+            </div>
+            
+            <!-- Filtros Agrupados en Icono (Dropdown) -->
+            <div class="relative group">
+                <button class="bg-slate-800 hover:bg-slate-700 text-white p-2 rounded-lg border border-slate-700 transition flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
+                    <span class="text-sm font-bold hidden md:block">Filtros</span>
+                </button>
+                
+                <!-- Menú Desplegable (Visible al pasar el ratón) -->
+                <div class="absolute right-0 mt-2 w-56 bg-slate-900 border border-slate-700 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 p-3 flex flex-col gap-3">
+                    <div>
+                        <h4 class="text-xs font-bold text-slate-500 uppercase mb-2">Estado</h4>
+                        <div class="flex flex-col gap-1.5">
+                            <button id="btn-filter-owned" onclick="toggleFilter('owned')" class="...">Mi Colección</button>
+                            <button id="btn-filter-missing" onclick="toggleFilter('missing')" class="...">Faltantes</button>
+                        </div>
                     </div>
-                    <input type="text" id="global-search" oninput="window.handleSearchFilter()" placeholder="Buscar motivos, años, información, país..." class="bg-slate-950 border border-slate-700 text-sm rounded-full pl-10 pr-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 w-full shadow-inner transition-colors">
-                </div>
-
-                <div class="flex flex-wrap items-center justify-center gap-2">
-                    <div class="flex items-center gap-1 bg-slate-950 p-1 rounded-xl border border-slate-800">
-                        <button type="button" id="btn-filter-owned" onclick="window.toggleFilter('owned')" class="px-3 py-1.5 rounded-lg font-bold transition-colors text-xs">Tengo</button>
-                        <button type="button" id="btn-filter-missing" onclick="window.toggleFilter('missing')" class="px-3 py-1.5 rounded-lg font-bold transition-colors text-xs">Falta</button>
-                    </div>
-                    <div class="flex items-center gap-1 bg-slate-950 p-1 rounded-xl border border-slate-800">
-                        <button type="button" id="btn-filter-standard" onclick="window.toggleFilter('standard')" class="px-3 py-1.5 rounded-lg font-bold transition-colors text-xs">Común</button>
-                        <button type="button" id="btn-filter-commem" onclick="window.toggleFilter('commem')" class="px-3 py-1.5 rounded-lg font-bold transition-colors text-xs">Conmemorativa</button>
-                    </div>
-                    <span class="w-px h-6 bg-slate-700 hidden lg:block"></span>
-                    <div class="flex items-center gap-1 text-xs">
-                        <button type="button" onclick="window.toggleSort('year')" class="px-3 py-1.5 rounded-lg bg-slate-800 text-slate-300 font-bold border border-slate-700 hover:bg-slate-700 transition-colors w-[85px] text-center flex items-center justify-center gap-1">Año <span id="sort-year-icon">↑</span></button>
-                        <button type="button" onclick="window.toggleSort('value')" class="px-3 py-1.5 rounded-lg bg-slate-800 text-slate-300 font-bold border border-slate-700 hover:bg-slate-700 transition-colors w-[85px] text-center flex items-center justify-center gap-1">Valor <span id="sort-value-icon">↑</span></button>
+                    <div class="border-t border-slate-700 pt-3">
+                        <h4 class="text-xs font-bold text-slate-500 uppercase mb-2">Tipo</h4>
+                        <div class="flex flex-col gap-1.5">
+                            <button id="btn-filter-standard" onclick="toggleFilter('standard')" class="...">Estándar</button>
+                            <button id="btn-filter-commem" onclick="toggleFilter('commem')" class="...">Conmemorativas</button>
+                        </div>
                     </div>
                 </div>
             </div>
