@@ -1,5 +1,5 @@
 // CLAVE SECRETA DE ADMINISTRADOR (Cambia este token si lo deseas)
-const ADMIN_TOKEN = "13";
+const ADMIN_TOKEN = "14";
 
 // Comprobación de Privilegios de Administrador mediante la URL
 const urlParams = new URLSearchParams(window.location.search);
@@ -471,7 +471,7 @@ window.showHomeView = function() {
     state.view = 'home'; state.country = null; state.year = 'ALL';
     document.getElementById('global-search').value = ''; state.searchQuery = '';
     document.getElementById('header-flag').src = 'https://flagcdn.com/w80/eu.png';
-    document.getElementById('header-title').innerHTML = 'EuroColección <span class="text-[10px] font-bold text-blue-300 bg-blue-900/30 px-2 py-0.5 rounded-full align-middle ml-2 border border-blue-700/50 shadow-inner">v1.13</span>';
+    document.getElementById('header-title').innerHTML = 'EuroColección <span class="text-[10px] font-bold text-blue-300 bg-blue-900/30 px-2 py-0.5 rounded-full align-middle ml-2 border border-blue-700/50 shadow-inner">v14</span>';
     document.getElementById('header-subtitle').textContent = 'Mapa y Estado Global';
     document.getElementById('country-subheader').classList.add('hidden');
     document.getElementById('top-controls').classList.remove('hidden');
