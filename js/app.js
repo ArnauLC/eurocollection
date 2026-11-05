@@ -1,5 +1,5 @@
 // CLAVE SECRETA DE ADMINISTRADOR (Cambia este token si lo deseas)
-const ADMIN_TOKEN = "16";
+const ADMIN_TOKEN = "17";
 
 // Comprobación de Privilegios de Administrador mediante la URL
 const urlParams = new URLSearchParams(window.location.search);
@@ -1331,9 +1331,22 @@ function renderStandardVariantsList(countryId, refId) {
 
 function updateSortVisibility() {
     const sortControls = document.getElementById('sort-controls-container');
+    const filterControls = document.getElementById('filter-controls-container');
+    
+    // Mostramos la ordenación y los filtros SOLO si estamos dentro de un país o si hay una búsqueda activa
+    const shouldShow = (state.view === 'country' || state.searchQuery.length > 0);
+    
     if (sortControls) {
-        // Solo mostramos la ordenación si estamos dentro de un país o si hay una búsqueda activa
-        sortControls.style.display = (state.view === 'country' || state.searchQuery.length > 0) ? 'flex' : 'none';
+        sortControls.style.display = shouldShow ? 'flex' : 'none';
+    }
+    
+    if (filterControls) {
+        // En Tailwind, podemos quitar/poner la clase hidden
+        if (shouldShow) {
+            filterControls.classList.remove('hidden');
+        } else {
+            filterControls.classList.add('hidden');
+        }
     }
 }
 
