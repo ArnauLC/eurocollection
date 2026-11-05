@@ -248,7 +248,6 @@ async function loadAppData() {
         }
     }
 
-    updateGlobalTotals();
     if (typeof renderInteractiveMap === 'function') renderInteractiveMap();
     if (state.view === 'country') renderCountryView();
     else renderSearchResults(document.getElementById('search-results-container'));
@@ -429,7 +428,7 @@ function renderYearSelector(startYear) {
     container.appendChild(allBtn);
 
     getAllYearsList(startYear).forEach(y => {
-        if (!state.filters.commem && state.filters.standard && y < 2004) return;
+        if (!state.filters.standard && state.filters.commem && y < 2004) return;
         const yStats = getYearStats(state.country, y);
         const isActive = y === state.year;
         
@@ -474,11 +473,11 @@ window.showHomeView = function() {
     state.view = 'home'; state.country = null; state.year = 'ALL';
     document.getElementById('global-search').value = ''; state.searchQuery = '';
     document.getElementById('header-flag').src = 'https://flagcdn.com/w80/eu.png';
-    document.getElementById('header-title').textContent = 'EuroColección';
+    document.getElementById('header-title').innerHTML = 'EuroColección <span class="text-[10px] font-bold text-blue-300 bg-blue-900/30 px-2 py-0.5 rounded-full align-middle ml-2 border border-blue-700/50 shadow-inner">v1.13</span>';
     document.getElementById('header-subtitle').textContent = 'Mapa y Estado Global';
     document.getElementById('country-subheader').classList.add('hidden');
     document.getElementById('top-controls').classList.remove('hidden');
-    updateHeaderStats(); renderSidebar(); updateFilterButtonsUI(); renderMainContent();
+    updateHeaderStats(); renderSidebar(); updateFilterButtonsUI(); renderMainContent(); updateSortVisibility();
 };
 
 window.selectCountry = function(countryId) {
@@ -494,7 +493,7 @@ window.selectCountry = function(countryId) {
     document.getElementById('country-subheader').classList.remove('hidden');
     document.getElementById('top-controls').classList.remove('hidden');
     
-    updateHeaderStats(); renderSidebar(); updateFilterButtonsUI(); renderYearSelector(countryObj.start); renderMainContent();
+    updateHeaderStats(); renderSidebar(); updateFilterButtonsUI(); renderYearSelector(countryObj.start); renderMainContent(); updateSortVisibility();
 };
 
 window.toggleFilter = function(filterKey) {
@@ -544,6 +543,7 @@ function renderMainContent() {
     } else if (state.view === 'country') {
         renderCountryCoinsView(container);
     }
+    updateSortVisibility();
 }
 
 function renderSearchResults(container) {
@@ -1071,7 +1071,7 @@ window.openModal = function(action, idOrRef = null, type = 'Standard', yearParam
         modeInput.value = 'catalog'; title.textContent = 'Añadir al Catálogo';
         document.getElementById('modal-catalog-fields').classList.remove('hidden');
         document.getElementById('catalog-year').value = Math.max(2004, currentYear);
-        preview.innerHTML = `<div class="coin-base coin-2e coin-bimetal-2 w-full max-w-[280px] shadow-2xl mx-auto" style="font-size: 3rem;"><span>2€</span></div>`;
+        preview.innerHTML = `<div class="w-full flex justify-center py-6"><div class="coin-base coin-2e coin-bimetal-2 w-full shadow-2xl scale-125" style="max-width: 180px; aspect-ratio: 1/1; height: auto; ${img ? `background-image: url('${img}'); border-width: 0px !important; box-shadow: none !important;` : ''}">${!img ? `<span>${lbl}</span>` : ''}</div></div>`;
     } else if (action === 'delete-catalog') {
         modeInput.value = 'delete-catalog'; title.textContent = 'Eliminar del Catálogo';
         document.getElementById('modal-delete-fields').classList.remove('hidden');
@@ -1220,6 +1220,14 @@ function renderStandardVariantsList(countryId, refId) {
             </div>
         </div>
     `).join('');
+}
+
+function updateSortVisibility() {
+    const sortControls = document.getElementById('sort-controls-container');
+    if (sortControls) {
+        // Solo mostramos la ordenación si estamos dentro de un país o si hay una búsqueda activa
+        sortControls.style.display = (state.view === 'country' || state.searchQuery.length > 0) ? 'flex' : 'none';
+    }
 }
 
 window.removeStandardVariant = function(countryId, refId, start, end) {
