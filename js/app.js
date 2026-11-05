@@ -1,5 +1,5 @@
 // CLAVE SECRETA DE ADMINISTRADOR (Cambia este token si lo deseas)
-const ADMIN_TOKEN = "14";
+const ADMIN_TOKEN = "15";
 
 // Comprobación de Privilegios de Administrador mediante la URL
 const urlParams = new URLSearchParams(window.location.search);
@@ -46,6 +46,63 @@ const denominations = [
     { id: '1e', label: '1 Euro', val: 1.00, sizeClass: 'coin-1e', css: 'coin-bimetal-1' },
     { id: '2e', label: '2 Euros', val: 2.00, sizeClass: 'coin-2e', css: 'coin-bimetal-2' }
 ];
+
+// Series Base Preconfiguradas Globales
+const PRECONFIGURED_SERIES = {
+    'ESP': [
+        { id: 'esp-s1', title: '1ª Serie (Juan Carlos I - Mapa Original)', start: 1999, end: 2006 },
+        { id: 'esp-s2', title: '2ª Serie (Juan Carlos I - Nuevo Mapa)', start: 2007, end: 2014 },
+        { id: 'esp-s3', title: '3ª Serie (Rey Felipe VI)', start: 2015, end: 'Actual' }
+    ],
+    'VAT': [
+        { id: 'vat-s1', title: '1ª Serie (Juan Pablo II)', start: 2002, end: 2005 },
+        { id: 'vat-s2', title: '2ª Serie (Sede Vacante)', start: 2005, end: 2005 },
+        { id: 'vat-s3', title: '3ª Serie (Benedicto XVI)', start: 2006, end: 2013 },
+        { id: 'vat-s4', title: '4ª Serie (Papa Francisco)', start: 2014, end: 2016 },
+        { id: 'vat-s5', title: '5ª Serie (Escudo Papal)', start: 2017, end: 'Actual' }
+    ],
+    'BEL': [
+        { id: 'bel-s1', title: '1ª Serie (Rey Alberto II)', start: 1999, end: 2007 },
+        { id: 'bel-s2', title: '2ª Serie (Rey Alberto II - Monograma adaptado)', start: 2008, end: 2013 },
+        { id: 'bel-s3', title: '3ª Serie (Rey Felipe)', start: 2014, end: 'Actual' }
+    ],
+    'NLD': [
+        { id: 'nld-s1', title: '1ª Serie (Reina Beatriz)', start: 1999, end: 2013 },
+        { id: 'nld-s2', title: '1ª Serie (Rey Guillermo Alejandro)', start: 2014, end: 'Actual' }
+    ],
+    'MCO': [
+        { id: 'mco-s1', title: '1ª Serie (Príncipe Rainiero III)', start: 2001, end: 2005 },
+        { id: 'mco-s2', title: '2ª Serie (Príncipe Alberto II)', start: 2006, end: 'Actual' }
+    ],
+    'SMR': [
+        { id: 'smr-s1', title: '1ª Serie (Diseño Original)', start: 2002, end: 2016 },
+        { id: 'smr-s2', title: '2ª Serie (Nuevo Diseño)', start: 2017, end: 'Actual' }
+    ],
+    'FRA': [
+        { id: 'fra-s1', title: '1ª Serie (Diseño Original)', start: 1999, end: 2021 },
+        { id: 'fra-s2', title: '2ª Serie (Nuevo Diseño)', start: 2022, end: 'Actual' }
+    ],
+    'FIN': [
+        { id: 'fin-s1', title: '1ª Serie (Diseño Original)', start: 1999, end: 2006 },
+        { id: 'fin-s2', title: '2ª Serie (Adición del identificador "FI")', start: 2007, end: 'Actual' }
+    ],
+    'LUX': [{ id: 'lux-s1', title: '1ª Serie (Gran Duque Enrique)', start: 2002, end: 'Actual' }],
+    'AND': [{ id: 'and-s1', title: '1ª Serie (Diseño Original)', start: 2014, end: 'Actual' }],
+    'AUT': [{ id: 'aut-s1', title: '1ª Serie (Diseño Original)', start: 2002, end: 'Actual' }],
+    'HRV': [{ id: 'hrv-s1', title: '1ª Serie (Diseño Original)', start: 2023, end: 'Actual' }],
+    'CYP': [{ id: 'cyp-s1', title: '1ª Serie (Diseño Original)', start: 2008, end: 'Actual' }],
+    'EST': [{ id: 'est-s1', title: '1ª Serie (Diseño Original)', start: 2011, end: 'Actual' }],
+    'DEU': [{ id: 'deu-s1', title: '1ª Serie (Diseño Original)', start: 2002, end: 'Actual' }],
+    'GRC': [{ id: 'grc-s1', title: '1ª Serie (Diseño Original)', start: 2002, end: 'Actual' }],
+    'IRL': [{ id: 'irl-s1', title: '1ª Serie (Diseño Original)', start: 2002, end: 'Actual' }],
+    'ITA': [{ id: 'ita-s1', title: '1ª Serie (Diseño Original)', start: 2002, end: 'Actual' }],
+    'LVA': [{ id: 'lva-s1', title: '1ª Serie (Diseño Original)', start: 2014, end: 'Actual' }],
+    'LTU': [{ id: 'ltu-s1', title: '1ª Serie (Diseño Original)', start: 2015, end: 'Actual' }],
+    'MLT': [{ id: 'mlt-s1', title: '1ª Serie (Diseño Original)', start: 2008, end: 'Actual' }],
+    'PRT': [{ id: 'prt-s1', title: '1ª Serie (Diseño Original)', start: 2002, end: 'Actual' }],
+    'SVK': [{ id: 'svk-s1', title: '1ª Serie (Diseño Original)', start: 2009, end: 'Actual' }],
+    'SVN': [{ id: 'svn-s1', title: '1ª Serie (Diseño Original)', start: 2007, end: 'Actual' }]
+};
 
 const worldCurrencies = {
     'MNE': 'Euro (EUR)','XKX': 'Euro (EUR)', 'GUF': 'Euro (EUR)','ATF': 'Euro (EUR)', 'AT': 'Euro (EUR)',
@@ -146,67 +203,20 @@ function procesarRutaImagen(input) {
 }
 // ---------------------------------------------------------------
 
-// Cargar Datos Iniciales (Local Storage si es Admin, o JSON si es Público)
+// --- NUEVA FUNCIÓN PARA CALCULAR ESTILOS DE RAREZA POR TIRADA ---
+window.getRarityStyle = function(mintage) {
+    if (!mintage || isNaN(mintage)) return '';
+    const m = parseInt(mintage);
+    if (m <= 25000) return 'border-color: #8E24AA !important; border-width: 2px !important; box-shadow: 0 0 15px rgba(142, 36, 170, 0.6) !important;';
+    if (m <= 150000) return 'border-color: #FF9100 !important; border-width: 2px !important; box-shadow: 0 0 12px rgba(255, 145, 0, 0.5) !important;';
+    if (m <= 500000) return 'border-color: #FBC02D !important; border-width: 2px !important; box-shadow: 0 0 8px rgba(251, 192, 45, 0.4) !important;';
+    if (m <= 1500000) return 'border-color: #29B6F6 !important; border-width: 2px !important; box-shadow: none !important;';
+    return 'border-color: rgba(158, 158, 158, 0.4) !important; border-width: 1px !important; box-shadow: none !important;';
+};
+// ----------------------------------------------------------------
 
 // Cargar Datos Iniciales (Local Storage si es Admin, o JSON si es Público)
 async function loadAppData() {
-    // Definimos las series base aquí para que nunca se borren accidentalmente
-    const preconfiguredSeries = {
-        'ESP': [
-            { id: 'esp-s1', title: '1ª Serie (Juan Carlos I - Mapa Original)', start: 1999, end: 2006 },
-            { id: 'esp-s2', title: '2ª Serie (Juan Carlos I - Nuevo Mapa)', start: 2007, end: 2014 },
-            { id: 'esp-s3', title: '3ª Serie (Rey Felipe VI)', start: 2015, end: 'Actual' }
-        ],
-        'VAT': [
-            { id: 'vat-s1', title: '1ª Serie (Juan Pablo II)', start: 2002, end: 2005 },
-            { id: 'vat-s2', title: '2ª Serie (Sede Vacante)', start: 2005, end: 2005 },
-            { id: 'vat-s3', title: '3ª Serie (Benedicto XVI)', start: 2006, end: 2013 },
-            { id: 'vat-s4', title: '4ª Serie (Papa Francisco)', start: 2014, end: 2016 },
-            { id: 'vat-s5', title: '5ª Serie (Escudo Papal)', start: 2017, end: 'Actual' }
-        ],
-        'BEL': [
-            { id: 'bel-s1', title: '1ª Serie (Rey Alberto II)', start: 1999, end: 2007 },
-            { id: 'bel-s2', title: '2ª Serie (Rey Alberto II - Monograma adaptado)', start: 2008, end: 2013 },
-            { id: 'bel-s3', title: '3ª Serie (Rey Felipe)', start: 2014, end: 'Actual' }
-        ],
-        'NLD': [
-            { id: 'nld-s1', title: '1ª Serie (Reina Beatriz)', start: 1999, end: 2013 },
-            { id: 'nld-s2', title: '1ª Serie (Rey Guillermo Alejandro)', start: 2014, end: 'Actual' }
-        ],
-        'MCO': [
-            { id: 'mco-s1', title: '1ª Serie (Príncipe Rainiero III)', start: 2001, end: 2005 },
-            { id: 'mco-s2', title: '2ª Serie (Príncipe Alberto II)', start: 2006, end: 'Actual' }
-        ],
-        'SMR': [
-            { id: 'smr-s1', title: '1ª Serie (Diseño Original)', start: 2002, end: 2016 },
-            { id: 'smr-s2', title: '2ª Serie (Nuevo Diseño)', start: 2017, end: 'Actual' }
-        ],
-        'FRA': [
-            { id: 'fra-s1', title: '1ª Serie (Diseño Original)', start: 1999, end: 2021 },
-            { id: 'fra-s2', title: '2ª Serie (Nuevo Diseño)', start: 2022, end: 'Actual' }
-        ],
-        'FIN': [
-            { id: 'fin-s1', title: '1ª Serie (Diseño Original)', start: 1999, end: 2006 },
-            { id: 'fin-s2', title: '2ª Serie (Adición del identificador "FI")', start: 2007, end: 'Actual' }
-        ],
-        'LUX': [{ id: 'lux-s1', title: '1ª Serie (Gran Duque Enrique)', start: 2002, end: 'Actual' }],
-        'AND': [{ id: 'and-s1', title: '1ª Serie (Diseño Original)', start: 2014, end: 'Actual' }],
-        'AUT': [{ id: 'aut-s1', title: '1ª Serie (Diseño Original)', start: 2002, end: 'Actual' }],
-        'HRV': [{ id: 'hrv-s1', title: '1ª Serie (Diseño Original)', start: 2023, end: 'Actual' }],
-        'CYP': [{ id: 'cyp-s1', title: '1ª Serie (Diseño Original)', start: 2008, end: 'Actual' }],
-        'EST': [{ id: 'est-s1', title: '1ª Serie (Diseño Original)', start: 2011, end: 'Actual' }],
-        'DEU': [{ id: 'deu-s1', title: '1ª Serie (Diseño Original)', start: 2002, end: 'Actual' }],
-        'GRC': [{ id: 'grc-s1', title: '1ª Serie (Diseño Original)', start: 2002, end: 'Actual' }],
-        'IRL': [{ id: 'irl-s1', title: '1ª Serie (Diseño Original)', start: 2002, end: 'Actual' }],
-        'ITA': [{ id: 'ita-s1', title: '1ª Serie (Diseño Original)', start: 2002, end: 'Actual' }],
-        'LVA': [{ id: 'lva-s1', title: '1ª Serie (Diseño Original)', start: 2014, end: 'Actual' }],
-        'LTU': [{ id: 'ltu-s1', title: '1ª Serie (Diseño Original)', start: 2015, end: 'Actual' }],
-        'MLT': [{ id: 'mlt-s1', title: '1ª Serie (Diseño Original)', start: 2008, end: 'Actual' }],
-        'PRT': [{ id: 'prt-s1', title: '1ª Serie (Diseño Original)', start: 2002, end: 'Actual' }],
-        'SVK': [{ id: 'svk-s1', title: '1ª Serie (Diseño Original)', start: 2009, end: 'Actual' }],
-        'SVN': [{ id: 'svn-s1', title: '1ª Serie (Diseño Original)', start: 2007, end: 'Actual' }]
-    };
-
     const hasLocalData = localStorage.getItem('euroColl_Collection') !== null;
 
     if (isAdmin && hasLocalData) {
@@ -220,7 +230,7 @@ async function loadAppData() {
         
         const savedSeries = JSON.parse(localStorage.getItem('euroColl_Series')) || {};
         // Fusiona las series guardadas sobre las preconfiguradas
-        standardSeries = { ...preconfiguredSeries, ...savedSeries };
+        standardSeries = { ...PRECONFIGURED_SERIES, ...savedSeries };
     } else {
         // Modo Público O Modo Admin por primera vez (sin datos en localStorage)
         try {
@@ -235,7 +245,7 @@ async function loadAppData() {
                 globalCommonInfo = data.globalCommonInfo || {};
                 
                 const fetchedSeries = data.standardSeries || {};
-                standardSeries = { ...preconfiguredSeries, ...fetchedSeries };
+                standardSeries = { ...PRECONFIGURED_SERIES, ...fetchedSeries };
                 
                 // Si entró como admin por primera vez, autoguarda el JSON en localStorage
                 if (isAdmin) saveData();
@@ -244,7 +254,7 @@ async function loadAppData() {
             }
         } catch (error) {
             console.warn('No se encontró mi_coleccion.json. Se cargará vacío.');
-            standardSeries = { ...preconfiguredSeries };
+            standardSeries = { ...PRECONFIGURED_SERIES };
         }
     }
 
@@ -327,8 +337,11 @@ function getCountryStats(countryId) {
         totalMax += ys.totalMax; totalOwned += ys.totalOwned;
     }
 
-    // 1. Manejar series: Obtener personalizadas o usar la por defecto
+    // 1. Manejar series: Obtener personalizadas o usar la preconfigurada por defecto
     let seriesList = standardSeries[countryId];
+    if (!seriesList || seriesList.length === 0) {
+        seriesList = PRECONFIGURED_SERIES[countryId];
+    }
     if (!seriesList || seriesList.length === 0) {
         seriesList = [{ id: 'default', title: 'Diseño Regular', start: countryObj.start, end: 'Actual' }];
     }
@@ -476,7 +489,7 @@ window.showHomeView = function() {
     if (searchInput) searchInput.value = '';
 
     document.getElementById('header-flag').src = 'https://flagcdn.com/w80/eu.png';
-    document.getElementById('header-title').innerHTML = 'EuroColección <span class="text-[10px] font-bold text-blue-300 bg-blue-900/30 px-2 py-0.5 rounded-full align-middle ml-2 border border-blue-700/50 shadow-inner">v1.13</span>';
+    document.getElementById('header-title').innerHTML = 'EuroColección <span class="text-[10px] font-bold text-blue-300 bg-blue-900/30 px-2 py-0.5 rounded-full align-middle ml-2 border border-blue-700/50 shadow-inner">v15</span>';
     document.getElementById('header-subtitle').textContent = 'Mapa y Estado Global';
     
     const subheader = document.getElementById('country-subheader');
@@ -542,7 +555,10 @@ window.toggleSort = function(type) {
 };
 
 window.handleSearchFilter = function() {
-    state.searchQuery = document.getElementById('global-search').value.toLowerCase().trim();
+    const searchInput = document.getElementById('global-search');
+    if (searchInput) {
+        state.searchQuery = searchInput.value.toLowerCase().trim();
+    }
     updateHeaderStats();
     renderMainContent();
 };
@@ -637,6 +653,12 @@ function renderSearchResults(container) {
                     <span class="text-[11px] font-semibold mt-3 text-center shrink-0">${res.isOwned ? getConditionStars(res.existing.condition) : '<span class="text-slate-500">Falta</span>'}</span>
                 </div>`;
         } else {
+            const rarityStyle = window.getRarityStyle(res.catItem.mintage);
+            let imgStyle = res.catItem.image ? `background-image: url('${res.catItem.image}');` : '';
+            if (res.catItem.image && !rarityStyle) {
+                imgStyle += ' border-width: 0px !important; box-shadow: none !important;';
+            }
+
             gridHtml += `
                 <div class="flex flex-col items-center w-full h-full relative group bg-slate-900/50 p-4 rounded-xl border border-slate-800/60 hover:bg-slate-800/80 transition-colors">
                     <div class="text-center w-full mb-3 shrink-0">
@@ -644,7 +666,7 @@ function renderSearchResults(container) {
                         <span class="text-xs font-bold text-white">${res.year}</span>
                     </div>
                     <div class="flex-1 w-full flex items-center justify-center cursor-pointer min-h-[80px]" ${canClick ? `onclick="window.openModal('${res.isOwned ? 'edit-collection' : 'add-collection'}', '${res.catItem.id}', 'Commemorative', ${res.year}, '${res.country.id}')"` : ''}>
-                        <div class="coin-base coin-2e coin-bimetal-2 ${res.isOwned ? '' : 'coin-disabled'} w-full max-w-[80px]" style="${res.catItem.image ? `background-image: url('${res.catItem.image}'); border-width: 0px !important; box-shadow: none !important;` : ''}">
+                        <div class="coin-base coin-2e coin-bimetal-2 ${res.isOwned ? '' : 'coin-disabled'} w-full max-w-[80px]" style="${imgStyle} ${rarityStyle}">
                             ${!res.catItem.image ? `<span>2€</span>` : ''}
                         </div>
                     </div>
@@ -813,6 +835,9 @@ function renderCountryCoinsView(container) {
     
     let seriesList = standardSeries[state.country];
     if (!seriesList || seriesList.length === 0) {
+        seriesList = PRECONFIGURED_SERIES[state.country];
+    }
+    if (!seriesList || seriesList.length === 0) {
         seriesList = [{ id: 'default', title: 'Diseño Regular', start: countryObj.start, end: 'Actual' }];
     }
     
@@ -849,17 +874,15 @@ function renderCountryCoinsView(container) {
         
         // Bloques internos de cada serie individual (más oscuros para dar profundidad)
         const blockBg = isSeriesComplete ? (isGold ? 'bg-yellow-800/40 border-yellow-600/40' : 'bg-blue-800/40 border-blue-500/40') : 'bg-slate-900/60 border-slate-700/80';
-        const textColor = isSeriesComplete ? (isGold ? 'text-yellow-200' : 'text-blue-200') : 'text-slate-300';
         
         let blockHtml = `
         <div class="${blockBg} border rounded-xl p-5 transition-colors">
             <div class="flex justify-between items-center mb-5">
                 <div>
                     <h4 class="text-lg font-bold text-white">${series.title}</h4>
-                    <p class="text-xs ${textColor}">${series.start} - ${series.end}</p>
                 </div>
-                <div class="px-3 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider ${isSeriesComplete ? (isGold ? 'bg-yellow-600 text-yellow-100' : 'bg-blue-600 text-white') : 'bg-slate-800 text-slate-400 border border-slate-700'}">
-                    ${isSeriesComplete ? 'Completada' : 'Incompleta'}
+                <div class="px-3 py-1.5 rounded-md text-xs font-bold tracking-wider ${isSeriesComplete ? (isGold ? 'bg-yellow-600 text-yellow-100' : 'bg-blue-600 text-white') : 'bg-slate-800 text-slate-400 border border-slate-700'} shadow-sm">
+                    ${series.start} - ${series.end}
                 </div>
             </div>
             
@@ -981,10 +1004,16 @@ function renderCountryCoinsView(container) {
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">`;
             
             yearCommemItems.forEach(({ catItem, existing, isOwned }) => {
+                const rarityStyle = window.getRarityStyle(catItem.mintage);
+                let imgStyle = catItem.image ? `background-image: url('${catItem.image}');` : '';
+                if (catItem.image && !rarityStyle) {
+                    imgStyle += ' border-width: 0px !important; box-shadow: none !important;';
+                }
+
                 blockHtml += `<div class="flex flex-col items-center w-full h-full relative group bg-slate-900/50 p-4 rounded-xl border border-slate-800/60 hover:bg-slate-800/80 transition-colors">
                             ${isAdmin ? `<button onclick="window.openModal('delete-catalog', '${catItem.id}')" class="absolute top-2 right-2 bg-slate-950 p-1.5 rounded-full text-slate-500 hover:text-red-500 border border-slate-800 z-10 opacity-0 group-hover:opacity-100 transition-opacity shadow"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>` : ''}
                             <div class="flex-1 w-full flex items-center justify-center min-h-[80px] ${isAdmin ? 'cursor-pointer' : ''}" ${isAdmin ? `onclick="window.openModal('${isOwned ? 'edit-collection' : 'add-collection'}', '${catItem.id}', 'Commemorative', ${y}, '${state.country}')"` : ''}>
-                                <div class="coin-base coin-2e coin-bimetal-2 ${isOwned ? '' : 'coin-disabled'} w-full max-w-[80px]" style="${catItem.image ? `background-image: url('${catItem.image}'); border-width: 0px !important; box-shadow: none !important;` : ''}">
+                                <div class="coin-base coin-2e coin-bimetal-2 ${isOwned ? '' : 'coin-disabled'} w-full max-w-[80px]" style="${imgStyle} ${rarityStyle}">
                                     ${!catItem.image ? `<span>2€</span>` : ''}
                                 </div>
                             </div>
@@ -1086,7 +1115,9 @@ window.openModal = function(action, idOrRef = null, type = 'Standard', yearParam
         modeInput.value = 'catalog'; title.textContent = 'Añadir al Catálogo';
         document.getElementById('modal-catalog-fields').classList.remove('hidden');
         document.getElementById('catalog-year').value = Math.max(2004, currentYear);
-        preview.innerHTML = `<div class="w-full flex justify-center py-6"><div class="coin-base coin-2e coin-bimetal-2 w-full shadow-2xl scale-125" style="max-width: 180px; aspect-ratio: 1/1; height: auto; ${img ? `background-image: url('${img}'); border-width: 0px !important; box-shadow: none !important;` : ''}">${!img ? `<span>${lbl}</span>` : ''}</div></div>`;
+        const mintageEl = document.getElementById('catalog-mintage');
+        if (mintageEl) mintageEl.value = ''; // Limpiamos el campo tirada
+        preview.innerHTML = `<div class="w-full flex justify-center py-6"><div class="coin-base coin-2e coin-bimetal-2 w-full shadow-2xl scale-125" style="max-width: 180px; aspect-ratio: 1/1; height: auto;"><span>2€</span></div></div>`;
     } else if (action === 'delete-catalog') {
         modeInput.value = 'delete-catalog'; title.textContent = 'Eliminar del Catálogo';
         document.getElementById('modal-delete-fields').classList.remove('hidden');
@@ -1371,7 +1402,17 @@ window.handleFormSubmit = function(e) {
     } else if (mode === 'catalog') {
         const yr = parseInt(document.getElementById('catalog-year').value) || pYear;
         const imgInput = document.getElementById('catalog-image').value.trim();
-        if (yr >= 2004) catalog.push({ id: 'cat_' + Date.now(), country: safeCountry, year: yr, title: document.getElementById('catalog-title').value || 'Conmemorativa', image: procesarRutaImagen(imgInput) }); // <-- Aplicamos la función
+        const mintageInput = document.getElementById('catalog-mintage') ? document.getElementById('catalog-mintage').value.trim() : ''; // Leemos la tirada
+        if (yr >= 2004) {
+            catalog.push({ 
+                id: 'cat_' + Date.now(), 
+                country: safeCountry, 
+                year: yr, 
+                title: document.getElementById('catalog-title').value || 'Conmemorativa', 
+                image: procesarRutaImagen(imgInput),
+                mintage: mintageInput ? parseInt(mintageInput) : null // Se guarda la tirada
+            });
+        }
     } else if (mode === 'delete-catalog') {
         catalog = catalog.filter(c => c.id !== refId); collection = collection.filter(c => c.refId !== refId);
     } else if (mode === 'manage-series') {
