@@ -119,7 +119,8 @@ let state = {
     filters: { owned: true, missing: true, standard: true, commem: true }
 };
 
-let countries = [];
+let countries = [...initialCountries];
+sortCountriesArray();
 let collection = [];
 let catalog = [];
 let standardImages = {};
@@ -1376,7 +1377,7 @@ window.handleFormSubmit = function(e) {
         saveData();
         // Cerrar modal y refrescar pantalla
         document.getElementById('app-modal').classList.add('hidden');
-        if (state.view === 'country') window.loadCountryView(state.country);
+        if (state.view === 'country') window.selectCountry(state.country);
         // Limpiar el estado de edición por si acaso
         currentEditingSeriesIndex = null;
         
@@ -1477,7 +1478,7 @@ window.deleteSeries = function(countryId, index) {
         if(standardSeries[countryId].length === 0) delete standardSeries[countryId];
         saveData();
         renderSeriesListModal(countryId);
-        if (state.view === 'country') window.loadCountryView(countryId);
+        if (state.view === 'country') window.selectCountry(countryId);
     }
 };
 
