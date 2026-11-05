@@ -1,5 +1,5 @@
 // CLAVE SECRETA DE ADMINISTRADOR (Cambia este token si lo deseas)
-const ADMIN_TOKEN = "15";
+const ADMIN_TOKEN = "16";
 
 // Comprobación de Privilegios de Administrador mediante la URL
 const urlParams = new URLSearchParams(window.location.search);
@@ -294,6 +294,67 @@ window.exportCollectionJSON = function() {
     URL.revokeObjectURL(url);
 };
 
+window.importCollectionJSON = function() {
+    const fileInput = document.getElementById('import-file-input');
+    if (!fileInput.files.length) {
+        alert('Por favor, selecciona primero tu archivo mi_coleccion.json.');
+        return;
+    }
+
+    const file = fileInput.files[0];
+    const reader = new FileReader();
+
+    reader.onload = function(e) {
+        try {
+            const data = JSON.parse(e.target.result);
+            
+            if (confirm('⚠️ ¿Estás seguro de que deseas sobrescribir tu colección actual con los datos de este archivo? Esta acción no se puede deshacer.')) {
+                
+                // Cargar los datos del JSON o usar valores por defecto si faltan
+                if (data.maxYear) globalMaxYear = data.maxYear;
+                if (data.countries) countries = data.countries;
+                if (data.collection) collection = data.collection;
+                if (data.catalog) catalog = data.catalog;
+                if (data.standardSeries) standardSeries = data.standardSeries;
+                if (data.standardImages) standardImages = data.standardImages;
+                if (data.standardInfo) standardInfo = data.standardInfo;
+                if (data.globalCommonInfo) globalCommonInfo = data.globalCommonInfo;
+                if (data.globalCommonImages) globalCommonImages = data.globalCommonImages;
+                
+                // Forzar un guardado en el navegador (Local Storage)
+                saveData();
+                sortCountriesArray();
+                
+                // Actualizar los campos del modal de configuración por si quedan abiertos
+                if (document.getElementById('config-year-input')) {
+                    document.getElementById('config-year-input').value = globalMaxYear;
+                }
+                if (window.populateDeleteCountrySelect) {
+                    window.populateDeleteCountrySelect();
+                }
+                
+                // Refrescar toda la interfaz visual
+                updateHeaderStats();
+                renderSidebar();
+                
+                if (state.view === 'country') {
+                    const countryObj = countries.find(c => c.id === state.country);
+                    if(countryObj) renderYearSelector(countryObj.start);
+                }
+                renderMainContent();
+                
+                alert('✅ Colección restaurada con éxito.');
+                fileInput.value = ''; // Limpiar el selector de archivo
+            }
+        } catch (err) {
+            console.error(err);
+            alert('❌ Error al leer el archivo. Asegúrate de que es un JSON válido generado por EuroColección.');
+        }
+    };
+    
+    reader.readAsText(file);
+};
+
 function sortCountriesArray() {
     countries.sort((a, b) => {
         if (a.id === 'VA') return 1;
@@ -489,7 +550,7 @@ window.showHomeView = function() {
     if (searchInput) searchInput.value = '';
 
     document.getElementById('header-flag').src = 'https://flagcdn.com/w80/eu.png';
-    document.getElementById('header-title').innerHTML = 'EuroColección <span class="text-[10px] font-bold text-blue-300 bg-blue-900/30 px-2 py-0.5 rounded-full align-middle ml-2 border border-blue-700/50 shadow-inner">v15</span>';
+    document.getElementById('header-title').innerHTML = 'EuroColección';
     document.getElementById('header-subtitle').textContent = 'Mapa y Estado Global';
     
     const subheader = document.getElementById('country-subheader');
