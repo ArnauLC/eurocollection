@@ -248,13 +248,7 @@ async function loadAppData() {
         }
     }
 
-    if (typeof renderInteractiveMap === 'function') renderInteractiveMap();
-    if (state.view === 'country') window.selectCountry(state.country);
-    else if (state.searchQuery) renderSearchResults(document.getElementById('search-results-container'));
-    
-    // Forzamos el renderizado del menú lateral al terminar de cargar los datos
-    renderSidebar();
-    updateHeaderStats();
+    window.showHomeView();
 }
 
 function saveData() {
