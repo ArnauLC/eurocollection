@@ -1,5 +1,5 @@
 // CLAVE SECRETA DE ADMINISTRADOR (Cambia este token si lo deseas)
-const ADMIN_TOKEN = "12";
+const ADMIN_TOKEN = "13";
 
 // Comprobación de Privilegios de Administrador mediante la URL
 const urlParams = new URLSearchParams(window.location.search);
@@ -124,65 +124,11 @@ let collection = [];
 let catalog = [];
 let standardImages = {};
 let standardInfo = {};
+let standardSeries = {};
 let globalCommonInfo = {};
 let globalCommonImages = {};
 let currentGlobalVariants = [];
 let currentStandardVariants = [];
-let standardSeries = {
-    'ESP': [
-        { id: 'esp-s1', title: '1ª Serie (Juan Carlos I - Mapa Original)', start: 1999, end: 2006 },
-        { id: 'esp-s2', title: '2ª Serie (Juan Carlos I - Nuevo Mapa)', start: 2007, end: 2014 },
-        { id: 'esp-s3', title: '3ª Serie (Rey Felipe VI)', start: 2015, end: 'Actual' }
-    ],
-    'VAT': [
-        { id: 'vat-s1', title: '1ª Serie (Juan Pablo II)', start: 2002, end: 2005 },
-        { id: 'vat-s2', title: '2ª Serie (Sede Vacante)', start: 2005, end: 2005 },
-        { id: 'vat-s3', title: '3ª Serie (Benedicto XVI)', start: 2006, end: 2013 },
-        { id: 'vat-s4', title: '4ª Serie (Papa Francisco)', start: 2014, end: 2016 },
-        { id: 'vat-s5', title: '5ª Serie (Escudo Papal)', start: 2017, end: 'Actual' }
-    ],
-    'BEL': [
-        { id: 'bel-s1', title: '1ª Serie (Rey Alberto II)', start: 1999, end: 2007 },
-        { id: 'bel-s2', title: '2ª Serie (Rey Alberto II - Monograma adaptado)', start: 2008, end: 2013 },
-        { id: 'bel-s3', title: '3ª Serie (Rey Felipe)', start: 2014, end: 'Actual' }
-    ],
-    'NLD': [
-        { id: 'nld-s1', title: '1ª Serie (Reina Beatriz)', start: 1999, end: 2013 },
-        { id: 'nld-s2', title: '1ª Serie (Rey Guillermo Alejandro)', start: 2014, end: 'Actual' }
-    ],
-    'MCO': [
-        { id: 'mco-s1', title: '1ª Serie (Príncipe Rainiero III)', start: 2001, end: 2005 },
-        { id: 'mco-s2', title: '2ª Serie (Príncipe Alberto II)', start: 2006, end: 'Actual' }
-    ],
-    'SMR': [
-        { id: 'smr-s1', title: '1ª Serie (Diseño Original)', start: 2002, end: 2016 },
-        { id: 'smr-s2', title: '2ª Serie (Nuevo Diseño)', start: 2017, end: 'Actual' }
-    ],
-    'FRA': [
-        { id: 'fra-s1', title: '1ª Serie (Diseño Original)', start: 1999, end: 2021 },
-        { id: 'fra-s2', title: '2ª Serie (Nuevo Diseño)', start: 2022, end: 'Actual' }
-    ],
-    'FIN': [
-        { id: 'fin-s1', title: '1ª Serie (Diseño Original)', start: 1999, end: 2006 },
-        { id: 'fin-s2', title: '2ª Serie (Adición del identificador "FI")', start: 2007, end: 'Actual' }
-    ],
-    'LUX': [{ id: 'lux-s1', title: '1ª Serie (Gran Duque Enrique)', start: 2002, end: 'Actual' }],
-    'AND': [{ id: 'and-s1', title: '1ª Serie (Diseño Original)', start: 2014, end: 'Actual' }],
-    'AUT': [{ id: 'aut-s1', title: '1ª Serie (Diseño Original)', start: 2002, end: 'Actual' }],
-    'HRV': [{ id: 'hrv-s1', title: '1ª Serie (Diseño Original)', start: 2023, end: 'Actual' }],
-    'CYP': [{ id: 'cyp-s1', title: '1ª Serie (Diseño Original)', start: 2008, end: 'Actual' }],
-    'EST': [{ id: 'est-s1', title: '1ª Serie (Diseño Original)', start: 2011, end: 'Actual' }],
-    'DEU': [{ id: 'deu-s1', title: '1ª Serie (Diseño Original)', start: 2002, end: 'Actual' }],
-    'GRC': [{ id: 'grc-s1', title: '1ª Serie (Diseño Original)', start: 2002, end: 'Actual' }],
-    'IRL': [{ id: 'irl-s1', title: '1ª Serie (Diseño Original)', start: 2002, end: 'Actual' }],
-    'ITA': [{ id: 'ita-s1', title: '1ª Serie (Diseño Original)', start: 2002, end: 'Actual' }],
-    'LVA': [{ id: 'lva-s1', title: '1ª Serie (Diseño Original)', start: 2014, end: 'Actual' }],
-    'LTU': [{ id: 'ltu-s1', title: '1ª Serie (Diseño Original)', start: 2015, end: 'Actual' }],
-    'MLT': [{ id: 'mlt-s1', title: '1ª Serie (Diseño Original)', start: 2008, end: 'Actual' }],
-    'PRT': [{ id: 'prt-s1', title: '1ª Serie (Diseño Original)', start: 2002, end: 'Actual' }],
-    'SVK': [{ id: 'svk-s1', title: '1ª Serie (Diseño Original)', start: 2009, end: 'Actual' }],
-    'SVN': [{ id: 'svn-s1', title: '1ª Serie (Diseño Original)', start: 2007, end: 'Actual' }]
-};
 
 window.modalPreviewIndex = 0;
 
@@ -203,47 +149,108 @@ function procesarRutaImagen(input) {
 
 // Cargar Datos Iniciales (Local Storage si es Admin, o JSON si es Público)
 async function loadAppData() {
-    if (isAdmin) {
-        // En Modo Admin cargamos desde el LocalStorage
-        globalMaxYear = parseInt(localStorage.getItem('euroColl_MaxYear')) || Math.max(2026, currentYearConstant);
-        countries = JSON.parse(localStorage.getItem('euroColl_Countries')) || initialCountries;
+    // Definimos las series base aquí para que nunca se borren accidentalmente
+    const preconfiguredSeries = {
+        'ESP': [
+            { id: 'esp-s1', title: '1ª Serie (Juan Carlos I - Mapa Original)', start: 1999, end: 2006 },
+            { id: 'esp-s2', title: '2ª Serie (Juan Carlos I - Nuevo Mapa)', start: 2007, end: 2014 },
+            { id: 'esp-s3', title: '3ª Serie (Rey Felipe VI)', start: 2015, end: 'Actual' }
+        ],
+        'VAT': [
+            { id: 'vat-s1', title: '1ª Serie (Juan Pablo II)', start: 2002, end: 2005 },
+            { id: 'vat-s2', title: '2ª Serie (Sede Vacante)', start: 2005, end: 2005 },
+            { id: 'vat-s3', title: '3ª Serie (Benedicto XVI)', start: 2006, end: 2013 },
+            { id: 'vat-s4', title: '4ª Serie (Papa Francisco)', start: 2014, end: 2016 },
+            { id: 'vat-s5', title: '5ª Serie (Escudo Papal)', start: 2017, end: 'Actual' }
+        ],
+        'BEL': [
+            { id: 'bel-s1', title: '1ª Serie (Rey Alberto II)', start: 1999, end: 2007 },
+            { id: 'bel-s2', title: '2ª Serie (Rey Alberto II - Monograma adaptado)', start: 2008, end: 2013 },
+            { id: 'bel-s3', title: '3ª Serie (Rey Felipe)', start: 2014, end: 'Actual' }
+        ],
+        'NLD': [
+            { id: 'nld-s1', title: '1ª Serie (Reina Beatriz)', start: 1999, end: 2013 },
+            { id: 'nld-s2', title: '1ª Serie (Rey Guillermo Alejandro)', start: 2014, end: 'Actual' }
+        ],
+        'MCO': [
+            { id: 'mco-s1', title: '1ª Serie (Príncipe Rainiero III)', start: 2001, end: 2005 },
+            { id: 'mco-s2', title: '2ª Serie (Príncipe Alberto II)', start: 2006, end: 'Actual' }
+        ],
+        'SMR': [
+            { id: 'smr-s1', title: '1ª Serie (Diseño Original)', start: 2002, end: 2016 },
+            { id: 'smr-s2', title: '2ª Serie (Nuevo Diseño)', start: 2017, end: 'Actual' }
+        ],
+        'FRA': [
+            { id: 'fra-s1', title: '1ª Serie (Diseño Original)', start: 1999, end: 2021 },
+            { id: 'fra-s2', title: '2ª Serie (Nuevo Diseño)', start: 2022, end: 'Actual' }
+        ],
+        'FIN': [
+            { id: 'fin-s1', title: '1ª Serie (Diseño Original)', start: 1999, end: 2006 },
+            { id: 'fin-s2', title: '2ª Serie (Adición del identificador "FI")', start: 2007, end: 'Actual' }
+        ],
+        'LUX': [{ id: 'lux-s1', title: '1ª Serie (Gran Duque Enrique)', start: 2002, end: 'Actual' }],
+        'AND': [{ id: 'and-s1', title: '1ª Serie (Diseño Original)', start: 2014, end: 'Actual' }],
+        'AUT': [{ id: 'aut-s1', title: '1ª Serie (Diseño Original)', start: 2002, end: 'Actual' }],
+        'HRV': [{ id: 'hrv-s1', title: '1ª Serie (Diseño Original)', start: 2023, end: 'Actual' }],
+        'CYP': [{ id: 'cyp-s1', title: '1ª Serie (Diseño Original)', start: 2008, end: 'Actual' }],
+        'EST': [{ id: 'est-s1', title: '1ª Serie (Diseño Original)', start: 2011, end: 'Actual' }],
+        'DEU': [{ id: 'deu-s1', title: '1ª Serie (Diseño Original)', start: 2002, end: 'Actual' }],
+        'GRC': [{ id: 'grc-s1', title: '1ª Serie (Diseño Original)', start: 2002, end: 'Actual' }],
+        'IRL': [{ id: 'irl-s1', title: '1ª Serie (Diseño Original)', start: 2002, end: 'Actual' }],
+        'ITA': [{ id: 'ita-s1', title: '1ª Serie (Diseño Original)', start: 2002, end: 'Actual' }],
+        'LVA': [{ id: 'lva-s1', title: '1ª Serie (Diseño Original)', start: 2014, end: 'Actual' }],
+        'LTU': [{ id: 'ltu-s1', title: '1ª Serie (Diseño Original)', start: 2015, end: 'Actual' }],
+        'MLT': [{ id: 'mlt-s1', title: '1ª Serie (Diseño Original)', start: 2008, end: 'Actual' }],
+        'PRT': [{ id: 'prt-s1', title: '1ª Serie (Diseño Original)', start: 2002, end: 'Actual' }],
+        'SVK': [{ id: 'svk-s1', title: '1ª Serie (Diseño Original)', start: 2009, end: 'Actual' }],
+        'SVN': [{ id: 'svn-s1', title: '1ª Serie (Diseño Original)', start: 2007, end: 'Actual' }]
+    };
+
+    const hasLocalData = localStorage.getItem('euroColl_Collection') !== null;
+
+    if (isAdmin && hasLocalData) {
+        // Cargar desde LocalStorage si ya hay datos guardados previamente
         collection = JSON.parse(localStorage.getItem('euroColl_Collection')) || [];
         catalog = JSON.parse(localStorage.getItem('euroColl_Catalog')) || [];
-        const savedSeries = JSON.parse(localStorage.getItem('euroColl_Series'));
-        if (savedSeries && Object.keys(savedSeries).length > 0) {
-            standardSeries = { ...standardSeries, ...savedSeries };
-        }
-        standardImages = JSON.parse(localStorage.getItem('euroColl_StdImg')) || {};
+        standardImages = JSON.parse(localStorage.getItem('euroColl_StdImages')) || {};
         standardInfo = JSON.parse(localStorage.getItem('euroColl_StdInfo')) || {};
+        globalCommonImages = JSON.parse(localStorage.getItem('euroColl_GlobalImages')) || {};
         globalCommonInfo = JSON.parse(localStorage.getItem('euroColl_GlobalInfo')) || {};
-        globalCommonImages = JSON.parse(localStorage.getItem('euroColl_GlobalImg')) || {};
-        document.getElementById('sidebar-config-wrapper').classList.remove('hidden');
+        
+        const savedSeries = JSON.parse(localStorage.getItem('euroColl_Series')) || {};
+        // Fusiona las series guardadas sobre las preconfiguradas
+        standardSeries = { ...preconfiguredSeries, ...savedSeries };
     } else {
-        // En Modo Público leemos directamente el archivo estático data/mi_coleccion.json
+        // Modo Público O Modo Admin por primera vez (sin datos en localStorage)
         try {
-            const res = await fetch('./data/mi_coleccion.json');
-            if (res.ok) {
-                const data = await res.json();
-                countries = data.countries || initialCountries;
+            const response = await fetch('mi_coleccion.json');
+            if (response.ok) {
+                const data = await response.json();
                 collection = data.collection || [];
                 catalog = data.catalog || [];
-                if(data.standardSeries) standardSeries = data.standardSeries;
                 standardImages = data.standardImages || {};
                 standardInfo = data.standardInfo || {};
-                globalCommonInfo = data.globalCommonInfo || {};
                 globalCommonImages = data.globalCommonImages || {};
-                globalMaxYear = data.maxYear || 2026;
+                globalCommonInfo = data.globalCommonInfo || {};
+                
+                const fetchedSeries = data.standardSeries || {};
+                standardSeries = { ...preconfiguredSeries, ...fetchedSeries };
+                
+                // Si entró como admin por primera vez, autoguarda el JSON en localStorage
+                if (isAdmin) saveData();
             } else {
-                countries = initialCountries;
+                throw new Error('No JSON');
             }
-        } catch (e) {
-            console.warn("No se pudo cargar data/mi_coleccion.json, usando valores por defecto.", e);
-            countries = initialCountries;
+        } catch (error) {
+            console.warn('No se encontró mi_coleccion.json. Se cargará vacío.');
+            standardSeries = { ...preconfiguredSeries };
         }
     }
-    sortCountriesArray();
-    updateFilterButtonsUI();
-    window.showHomeView();
+
+    updateGlobalTotals();
+    if (typeof renderInteractiveMap === 'function') renderInteractiveMap();
+    if (state.view === 'country') renderCountryView();
+    else renderSearchResults(document.getElementById('search-results-container'));
 }
 
 function saveData() {
@@ -780,70 +787,63 @@ function drawMap(geoJson) {
 }
 
 function renderCountryCoinsView(container) {
+    // 1. SOLUCIÓN AL SCROLL: Forzar la vista arriba del todo al cargar el país
+    window.scrollTo({ top: 0, behavior: 'instant' });
+
     const countryObj = countries.find(c => c.id === state.country);
     if (!countryObj) return;
 
     const cStats = getCountryStats(state.country);
     
-    // 1. Obtener las series del país o crear una por defecto si no tiene
     let seriesList = standardSeries[state.country];
     if (!seriesList || seriesList.length === 0) {
-        seriesList = [{
-            id: 'default',
-            title: 'Diseño Regular',
-            start: countryObj.start,
-            end: 'Actual'
-        }];
+        seriesList = [{ id: 'default', title: 'Diseño Regular', start: countryObj.start, end: 'Actual' }];
     }
     
-    let html = '';
-    if (isAdmin) {
-        html += `
-        <div class="flex justify-end mb-4">
-            <button onclick="window.openModal('manage-series', null, 'Standard', null, '${state.country}')" class="bg-indigo-600/20 hover:bg-indigo-600/40 text-indigo-400 border border-indigo-600/30 px-4 py-2 rounded-lg text-xs font-bold transition-colors flex items-center gap-2">
+    const isGold = cStats.isComplete;
+    
+    // Contenedor principal agrupado (Azul Claro / Dorado)
+    const mainBg = isGold ? 'bg-yellow-900/20 border-yellow-700/50' : 'bg-sky-900/30 border-sky-700/50';
+    
+    let html = `
+    <div class="mb-12 ${mainBg} p-6 md:p-8 rounded-2xl border shadow-xl relative">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8 border-b ${isGold ? 'border-yellow-700/30' : 'border-sky-800/30'} pb-4">
+            <h3 class="text-2xl font-bold text-white flex items-center gap-3">
+                <img src="https://flagcdn.com/w40/${state.country.toLowerCase()}.png" class="w-10 h-6 object-cover rounded shadow-md border border-slate-700"> 
+                Variantes Nacionales (Series)
+            </h3>
+            ${isAdmin ? `
+            <button onclick="window.openModal('manage-series', null, 'Standard', null, '${state.country}')" class="bg-blue-600/80 hover:bg-blue-500 text-white px-4 py-2 rounded-lg text-xs font-bold transition-colors shadow-lg flex items-center gap-2">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                Gestionar Series Base
-            </button>
-        </div>`;
-    }
-    
-    // 2. Dibujar un bloque independiente por cada serie
-    seriesList.forEach((series, index) => {
+                Gestionar Series
+            </button>` : ''}
+        </div>
         
-        // Determinar qué monedas pertenecen a los años de esta serie
+        <div class="flex flex-col gap-6">`;
+        
+    seriesList.forEach((series) => {
         const seriesEndYear = series.end === 'Actual' ? globalMaxYear : parseInt(series.end);
         const seriesCoins = collection.filter(c => 
-            c.country === state.country && 
-            c.type === 'Standard' && 
-            c.year >= series.start && 
-            c.year <= seriesEndYear
+            c.country === state.country && c.type === 'Standard' && 
+            c.year >= series.start && c.year <= seriesEndYear
         );
         
-        // Comprobar si ESTA serie concreta está completa (los 8 valores)
         const seriesDenoms = new Set(seriesCoins.map(c => c.denomination));
         const isSeriesComplete = seriesDenoms.size === 8;
         
-        // Colores vivos e independientes por serie
-        const isGold = cStats.isComplete;
-        const isBlue = !isGold && isSeriesComplete;
+        // Bloques internos de cada serie individual (más oscuros para dar profundidad)
+        const blockBg = isSeriesComplete ? (isGold ? 'bg-yellow-800/40 border-yellow-600/40' : 'bg-blue-800/40 border-blue-500/40') : 'bg-slate-900/60 border-slate-700/80';
+        const textColor = isSeriesComplete ? (isGold ? 'text-yellow-200' : 'text-blue-200') : 'text-slate-300';
         
-        const bgClass = isGold ? 'bg-yellow-500 border-yellow-400' : 
-                        (isBlue ? 'bg-blue-600 border-blue-500' : 'bg-slate-900/60 border-slate-800/80');
-        
-        const titleClass = isGold ? 'text-slate-900' : 'text-white';
-        const subClass = isGold ? 'text-slate-700' : (isBlue ? 'text-blue-100' : 'text-slate-400');
-        const flagBorder = isGold ? 'border-yellow-600' : (isBlue ? 'border-blue-400' : 'border-slate-700');
-        const coinLabelClass = isGold ? 'text-slate-800' : (isBlue ? 'text-blue-100' : 'text-slate-400');
-
         let blockHtml = `
-        <div class="mb-8 ${bgClass} p-6 rounded-2xl border shadow-lg relative overflow-hidden transition-colors duration-500">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
+        <div class="${blockBg} border rounded-xl p-5 transition-colors">
+            <div class="flex justify-between items-center mb-5">
                 <div>
-                    <h3 class="text-xl font-bold ${titleClass} flex items-center gap-3">
-                        <img src="https://flagcdn.com/w40/${state.country.toLowerCase()}.png" class="w-8 h-5 object-cover rounded shadow border ${flagBorder}"> 
-                        ${series.title}
-                    </h3>
-                    <p class="text-xs ${subClass} mt-1">Caras Nacionales (${series.start} - ${series.end})</p>
+                    <h4 class="text-lg font-bold text-white">${series.title}</h4>
+                    <p class="text-xs ${textColor}">${series.start} - ${series.end}</p>
+                </div>
+                <div class="px-3 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider ${isSeriesComplete ? (isGold ? 'bg-yellow-600 text-yellow-100' : 'bg-blue-600 text-white') : 'bg-slate-800 text-slate-400 border border-slate-700'}">
+                    ${isSeriesComplete ? 'Completada' : 'Incompleta'}
                 </div>
             </div>
             
@@ -852,11 +852,9 @@ function renderCountryCoinsView(container) {
         const conditionOrder = { 'RC': 1, 'BC': 2, 'MBC': 3, 'EBC': 4, 'SC': 5, 'FDC': 6 };
         
         denominations.forEach(den => {
-            // Cargar imagen: Intenta buscar la que corresponda al año de inicio de esta serie, sino busca la común
             const imgStr = standardImages[`${state.country}_${series.start}_${den.id}`] || standardImages[`${state.country}_common_${den.id}`] || '';
-            
-            // Buscar la mejor moneda de nuestra colección dentro del rango de años de esta serie
             const ownedCoinsOfDen = seriesCoins.filter(c => c.denomination === den.id);
+            
             let bestCoin = null;
             if (ownedCoinsOfDen.length > 0) {
                 bestCoin = ownedCoinsOfDen.reduce((best, current) => {
@@ -876,8 +874,8 @@ function renderCountryCoinsView(container) {
                         </div>
                     </div>
                     <div class="text-center w-full shrink-0 mt-auto pt-2">
-                        <span class="text-[11px] font-semibold ${coinLabelClass} flex items-center justify-center gap-1">${den.label}</span>
-                        ${bestCoin ? `<span class="text-[10px] ${isGold ? 'text-slate-900' : 'text-yellow-400'} font-bold block leading-tight mt-0.5">${bestCoin.year} <span class="${isGold ? 'text-slate-700' : (isBlue ? 'text-blue-200' : 'text-slate-300')}">(${bestCoin.condition})</span></span>` : ''}
+                        <span class="text-[11px] font-semibold text-slate-300 flex items-center justify-center gap-1">${den.label}</span>
+                        ${bestCoin ? `<span class="text-[10px] ${isGold ? 'text-yellow-400' : 'text-blue-300'} font-bold block leading-tight mt-0.5">${bestCoin.year} <span class="font-normal text-slate-400">(${bestCoin.condition})</span></span>` : ''}
                     </div>
                 </div>`;
         });
@@ -886,6 +884,7 @@ function renderCountryCoinsView(container) {
         html += blockHtml;
     });
     
+    html += `</div></div>`;
     container.innerHTML += html;
 
     let yearsToDisplay = state.year === 'ALL' ? getAllYearsList(countryObj.start) : [state.year];
