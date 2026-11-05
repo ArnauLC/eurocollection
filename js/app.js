@@ -1,5 +1,5 @@
 // CLAVE SECRETA DE ADMINISTRADOR (Cambia este token si lo deseas)
-const ADMIN_TOKEN = "10";
+const ADMIN_TOKEN = "11";
 
 // Comprobación de Privilegios de Administrador mediante la URL
 const urlParams = new URLSearchParams(window.location.search);
@@ -128,6 +128,62 @@ let globalCommonInfo = {};
 let globalCommonImages = {};
 let currentGlobalVariants = [];
 let currentStandardVariants = [];
+let standardSeries = {
+    'ESP': [
+        { id: 'esp-s1', title: '1ª Serie (Juan Carlos I - Mapa Original)', start: 1999, end: 2006 },
+        { id: 'esp-s2', title: '2ª Serie (Juan Carlos I - Nuevo Mapa)', start: 2007, end: 2014 },
+        { id: 'esp-s3', title: '3ª Serie (Rey Felipe VI)', start: 2015, end: 'Actual' }
+    ],
+    'VAT': [
+        { id: 'vat-s1', title: '1ª Serie (Juan Pablo II)', start: 2002, end: 2005 },
+        { id: 'vat-s2', title: '2ª Serie (Sede Vacante)', start: 2005, end: 2005 },
+        { id: 'vat-s3', title: '3ª Serie (Benedicto XVI)', start: 2006, end: 2013 },
+        { id: 'vat-s4', title: '4ª Serie (Papa Francisco)', start: 2014, end: 2016 },
+        { id: 'vat-s5', title: '5ª Serie (Escudo Papal)', start: 2017, end: 'Actual' }
+    ],
+    'BEL': [
+        { id: 'bel-s1', title: '1ª Serie (Rey Alberto II)', start: 1999, end: 2007 },
+        { id: 'bel-s2', title: '2ª Serie (Rey Alberto II - Monograma adaptado)', start: 2008, end: 2013 },
+        { id: 'bel-s3', title: '3ª Serie (Rey Felipe)', start: 2014, end: 'Actual' }
+    ],
+    'NLD': [
+        { id: 'nld-s1', title: '1ª Serie (Reina Beatriz)', start: 1999, end: 2013 },
+        { id: 'nld-s2', title: '1ª Serie (Rey Guillermo Alejandro)', start: 2014, end: 'Actual' }
+    ],
+    'MCO': [
+        { id: 'mco-s1', title: '1ª Serie (Príncipe Rainiero III)', start: 2001, end: 2005 },
+        { id: 'mco-s2', title: '2ª Serie (Príncipe Alberto II)', start: 2006, end: 'Actual' }
+    ],
+    'SMR': [
+        { id: 'smr-s1', title: '1ª Serie (Diseño Original)', start: 2002, end: 2016 },
+        { id: 'smr-s2', title: '2ª Serie (Nuevo Diseño)', start: 2017, end: 'Actual' }
+    ],
+    'FRA': [
+        { id: 'fra-s1', title: '1ª Serie (Diseño Original)', start: 1999, end: 2021 },
+        { id: 'fra-s2', title: '2ª Serie (Nuevo Diseño)', start: 2022, end: 'Actual' }
+    ],
+    'FIN': [
+        { id: 'fin-s1', title: '1ª Serie (Diseño Original)', start: 1999, end: 2006 },
+        { id: 'fin-s2', title: '2ª Serie (Adición del identificador "FI")', start: 2007, end: 'Actual' }
+    ],
+    'LUX': [{ id: 'lux-s1', title: '1ª Serie (Gran Duque Enrique)', start: 2002, end: 'Actual' }],
+    'AND': [{ id: 'and-s1', title: '1ª Serie (Diseño Original)', start: 2014, end: 'Actual' }],
+    'AUT': [{ id: 'aut-s1', title: '1ª Serie (Diseño Original)', start: 2002, end: 'Actual' }],
+    'HRV': [{ id: 'hrv-s1', title: '1ª Serie (Diseño Original)', start: 2023, end: 'Actual' }],
+    'CYP': [{ id: 'cyp-s1', title: '1ª Serie (Diseño Original)', start: 2008, end: 'Actual' }],
+    'EST': [{ id: 'est-s1', title: '1ª Serie (Diseño Original)', start: 2011, end: 'Actual' }],
+    'DEU': [{ id: 'deu-s1', title: '1ª Serie (Diseño Original)', start: 2002, end: 'Actual' }],
+    'GRC': [{ id: 'grc-s1', title: '1ª Serie (Diseño Original)', start: 2002, end: 'Actual' }],
+    'IRL': [{ id: 'irl-s1', title: '1ª Serie (Diseño Original)', start: 2002, end: 'Actual' }],
+    'ITA': [{ id: 'ita-s1', title: '1ª Serie (Diseño Original)', start: 2002, end: 'Actual' }],
+    'LVA': [{ id: 'lva-s1', title: '1ª Serie (Diseño Original)', start: 2014, end: 'Actual' }],
+    'LTU': [{ id: 'ltu-s1', title: '1ª Serie (Diseño Original)', start: 2015, end: 'Actual' }],
+    'MLT': [{ id: 'mlt-s1', title: '1ª Serie (Diseño Original)', start: 2008, end: 'Actual' }],
+    'PRT': [{ id: 'prt-s1', title: '1ª Serie (Diseño Original)', start: 2002, end: 'Actual' }],
+    'SVK': [{ id: 'svk-s1', title: '1ª Serie (Diseño Original)', start: 2009, end: 'Actual' }],
+    'SVN': [{ id: 'svn-s1', title: '1ª Serie (Diseño Original)', start: 2007, end: 'Actual' }]
+};
+
 window.modalPreviewIndex = 0;
 
 // --- NUEVA FUNCIÓN PARA GESTIONAR IMÁGENES LOCALES EN GITHUB ---
@@ -153,6 +209,7 @@ async function loadAppData() {
         countries = JSON.parse(localStorage.getItem('euroColl_Countries')) || initialCountries;
         collection = JSON.parse(localStorage.getItem('euroColl_Collection')) || [];
         catalog = JSON.parse(localStorage.getItem('euroColl_Catalog')) || [];
+        standardSeries = JSON.parse(localStorage.getItem('euroColl_Series')) || standardSeries;
         standardImages = JSON.parse(localStorage.getItem('euroColl_StdImg')) || {};
         standardInfo = JSON.parse(localStorage.getItem('euroColl_StdInfo')) || {};
         globalCommonInfo = JSON.parse(localStorage.getItem('euroColl_GlobalInfo')) || {};
@@ -167,6 +224,7 @@ async function loadAppData() {
                 countries = data.countries || initialCountries;
                 collection = data.collection || [];
                 catalog = data.catalog || [];
+                if(data.standardSeries) standardSeries = data.standardSeries;
                 standardImages = data.standardImages || {};
                 standardInfo = data.standardInfo || {};
                 globalCommonInfo = data.globalCommonInfo || {};
@@ -191,6 +249,7 @@ function saveData() {
     localStorage.setItem('euroColl_Countries', JSON.stringify(countries));
     localStorage.setItem('euroColl_Collection', JSON.stringify(collection));
     localStorage.setItem('euroColl_Catalog', JSON.stringify(catalog));
+    localStorage.setItem('euroColl_Series', JSON.stringify(standardSeries));
     localStorage.setItem('euroColl_StdImg', JSON.stringify(standardImages));
     localStorage.setItem('euroColl_GlobalInfo', JSON.stringify(globalCommonInfo));
     localStorage.setItem('euroColl_GlobalImg', JSON.stringify(globalCommonImages));
@@ -202,6 +261,7 @@ window.exportCollectionJSON = function() {
         countries: countries,
         collection: collection,
         catalog: catalog,
+        standardSeries: standardSeries,
         standardImages: standardImages,
         standardInfo: standardInfo,
         globalCommonInfo: globalCommonInfo,
@@ -259,20 +319,40 @@ function getCountryStats(countryId) {
         totalMax += ys.totalMax; totalOwned += ys.totalOwned;
     }
 
-    const standardCoinsOwned = collection.filter(c => c.country === countryId && c.type === 'Standard');
-    const ownedDenominations = new Set(standardCoinsOwned.map(c => c.denomination));
-    const isSeries = ownedDenominations.size === 8;
+    // 1. Manejar series: Obtener personalizadas o usar la por defecto
+    let seriesList = standardSeries[countryId];
+    if (!seriesList || seriesList.length === 0) {
+        seriesList = [{ id: 'default', title: 'Diseño Regular', start: countryObj.start, end: 'Actual' }];
+    }
+
+    // 2. Calcular cuántas monedas base únicas tenemos por cada serie
+    let totalSeriesCoinsNeeded = seriesList.length * 8;
+    let totalSeriesCoinsOwned = 0;
+
+    seriesList.forEach(series => {
+        const seriesEndYear = series.end === 'Actual' ? globalMaxYear : parseInt(series.end);
+        const seriesCoins = collection.filter(c => 
+            c.country === countryId && 
+            c.type === 'Standard' && 
+            c.year >= series.start && 
+            c.year <= seriesEndYear
+        );
+        const ownedDenoms = new Set(seriesCoins.map(c => c.denomination));
+        totalSeriesCoinsOwned += ownedDenoms.size;
+    });
+
+    const isSeries = totalSeriesCoinsOwned === totalSeriesCoinsNeeded;
     const isComplete = (totalMax > 0 && totalMax === totalOwned);
     
-    // FASE 1: Hasta tener los 8 tipos, cuenta el progreso de la serie (0-100%).
-    // FASE 2: Al completarla, cuenta el progreso de todas las monedas y años del país.
+    // FASE 1: (0-100%) Hasta conseguir todas las monedas de TODAS las series del país.
+    // FASE 2: Progreso general de años y conmemorativas.
     let displayPercentage = 0;
     if (isComplete) {
         displayPercentage = 100;
     } else if (isSeries) {
         displayPercentage = totalMax === 0 ? 0 : Math.round((totalOwned / totalMax) * 100);
     } else {
-        displayPercentage = Math.round((ownedDenominations.size / 8) * 100);
+        displayPercentage = Math.round((totalSeriesCoinsOwned / totalSeriesCoinsNeeded) * 100);
     }
     
     return { totalMax, totalOwned, isComplete, isSeries, percentage: displayPercentage };
@@ -702,63 +782,111 @@ function renderCountryCoinsView(container) {
 
     const cStats = getCountryStats(state.country);
     
-    // Colores más vivos y sólidos
-    const isGold = cStats.isComplete;
-    const isBlue = !isGold && cStats.isSeries;
+    // 1. Obtener las series del país o crear una por defecto si no tiene
+    let seriesList = standardSeries[state.country];
+    if (!seriesList || seriesList.length === 0) {
+        seriesList = [{
+            id: 'default',
+            title: 'Diseño Regular',
+            start: countryObj.start,
+            end: 'Actual'
+        }];
+    }
     
-    const bgClass = isGold ? 'bg-yellow-500 border-yellow-400' : 
-                    (isBlue ? 'bg-blue-600 border-blue-500' : 'bg-slate-900/60 border-slate-800/80');
+    let html = '';
+    if (isAdmin) {
+        html += `
+        <div class="flex justify-end mb-4">
+            <button onclick="window.openModal('manage-series', null, 'Standard', null, '${state.country}')" class="bg-indigo-600/20 hover:bg-indigo-600/40 text-indigo-400 border border-indigo-600/30 px-4 py-2 rounded-lg text-xs font-bold transition-colors flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                Gestionar Series Base
+            </button>
+        </div>`;
+    }
     
-    // Adaptación dinámica de textos para mantener el contraste
-    const titleClass = isGold ? 'text-slate-900' : 'text-white';
-    const subClass = isGold ? 'text-slate-700' : (isBlue ? 'text-blue-100' : 'text-slate-400');
-    const flagBorder = isGold ? 'border-yellow-600' : (isBlue ? 'border-blue-400' : 'border-slate-700');
-    const coinLabelClass = isGold ? 'text-slate-800' : (isBlue ? 'text-blue-100' : 'text-slate-400');
+    // 2. Dibujar un bloque independiente por cada serie
+    seriesList.forEach((series, index) => {
+        
+        // Determinar qué monedas pertenecen a los años de esta serie
+        const seriesEndYear = series.end === 'Actual' ? globalMaxYear : parseInt(series.end);
+        const seriesCoins = collection.filter(c => 
+            c.country === state.country && 
+            c.type === 'Standard' && 
+            c.year >= series.start && 
+            c.year <= seriesEndYear
+        );
+        
+        // Comprobar si ESTA serie concreta está completa (los 8 valores)
+        const seriesDenoms = new Set(seriesCoins.map(c => c.denomination));
+        const isSeriesComplete = seriesDenoms.size === 8;
+        
+        // Colores vivos e independientes por serie
+        const isGold = cStats.isComplete;
+        const isBlue = !isGold && isSeriesComplete;
+        
+        const bgClass = isGold ? 'bg-yellow-500 border-yellow-400' : 
+                        (isBlue ? 'bg-blue-600 border-blue-500' : 'bg-slate-900/60 border-slate-800/80');
+        
+        const titleClass = isGold ? 'text-slate-900' : 'text-white';
+        const subClass = isGold ? 'text-slate-700' : (isBlue ? 'text-blue-100' : 'text-slate-400');
+        const flagBorder = isGold ? 'border-yellow-600' : (isBlue ? 'border-blue-400' : 'border-slate-700');
+        const coinLabelClass = isGold ? 'text-slate-800' : (isBlue ? 'text-blue-100' : 'text-slate-400');
 
-    let headerHtml = `
-    <div class="mb-8 ${bgClass} p-6 rounded-2xl border shadow-lg relative overflow-hidden transition-colors duration-500">
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
-            <div>
-                <h3 class="text-xl font-bold ${titleClass} flex items-center gap-3">
-                    <img src="https://flagcdn.com/w40/${state.country.toLowerCase()}.png" class="w-8 h-5 object-cover rounded shadow border ${flagBorder}"> 
-                    Variantes Nacionales
-                </h3>
+        let blockHtml = `
+        <div class="mb-8 ${bgClass} p-6 rounded-2xl border shadow-lg relative overflow-hidden transition-colors duration-500">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
+                <div>
+                    <h3 class="text-xl font-bold ${titleClass} flex items-center gap-3">
+                        <img src="https://flagcdn.com/w40/${state.country.toLowerCase()}.png" class="w-8 h-5 object-cover rounded shadow border ${flagBorder}"> 
+                        ${series.title}
+                    </h3>
+                    <p class="text-xs ${subClass} mt-1">Caras Nacionales (${series.start} - ${series.end})</p>
+                </div>
+                <div class="${isSeriesComplete ? (isGold ? 'bg-yellow-600 text-yellow-100 border-yellow-700' : 'bg-blue-700 border-blue-600 text-white') : 'bg-transparent border-slate-700 text-slate-400'} border px-3 py-1.5 rounded-lg text-center shadow-inner flex items-center justify-center">
+                    <span class="text-[11px] font-bold uppercase tracking-wide">${isSeriesComplete ? 'Serie Completa' : 'Serie Incompleta'}</span>
+                </div>
             </div>
-        </div>
+            
+            <div class="grid grid-cols-4 lg:grid-cols-8 gap-4 items-stretch">`;
+            
+        const conditionOrder = { 'RC': 1, 'BC': 2, 'MBC': 3, 'EBC': 4, 'SC': 5, 'FDC': 6 };
         
-        <div class="grid grid-cols-4 lg:grid-cols-8 gap-4 items-stretch">`;
-        
-    const conditionOrder = { 'RC': 1, 'BC': 2, 'MBC': 3, 'EBC': 4, 'SC': 5, 'FDC': 6 };
-    
-    denominations.forEach(den => {
-        const imgStr = standardImages[`${state.country}_common_${den.id}`] || standardImages[`${state.country}_${countryObj.start}_${den.id}`] || '';
-        const ownedCoinsOfDen = collection.filter(c => c.country === state.country && c.type === 'Standard' && c.denomination === den.id);
-        let bestCoin = null;
-        if (ownedCoinsOfDen.length > 0) {
-            bestCoin = ownedCoinsOfDen.reduce((best, current) => {
-                if (!best) return current;
-                return conditionOrder[current.condition] > conditionOrder[best.condition] ? current : best;
-            }, null);
-        }
+        denominations.forEach(den => {
+            // Cargar imagen: Intenta buscar la que corresponda al año de inicio de esta serie, sino busca la común
+            const imgStr = standardImages[`${state.country}_${series.start}_${den.id}`] || standardImages[`${state.country}_common_${den.id}`] || '';
+            
+            // Buscar la mejor moneda de nuestra colección dentro del rango de años de esta serie
+            const ownedCoinsOfDen = seriesCoins.filter(c => c.denomination === den.id);
+            let bestCoin = null;
+            if (ownedCoinsOfDen.length > 0) {
+                bestCoin = ownedCoinsOfDen.reduce((best, current) => {
+                    if (!best) return current;
+                    return conditionOrder[current.condition] > conditionOrder[best.condition] ? current : best;
+                }, null);
+            }
 
-        const disabledClass = bestCoin ? '' : 'coin-disabled';
-        const sInfo = standardInfo[`${state.country}_${den.id}`] ? standardInfo[`${state.country}_${den.id}`].replace(/"/g, '&quot;') : '';
+            const disabledClass = bestCoin ? '' : 'coin-disabled';
+            const sInfo = standardInfo[`${state.country}_${den.id}`] ? standardInfo[`${state.country}_${den.id}`].replace(/"/g, '&quot;') : '';
 
-        headerHtml += `
-            <div class="flex flex-col items-center w-full h-full ${isAdmin ? 'cursor-pointer group hover:scale-105' : ''} transition-transform" ${isAdmin ? `onclick="window.openModal('standard-image', '${den.id}', 'Standard', ${countryObj.start}, '${state.country}')"` : ''} title="${sInfo}">                <div class="flex-1 flex items-center justify-center w-full min-h-[70px]">
-                    <div class="coin-base ${den.sizeClass} ${den.css} ${disabledClass} relative shadow-xl" style="${imgStr ? `background-image: url('${imgStr}'); border-width: 0px !important; box-shadow: none !important;` : ''}">
-                        ${!imgStr ? `<span>${den.label}</span>` : ''}
+            blockHtml += `
+                <div class="flex flex-col items-center w-full h-full ${isAdmin ? 'cursor-pointer group hover:scale-105' : ''} transition-transform" ${isAdmin ? `onclick="window.openModal('standard-image', '${den.id}', 'Standard', ${series.start}, '${state.country}')"` : ''} title="${sInfo}">
+                    <div class="flex-1 flex items-center justify-center w-full min-h-[70px]">
+                        <div class="coin-base ${den.sizeClass} ${den.css} ${disabledClass} relative shadow-xl" style="${imgStr ? `background-image: url('${imgStr}'); border-width: 0px !important; box-shadow: none !important;` : ''}">
+                            ${!imgStr ? `<span>${den.label}</span>` : ''}
+                        </div>
                     </div>
-                </div>
-                <div class="text-center w-full shrink-0 mt-auto pt-2">
-                    <span class="text-[11px] font-semibold ${coinLabelClass} flex items-center justify-center gap-1">${den.label}</span>
-                    ${bestCoin ? `<span class="text-[10px] ${isGold ? 'text-slate-900' : 'text-yellow-400'} font-bold block leading-tight mt-0.5">${bestCoin.year} <span class="${isGold ? 'text-slate-700' : (isBlue ? 'text-blue-200' : 'text-slate-300')}">(${bestCoin.condition})</span></span>` : ''}
-                </div>
-            </div>`;
+                    <div class="text-center w-full shrink-0 mt-auto pt-2">
+                        <span class="text-[11px] font-semibold ${coinLabelClass} flex items-center justify-center gap-1">${den.label}</span>
+                        ${bestCoin ? `<span class="text-[10px] ${isGold ? 'text-slate-900' : 'text-yellow-400'} font-bold block leading-tight mt-0.5">${bestCoin.year} <span class="${isGold ? 'text-slate-700' : (isBlue ? 'text-blue-200' : 'text-slate-300')}">(${bestCoin.condition})</span></span>` : ''}
+                    </div>
+                </div>`;
+        });
+        
+        blockHtml += `</div></div>`;
+        html += blockHtml;
     });
     
-    headerHtml += `</div></div>`;
-    container.innerHTML += headerHtml;
+    container.innerHTML += html;
 
     let yearsToDisplay = state.year === 'ALL' ? getAllYearsList(countryObj.start) : [state.year];
     yearsToDisplay = yearsToDisplay.filter(y => {
@@ -951,6 +1079,29 @@ window.openModal = function(action, idOrRef = null, type = 'Standard', yearParam
         btnSub.className = 'flex-1 bg-red-600 hover:bg-red-500 text-white font-bold py-3 rounded-lg shadow-lg';
         const catItem = catalog.find(c => c.id === idOrRef);
         if(catItem) preview.innerHTML = `<div class="w-full flex justify-center"><div class="coin-base coin-2e coin-bimetal-2 w-full max-w-[320px] shadow-2xl" style="${catItem.image ? `background-image: url('${catItem.image}'); border-width: 0px !important; box-shadow: none !important;` : ''}">${!catItem.image ? `<span>2€</span>` : ''}</div></div>`;
+    } else if (action === 'manage-series') {
+        modeInput.value = 'manage-series';
+        title.textContent = `Gestionar Series: ${worldCountriesES[safeCountry] || safeCountry}`;
+        
+        btnDel.classList.add('hidden'); 
+        btnSub.classList.remove('hidden'); 
+        actionsContainer.classList.remove('hidden');
+        btnSub.className = 'flex-1 bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 rounded-lg transition-colors shadow-lg';
+        btnSub.textContent = '+ Añadir Serie';
+
+        ['modal-config-fields', 'modal-catalog-fields', 'modal-standard-fields', 'modal-collection-fields', 'modal-delete-fields', 'modal-global-info-fields', 'modal-series-fields'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.classList.add('hidden');
+        });
+        
+        const seriesFields = document.getElementById('modal-series-fields');
+        if (seriesFields) seriesFields.classList.remove('hidden');
+        
+        document.getElementById('series-title').value = '';
+        document.getElementById('series-start').value = '';
+        document.getElementById('series-end').value = 'Actual';
+
+        renderSeriesListModal(safeCountry);
     } else if (action === 'standard-image') {
         modeInput.value = 'standard-image'; 
         const denObj = denominations.find(d => d.id === idOrRef) || denominations[7];
@@ -1197,6 +1348,29 @@ window.handleFormSubmit = function(e) {
         if (yr >= 2004) catalog.push({ id: 'cat_' + Date.now(), country: safeCountry, year: yr, title: document.getElementById('catalog-title').value || 'Conmemorativa', image: procesarRutaImagen(imgInput) }); // <-- Aplicamos la función
     } else if (mode === 'delete-catalog') {
         catalog = catalog.filter(c => c.id !== refId); collection = collection.filter(c => c.refId !== refId);
+    } else if (mode === 'manage-series') {
+        const sTitle = document.getElementById('series-title').value.trim();
+        const sStart = document.getElementById('series-start').value;
+        let sEnd = document.getElementById('series-end').value.trim();
+        
+        if (!sTitle || !sStart) return alert('El nombre y el año de inicio son obligatorios para crear una serie.');
+        if (!sEnd) sEnd = 'Actual';
+        
+        if (!standardSeries[safeCountry]) standardSeries[safeCountry] = [];
+        standardSeries[safeCountry].push({
+            id: `${safeCountry.toLowerCase()}-s${Date.now()}`,
+            title: sTitle,
+            start: parseInt(sStart),
+            end: sEnd === 'Actual' ? 'Actual' : parseInt(sEnd)
+        });
+        
+        // Ordenar las series cronológicamente
+        standardSeries[safeCountry].sort((a, b) => a.start - b.start);
+        
+        saveData();
+        document.getElementById('app-modal').classList.add('hidden');
+        if (state.view === 'country') renderCountryView();
+        return;
     } else if (mode === 'standard-image') {
         const urlInput = document.getElementById('standard-image-input').value.trim();
         const url = procesarRutaImagen(urlInput); // <-- Aplicamos la función
@@ -1244,6 +1418,37 @@ window.handleFormSubmit = function(e) {
         renderMainContent();
     }
     window.closeModal();
+};
+
+window.renderSeriesListModal = function(countryId) {
+    const container = document.getElementById('series-list-container');
+    if (!container) return;
+    const seriesList = standardSeries[countryId] || [];
+    if (seriesList.length === 0) {
+        container.innerHTML = `<p class="text-sm text-slate-500 italic">No hay series creadas. Se está utilizando la serie base regular de ${countries.find(c=>c.id===countryId)?.start} hasta la actualidad.</p>`;
+        return;
+    }
+    container.innerHTML = seriesList.map((s, i) => `
+        <div class="flex justify-between items-center bg-slate-900 p-3 rounded-lg border border-slate-700">
+            <div>
+                <p class="text-sm font-bold text-white">${s.title}</p>
+                <p class="text-xs text-slate-400">${s.start} - ${s.end}</p>
+            </div>
+            <button type="button" onclick="window.deleteSeries('${countryId}', ${i})" class="text-red-500 hover:text-red-400 p-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+            </button>
+        </div>
+    `).join('');
+};
+
+window.deleteSeries = function(countryId, index) {
+    if(confirm('¿Seguro que deseas eliminar esta serie? (Las monedas de tu colección no se borrarán)')) {
+        standardSeries[countryId].splice(index, 1);
+        if(standardSeries[countryId].length === 0) delete standardSeries[countryId];
+        saveData();
+        renderSeriesListModal(countryId);
+        if (state.view === 'country') renderCountryView();
+    }
 };
 
 window.deleteCurrentCoin = function() {
