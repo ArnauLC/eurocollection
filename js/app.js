@@ -469,12 +469,22 @@ function updateFilterButtonsUI() {
 
 window.showHomeView = function() {
     state.view = 'home'; state.country = null; state.year = 'ALL';
-    document.getElementById('global-search').value = ''; state.searchQuery = '';
+    state.searchQuery = '';
+    
+    // Protección: Solo vacía el buscador si existe en el HTML
+    const searchInput = document.getElementById('global-search');
+    if (searchInput) searchInput.value = '';
+
     document.getElementById('header-flag').src = 'https://flagcdn.com/w80/eu.png';
-    document.getElementById('header-title').innerHTML = 'EuroColección <span class="text-[10px] font-bold text-blue-300 bg-blue-900/30 px-2 py-0.5 rounded-full align-middle ml-2 border border-blue-700/50 shadow-inner">v14</span>';
+    document.getElementById('header-title').innerHTML = 'EuroColección <span class="text-[10px] font-bold text-blue-300 bg-blue-900/30 px-2 py-0.5 rounded-full align-middle ml-2 border border-blue-700/50 shadow-inner">v1.13</span>';
     document.getElementById('header-subtitle').textContent = 'Mapa y Estado Global';
-    document.getElementById('country-subheader').classList.add('hidden');
-    document.getElementById('top-controls').classList.remove('hidden');
+    
+    const subheader = document.getElementById('country-subheader');
+    if (subheader) subheader.classList.add('hidden');
+    
+    const topControls = document.getElementById('top-controls');
+    if (topControls) topControls.classList.remove('hidden');
+    
     updateHeaderStats(); renderSidebar(); updateFilterButtonsUI(); renderMainContent(); updateSortVisibility();
 };
 
@@ -482,14 +492,21 @@ window.selectCountry = function(countryId) {
     const countryObj = countries.find(c => c.id === countryId);
     if (!countryObj) return;
     state.view = 'country'; state.country = countryId; state.year = 'ALL';
-    document.getElementById('global-search').value = ''; state.searchQuery = '';
+    state.searchQuery = '';
+    
+    // Protección: Solo vacía el buscador si existe
+    const searchInput = document.getElementById('global-search');
+    if (searchInput) searchInput.value = '';
     
     document.getElementById('header-flag').src = `https://flagcdn.com/w80/${countryId.toLowerCase()}.png`;
     document.getElementById('header-title').textContent = countryObj.name;
     document.getElementById('header-subtitle').textContent = `Adopción del Euro: ${countryObj.start}`;
     
-    document.getElementById('country-subheader').classList.remove('hidden');
-    document.getElementById('top-controls').classList.remove('hidden');
+    const subheader = document.getElementById('country-subheader');
+    if (subheader) subheader.classList.remove('hidden');
+    
+    const topControls = document.getElementById('top-controls');
+    if (topControls) topControls.classList.remove('hidden');
     
     updateHeaderStats(); renderSidebar(); updateFilterButtonsUI(); renderYearSelector(countryObj.start); renderMainContent(); updateSortVisibility();
 };
