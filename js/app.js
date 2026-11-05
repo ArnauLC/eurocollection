@@ -1,5 +1,5 @@
 // CLAVE SECRETA DE ADMINISTRADOR (Cambia este token si lo deseas)
-const ADMIN_TOKEN = "11";
+const ADMIN_TOKEN = "12";
 
 // Comprobación de Privilegios de Administrador mediante la URL
 const urlParams = new URLSearchParams(window.location.search);
@@ -209,7 +209,10 @@ async function loadAppData() {
         countries = JSON.parse(localStorage.getItem('euroColl_Countries')) || initialCountries;
         collection = JSON.parse(localStorage.getItem('euroColl_Collection')) || [];
         catalog = JSON.parse(localStorage.getItem('euroColl_Catalog')) || [];
-        standardSeries = JSON.parse(localStorage.getItem('euroColl_Series')) || standardSeries;
+        const savedSeries = JSON.parse(localStorage.getItem('euroColl_Series'));
+        if (savedSeries && Object.keys(savedSeries).length > 0) {
+            standardSeries = { ...standardSeries, ...savedSeries };
+        }
         standardImages = JSON.parse(localStorage.getItem('euroColl_StdImg')) || {};
         standardInfo = JSON.parse(localStorage.getItem('euroColl_StdInfo')) || {};
         globalCommonInfo = JSON.parse(localStorage.getItem('euroColl_GlobalInfo')) || {};
@@ -842,9 +845,6 @@ function renderCountryCoinsView(container) {
                     </h3>
                     <p class="text-xs ${subClass} mt-1">Caras Nacionales (${series.start} - ${series.end})</p>
                 </div>
-                <div class="${isSeriesComplete ? (isGold ? 'bg-yellow-600 text-yellow-100 border-yellow-700' : 'bg-blue-700 border-blue-600 text-white') : 'bg-transparent border-slate-700 text-slate-400'} border px-3 py-1.5 rounded-lg text-center shadow-inner flex items-center justify-center">
-                    <span class="text-[11px] font-bold uppercase tracking-wide">${isSeriesComplete ? 'Serie Completa' : 'Serie Incompleta'}</span>
-                </div>
             </div>
             
             <div class="grid grid-cols-4 lg:grid-cols-8 gap-4 items-stretch">`;
@@ -1100,6 +1100,9 @@ window.openModal = function(action, idOrRef = null, type = 'Standard', yearParam
         document.getElementById('series-title').value = '';
         document.getElementById('series-start').value = '';
         document.getElementById('series-end').value = 'Actual';
+        
+        currentEditingSeriesIndex = null;
+        btnSub.textContent = '+ Añadir Serie';
 
         renderSeriesListModal(safeCountry);
     } else if (action === 'standard-image') {
@@ -1352,24 +1355,32 @@ window.handleFormSubmit = function(e) {
         const sTitle = document.getElementById('series-title').value.trim();
         const sStart = document.getElementById('series-start').value;
         let sEnd = document.getElementById('series-end').value.trim();
-        
-        if (!sTitle || !sStart) return alert('El nombre y el año de inicio son obligatorios para crear una serie.');
+        if (!sTitle || !sStart) return alert('El nombre y el año de inicio son obligatorios para crear/editar una serie.');
         if (!sEnd) sEnd = 'Actual';
-        
         if (!standardSeries[safeCountry]) standardSeries[safeCountry] = [];
-        standardSeries[safeCountry].push({
-            id: `${safeCountry.toLowerCase()}-s${Date.now()}`,
-            title: sTitle,
-            start: parseInt(sStart),
-            end: sEnd === 'Actual' ? 'Actual' : parseInt(sEnd)
-        });
-        
-        // Ordenar las series cronológicamente
+        if (currentEditingSeriesIndex !== null) {
+            // MODO EDITAR: Actualizar la serie existente sin perder su ID
+            standardSeries[safeCountry][currentEditingSeriesIndex].title = sTitle;
+            standardSeries[safeCountry][currentEditingSeriesIndex].start = parseInt(sStart);
+            standardSeries[safeCountry][currentEditingSeriesIndex].end = sEnd === 'Actual' ? 'Actual' : parseInt(sEnd);
+        } else {
+            // MODO CREAR: Añadir una nueva serie al array
+            standardSeries[safeCountry].push({
+                id: `${safeCountry.toLowerCase()}-s${Date.now()}`,
+                title: sTitle,
+                start: parseInt(sStart),
+                end: sEnd === 'Actual' ? 'Actual' : parseInt(sEnd)
+            });
+        }
+        // Ordenar las series cronológicamente y guardar
         standardSeries[safeCountry].sort((a, b) => a.start - b.start);
-        
         saveData();
+        // Cerrar modal y refrescar pantalla
         document.getElementById('app-modal').classList.add('hidden');
-        if (state.view === 'country') renderCountryView();
+        if (state.view === 'country') window.loadCountryView(state.country);
+        // Limpiar el estado de edición por si acaso
+        currentEditingSeriesIndex = null;
+        
         return;
     } else if (mode === 'standard-image') {
         const urlInput = document.getElementById('standard-image-input').value.trim();
@@ -1434,11 +1445,31 @@ window.renderSeriesListModal = function(countryId) {
                 <p class="text-sm font-bold text-white">${s.title}</p>
                 <p class="text-xs text-slate-400">${s.start} - ${s.end}</p>
             </div>
-            <button type="button" onclick="window.deleteSeries('${countryId}', ${i})" class="text-red-500 hover:text-red-400 p-2">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-            </button>
+            <div class="flex gap-1">
+                <button type="button" onclick="window.editSeries('${countryId}', ${i})" class="text-blue-500 hover:text-blue-400 p-2" title="Editar">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                </button>
+                <button type="button" onclick="window.deleteSeries('${countryId}', ${i})" class="text-red-500 hover:text-red-400 p-2" title="Eliminar">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                </button>
+            </div>
         </div>
     `).join('');
+};
+
+// Variable para saber si estamos editando una serie existente
+let currentEditingSeriesIndex = null;
+
+window.editSeries = function(countryId, index) {
+    const series = standardSeries[countryId][index];
+    
+    document.getElementById('series-title').value = series.title;
+    document.getElementById('series-start').value = series.start;
+    document.getElementById('series-end').value = series.end;
+    
+    document.getElementById('btn-submit').textContent = 'Actualizar Serie';
+    currentEditingSeriesIndex = index;
+    document.getElementById('modal-series-fields').scrollIntoView({ behavior: 'smooth' });
 };
 
 window.deleteSeries = function(countryId, index) {
@@ -1447,7 +1478,7 @@ window.deleteSeries = function(countryId, index) {
         if(standardSeries[countryId].length === 0) delete standardSeries[countryId];
         saveData();
         renderSeriesListModal(countryId);
-        if (state.view === 'country') renderCountryView();
+        if (state.view === 'country') window.loadCountryView(countryId);
     }
 };
 
