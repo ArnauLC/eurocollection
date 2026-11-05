@@ -9,9 +9,9 @@ const currentYearConstant = new Date().getFullYear();
 let globalMaxYear = 2026;
 
 const initialCountries = [
-    { id: 'DE', iso3: 'DEU', name: 'Alemania', start: 1999 },
+    { id: 'DE', iso3: 'DEU', name: 'Alemania', start: 2002 },
     { id: 'AD', iso3: 'AND', name: 'Andorra', start: 2014, coords: [1.5218, 42.5063] },
-    { id: 'AT', iso3: 'AUT', name: 'Austria', start: 1999 },
+    { id: 'AT', iso3: 'AUT', name: 'Austria', start: 2002 },
     { id: 'BE', iso3: 'BEL', name: 'Bélgica', start: 1999 },
     { id: 'BG', iso3: 'BGR', name: 'Bulgaria', start: 2026 },
     { id: 'CY', iso3: 'CYP', name: 'Chipre', start: 2008, coords: [33.4299, 35.1264] },
@@ -22,18 +22,18 @@ const initialCountries = [
     { id: 'EE', iso3: 'EST', name: 'Estonia', start: 2011 },
     { id: 'FI', iso3: 'FIN', name: 'Finlandia', start: 1999 },
     { id: 'FR', iso3: 'FRA', name: 'Francia', start: 1999 },
-    { id: 'GR', iso3: 'GRC', name: 'Grecia', start: 2001 },
-    { id: 'IE', iso3: 'IRL', name: 'Irlanda', start: 1999 },
-    { id: 'IT', iso3: 'ITA', name: 'Italia', start: 1999 },
+    { id: 'GR', iso3: 'GRC', name: 'Grecia', start: 2002 },
+    { id: 'IE', iso3: 'IRL', name: 'Irlanda', start: 2002 },
+    { id: 'IT', iso3: 'ITA', name: 'Italia', start: 2002 },
     { id: 'LV', iso3: 'LVA', name: 'Letonia', start: 2014 },
     { id: 'LT', iso3: 'LTU', name: 'Lituania', start: 2015 },
-    { id: 'LU', iso3: 'LUX', name: 'Luxemburgo', start: 1999 },
+    { id: 'LU', iso3: 'LUX', name: 'Luxemburgo', start: 2002 },
     { id: 'MT', iso3: 'MLT', name: 'Malta', start: 2008, coords: [14.3754, 35.9375] },
-    { id: 'MC', iso3: 'MCO', name: 'Mónaco', start: 1999, coords: [7.4246, 43.7384] },
+    { id: 'MC', iso3: 'MCO', name: 'Mónaco', start: 2001, coords: [7.4246, 43.7384] },
     { id: 'NL', iso3: 'NLD', name: 'Países Bajos', start: 1999 },
-    { id: 'PT', iso3: 'PRT', name: 'Portugal', start: 1999 },
-    { id: 'SM', iso3: 'SMR', name: 'San Marino', start: 1999, coords: [12.4578, 43.9424] },
-    { id: 'VA', iso3: 'VAT', name: 'El Vaticano', start: 1999, coords: [12.4534, 41.9029] }
+    { id: 'PT', iso3: 'PRT', name: 'Portugal', start: 2002 },
+    { id: 'SM', iso3: 'SMR', name: 'San Marino', start: 2002, coords: [12.4578, 43.9424] },
+    { id: 'VA', iso3: 'VAT', name: 'El Vaticano', start: 2002, coords: [12.4534, 41.9029] }
 ];
 
 const denominations = [
@@ -49,59 +49,60 @@ const denominations = [
 
 // Series Base Preconfiguradas Globales
 const PRECONFIGURED_SERIES = {
+    'AND': [{ id: 'and-s1', title: '1ª Serie (Diseño Original)', start: 2014, end: 'Actual' }],
+    'AUT': [{ id: 'aut-s1', title: '1ª Serie (Diseño Original)', start: 2002, end: 'Actual' }],
+    'BEL': [
+        { id: 'bel-s1', title: '1ª Serie (Rey Alberto II)', start: 1999, end: 2007 },
+        { id: 'bel-s2', title: '2ª Serie (Rey Alberto II - Monograma adaptado)', start: 2008, end: 2013 },
+        { id: 'bel-s3', title: '3ª Serie (Rey Felipe)', start: 2014, end: 'Actual' }
+    ],
+    'BGR': [{ id: 'bgr-s1', title: '1ª Serie (Diseño Original)', start: 2026, end: 'Actual' }],
+    'CYP': [{ id: 'cyp-s1', title: '1ª Serie (Diseño Original)', start: 2008, end: 'Actual' }],
     'ESP': [
         { id: 'esp-s1', title: '1ª Serie (Juan Carlos I - Mapa Original)', start: 1999, end: 2006 },
         { id: 'esp-s2', title: '2ª Serie (Juan Carlos I - Nuevo Mapa)', start: 2007, end: 2014 },
         { id: 'esp-s3', title: '3ª Serie (Rey Felipe VI)', start: 2015, end: 'Actual' }
     ],
+    'EST': [{ id: 'est-s1', title: '1ª Serie (Diseño Original)', start: 2011, end: 'Actual' }],
+    'DEU': [{ id: 'deu-s1', title: '1ª Serie (Diseño Original)', start: 2002, end: 'Actual' }],
+    'FIN': [
+        { id: 'fin-s1', title: '1ª Serie (Diseño Original)', start: 1999, end: 2006 },
+        { id: 'fin-s2', title: '2ª Serie (Adición del identificador "FI")', start: 2007, end: 'Actual' }
+    ],
+    'FRA': [
+        { id: 'fra-s1', title: '1ª Serie (Diseño Original)', start: 1999, end: 2021 },
+        { id: 'fra-s2', title: '2ª Serie (Nuevo Diseño)', start: 2022, end: 'Actual' }
+    ],
+    'GRC': [{ id: 'grc-s1', title: '1ª Serie (Diseño Original)', start: 2002, end: 'Actual' }],
+    'HRV': [{ id: 'hrv-s1', title: '1ª Serie (Diseño Original)', start: 2023, end: 'Actual' }],
+    'IRL': [{ id: 'irl-s1', title: '1ª Serie (Diseño Original)', start: 2002, end: 'Actual' }],
+    'ITA': [{ id: 'ita-s1', title: '1ª Serie (Diseño Original)', start: 2002, end: 'Actual' }],
+    'LVA': [{ id: 'lva-s1', title: '1ª Serie (Diseño Original)', start: 2014, end: 'Actual' }],
+    'LTU': [{ id: 'ltu-s1', title: '1ª Serie (Diseño Original)', start: 2015, end: 'Actual' }],
+    'LUX': [{ id: 'lux-s1', title: '1ª Serie (Gran Duque Enrique)', start: 2002, end: 'Actual' }],
+    'MCO': [
+        { id: 'mco-s1', title: '1ª Serie (Príncipe Rainiero III)', start: 2001, end: 2005 },
+        { id: 'mco-s2', title: '2ª Serie (Príncipe Alberto II)', start: 2006, end: 'Actual' }
+    ],
+    'NLD': [
+        { id: 'nld-s1', title: '1ª Serie (Reina Beatriz)', start: 1999, end: 2013 },
+        { id: 'nld-s2', title: '2ª Serie (Rey Guillermo Alejandro)', start: 2014, end: 'Actual' }
+    ],
+    'MLT': [{ id: 'mlt-s1', title: '1ª Serie (Diseño Original)', start: 2008, end: 'Actual' }],
+    'PRT': [{ id: 'prt-s1', title: '1ª Serie (Diseño Original)', start: 2002, end: 'Actual' }],
+    'SMR': [
+        { id: 'smr-s1', title: '1ª Serie (Diseño Original)', start: 2002, end: 2016 },
+        { id: 'smr-s2', title: '2ª Serie (Nuevo Diseño)', start: 2017, end: 'Actual' }
+    ],
+    'SVK': [{ id: 'svk-s1', title: '1ª Serie (Diseño Original)', start: 2009, end: 'Actual' }],
+    'SVN': [{ id: 'svn-s1', title: '1ª Serie (Diseño Original)', start: 2007, end: 'Actual' }],
     'VAT': [
         { id: 'vat-s1', title: '1ª Serie (Juan Pablo II)', start: 2002, end: 2005 },
         { id: 'vat-s2', title: '2ª Serie (Sede Vacante)', start: 2005, end: 2005 },
         { id: 'vat-s3', title: '3ª Serie (Benedicto XVI)', start: 2006, end: 2013 },
         { id: 'vat-s4', title: '4ª Serie (Papa Francisco)', start: 2014, end: 2016 },
         { id: 'vat-s5', title: '5ª Serie (Escudo Papal)', start: 2017, end: 'Actual' }
-    ],
-    'BEL': [
-        { id: 'bel-s1', title: '1ª Serie (Rey Alberto II)', start: 1999, end: 2007 },
-        { id: 'bel-s2', title: '2ª Serie (Rey Alberto II - Monograma adaptado)', start: 2008, end: 2013 },
-        { id: 'bel-s3', title: '3ª Serie (Rey Felipe)', start: 2014, end: 'Actual' }
-    ],
-    'NLD': [
-        { id: 'nld-s1', title: '1ª Serie (Reina Beatriz)', start: 1999, end: 2013 },
-        { id: 'nld-s2', title: '1ª Serie (Rey Guillermo Alejandro)', start: 2014, end: 'Actual' }
-    ],
-    'MCO': [
-        { id: 'mco-s1', title: '1ª Serie (Príncipe Rainiero III)', start: 2001, end: 2005 },
-        { id: 'mco-s2', title: '2ª Serie (Príncipe Alberto II)', start: 2006, end: 'Actual' }
-    ],
-    'SMR': [
-        { id: 'smr-s1', title: '1ª Serie (Diseño Original)', start: 2002, end: 2016 },
-        { id: 'smr-s2', title: '2ª Serie (Nuevo Diseño)', start: 2017, end: 'Actual' }
-    ],
-    'FRA': [
-        { id: 'fra-s1', title: '1ª Serie (Diseño Original)', start: 1999, end: 2021 },
-        { id: 'fra-s2', title: '2ª Serie (Nuevo Diseño)', start: 2022, end: 'Actual' }
-    ],
-    'FIN': [
-        { id: 'fin-s1', title: '1ª Serie (Diseño Original)', start: 1999, end: 2006 },
-        { id: 'fin-s2', title: '2ª Serie (Adición del identificador "FI")', start: 2007, end: 'Actual' }
-    ],
-    'LUX': [{ id: 'lux-s1', title: '1ª Serie (Gran Duque Enrique)', start: 2002, end: 'Actual' }],
-    'AND': [{ id: 'and-s1', title: '1ª Serie (Diseño Original)', start: 2014, end: 'Actual' }],
-    'AUT': [{ id: 'aut-s1', title: '1ª Serie (Diseño Original)', start: 2002, end: 'Actual' }],
-    'HRV': [{ id: 'hrv-s1', title: '1ª Serie (Diseño Original)', start: 2023, end: 'Actual' }],
-    'CYP': [{ id: 'cyp-s1', title: '1ª Serie (Diseño Original)', start: 2008, end: 'Actual' }],
-    'EST': [{ id: 'est-s1', title: '1ª Serie (Diseño Original)', start: 2011, end: 'Actual' }],
-    'DEU': [{ id: 'deu-s1', title: '1ª Serie (Diseño Original)', start: 2002, end: 'Actual' }],
-    'GRC': [{ id: 'grc-s1', title: '1ª Serie (Diseño Original)', start: 2002, end: 'Actual' }],
-    'IRL': [{ id: 'irl-s1', title: '1ª Serie (Diseño Original)', start: 2002, end: 'Actual' }],
-    'ITA': [{ id: 'ita-s1', title: '1ª Serie (Diseño Original)', start: 2002, end: 'Actual' }],
-    'LVA': [{ id: 'lva-s1', title: '1ª Serie (Diseño Original)', start: 2014, end: 'Actual' }],
-    'LTU': [{ id: 'ltu-s1', title: '1ª Serie (Diseño Original)', start: 2015, end: 'Actual' }],
-    'MLT': [{ id: 'mlt-s1', title: '1ª Serie (Diseño Original)', start: 2008, end: 'Actual' }],
-    'PRT': [{ id: 'prt-s1', title: '1ª Serie (Diseño Original)', start: 2002, end: 'Actual' }],
-    'SVK': [{ id: 'svk-s1', title: '1ª Serie (Diseño Original)', start: 2009, end: 'Actual' }],
-    'SVN': [{ id: 'svn-s1', title: '1ª Serie (Diseño Original)', start: 2007, end: 'Actual' }]
+    ]
 };
 
 const worldCurrencies = {
@@ -905,11 +906,11 @@ function renderCountryCoinsView(container) {
     const isGold = cStats.isComplete;
     
     // Contenedor principal agrupado (Azul Claro / Dorado)
-    const mainBg = isGold ? 'bg-yellow-900/20 border-yellow-700/50' : 'bg-sky-900/30 border-sky-700/50';
+    const mainBg = isGold ? 'bg-yellow-900/20 border-yellow-700/50' : 'bg-blue-900/30 border-blue-700/50';
     
     let html = `
     <div class="mb-12 ${mainBg} p-6 md:p-8 rounded-2xl border shadow-xl relative">
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8 border-b ${isGold ? 'border-yellow-700/30' : 'border-sky-800/30'} pb-4">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8 border-b ${isGold ? 'border-yellow-700/30' : 'border-blue-800/30'} pb-4">
             <h3 class="text-2xl font-bold text-white flex items-center gap-3">
                 <img src="https://flagcdn.com/w40/${state.country.toLowerCase()}.png" class="w-10 h-6 object-cover rounded shadow-md border border-slate-700"> 
                 Variantes Nacionales (Series)
