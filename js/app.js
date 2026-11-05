@@ -256,7 +256,6 @@ async function loadAppData() {
     renderSidebar();
     updateHeaderStats();
 }
-}
 
 function saveData() {
     if (!isAdmin) return; // En modo público no se permite guardar modificaciones
