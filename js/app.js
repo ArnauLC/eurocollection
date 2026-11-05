@@ -224,7 +224,7 @@ async function loadAppData() {
     } else {
         // Modo Público O Modo Admin por primera vez (sin datos en localStorage)
         try {
-            const response = await fetch('mi_coleccion.json');
+            const response = await fetch('data/mi_coleccion.json');
             if (response.ok) {
                 const data = await response.json();
                 collection = data.collection || [];
