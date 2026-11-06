@@ -5,7 +5,7 @@
       "id": "DE",
       "iso3": "DEU",
       "name": "Alemania",
-      "start": 1999
+      "start": 2002
     },
     {
       "id": "AD",
@@ -21,7 +21,7 @@
       "id": "AT",
       "iso3": "AUT",
       "name": "Austria",
-      "start": 1999
+      "start": 2002
     },
     {
       "id": "BE",
@@ -91,19 +91,19 @@
       "id": "GR",
       "iso3": "GRC",
       "name": "Grecia",
-      "start": 2001
+      "start": 2002
     },
     {
       "id": "IE",
       "iso3": "IRL",
       "name": "Irlanda",
-      "start": 1999
+      "start": 2002
     },
     {
       "id": "IT",
       "iso3": "ITA",
       "name": "Italia",
-      "start": 1999
+      "start": 2002
     },
     {
       "id": "LV",
@@ -121,7 +121,7 @@
       "id": "LU",
       "iso3": "LUX",
       "name": "Luxemburgo",
-      "start": 1999
+      "start": 2002
     },
     {
       "id": "MT",
@@ -137,7 +137,7 @@
       "id": "MC",
       "iso3": "MCO",
       "name": "Mónaco",
-      "start": 1999,
+      "start": 2001,
       "coords": [
         7.4246,
         43.7384
@@ -153,13 +153,13 @@
       "id": "PT",
       "iso3": "PRT",
       "name": "Portugal",
-      "start": 1999
+      "start": 2002
     },
     {
       "id": "SM",
       "iso3": "SMR",
       "name": "San Marino",
-      "start": 1999,
+      "start": 2002,
       "coords": [
         12.4578,
         43.9424
@@ -169,7 +169,7 @@
       "id": "VA",
       "iso3": "VAT",
       "name": "El Vaticano",
-      "start": 1999,
+      "start": 2002,
       "coords": [
         12.4534,
         41.9029
@@ -324,7 +324,13 @@
     "LUX": [
       {
         "id": "lux-s1",
-        "title": "1ª Serie (Gran Duque Enrique)",
+        "title": "1ª Serie (Diseño Original)",
+        "start": 2002,
+        "end": "Actual"
+      },
+      {
+        "id": "lux-s2",
+        "title": "2ª Serie (Nuevo Diseño)",
         "start": 2002,
         "end": "Actual"
       }
@@ -536,14 +542,14 @@
     "ES": [
       {
         "id": "es-s1793912422227",
-        "title": "1ª Serie (Juan Carlos I - Mapa Original)",
+        "title": "1ª Serie (Juan Carlos I - Diseño Original)",
         "start": 1999,
-        "end": 2006
+        "end": 2009
       },
       {
         "id": "es-s1793912438755",
-        "title": "2ª Serie (Juan Carlos I - Nuevo Mapa",
-        "start": 2007,
+        "title": "2ª Serie (Juan Carlos I - Diseño Adaptado)",
+        "start": 2010,
         "end": 2014
       },
       {
